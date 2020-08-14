@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "lint": "^0.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r esm -r dotenv/config src/index.js",
+    "dev": "nodemon --exec \"npm run prod\"",
+    "lint": "prettier \"src/**/*.js\" --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/herrickfeng/Software-Engineering-Studio-2B.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/herrickfeng/Software-Engineering-Studio-2B/issues"
+  },
+  "homepage": "https://github.com/herrickfeng/Software-Engineering-Studio-2B#readme"
+}
