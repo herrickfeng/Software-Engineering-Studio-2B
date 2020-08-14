@@ -4,16 +4,20 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "lint": "^0.7.0"
+    "morgan": "^1.10.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r esm -r dotenv/config src/index.js",
-    "dev": "nodemon --exec \"npm run prod\"",
+    "dev": "nodemon --exec \"npm run start\"",
     "lint": "prettier \"src/**/*.js\" --write"
   },
   "repository": {
