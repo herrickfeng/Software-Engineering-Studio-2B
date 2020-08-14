@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import testRouter from "./routes/test-router";
+import exampleRouter from "./routes/example-router";
 import cors from "cors";
 import env from "./helpers/env";
 const morgan = require("morgan");
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routes
-app.use("/test", testRouter);
+app.use("/example", exampleRouter);
 
 // Default route
 app.get("/", (req, res) => {
