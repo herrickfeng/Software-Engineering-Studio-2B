@@ -12,7 +12,7 @@ export const example = async (req, res) => {
 
 export const createExample = async (req, res) => {
   try {
-    const data = req.params.data;
+    const data = req.body;
 
     const id = uuidv4();
     const exampleDoc = await db.collection("examples").doc(id).get();
@@ -61,7 +61,7 @@ export const getExample = async (req, res) => {
 
 export const updateExample = async (req, res) => {
   try {
-    const data = req.params.data;
+    const data = req.body;
     const id = req.params.id;
 
     const exampleDoc = await db.collection("examples").doc(id).get();
