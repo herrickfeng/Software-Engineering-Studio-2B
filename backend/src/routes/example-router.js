@@ -9,8 +9,8 @@ exampleRouter.get("", example);
 exampleRouter.post("", example);
 
 
-exampleRouter.get("/create/:data", createExample);
+exampleRouter.post("/create/", createExample);
 exampleRouter.get("/:id/", getExample);
-exampleRouter.get("/:id/update/:data", updateExample);
+exampleRouter.post("/:id/update/", updateExample);
 
 export default exampleRouter;
