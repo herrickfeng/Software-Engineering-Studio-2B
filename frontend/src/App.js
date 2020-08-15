@@ -11,42 +11,42 @@ import appTheme from "./helpers/appTheme";
 //Context
 
 function AppProvider(props) {
-	return (
-		<ThemeProvider theme={appTheme}>
-			{/* <AuthProvider> */}
-				{props.children}
-			{/* </AuthProvider> */}
-		</ThemeProvider>
-	);
+  return (
+    <ThemeProvider theme={appTheme}>
+      {/* <AuthProvider> */}
+        {props.children}
+      {/* </AuthProvider> */}
+    </ThemeProvider>
+  );
 }
 
 function AppRouter(props) {
-	return (
-		<Switch>
-			<Route path="/login" exact={true}>
-				<LoginPage />
-			</Route>
-			<Route>
-				<LoginPage />
-			</Route>
-		</Switch>
-	);
+  return (
+    <Switch>
+      <Route path="/login" exact={true}>
+        <LoginPage />
+      </Route>
+      <Route>
+        <LoginPage />
+      </Route>
+    </Switch>
+  );
 }
 
 function App() {
-	return (
-		<div className="App">
-			<AppProvider>
-				<BrowserRouter>
-					<div>
-						<AppRouter />
-						{/* TODO: Fix this so it actually goes to the bottom of the page */}
-						{/* <Footer /> */}
-					</div>
-				</BrowserRouter>
-			</AppProvider>
-		</div>
-	);
+  return (
+    <div className="App">
+      <AppProvider>
+        <BrowserRouter>
+          <div>
+            <AppRouter />
+            {/* TODO: Fix this so it actually goes to the bottom of the page */}
+            {/* <Footer /> */}
+          </div>
+        </BrowserRouter>
+      </AppProvider>
+    </div>
+  );
 }
 
 
