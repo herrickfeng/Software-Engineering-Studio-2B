@@ -1,5 +1,4 @@
 import React from "react";
-import { createUser, loginUser } from "../../helpers/auth";
 import { withStyles } from "@material-ui/styles";
 import { TextField, Grid, Box } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
@@ -27,6 +26,7 @@ const styles = {
 	},
 };
 
+/// Deprecated
 export class SignUpPage extends React.Component {
 	static contextType = AuthContext;
 
@@ -65,21 +65,21 @@ export class SignUpPage extends React.Component {
 
 		try {
 			this.setState({ ...this.state, isLoading: true });
-			await createUser({
-				displayName: `${this.state.form.firstName} ${this.state.form.lastName}`,
-				email: this.state.form.email,
-				password: this.state.form.password,
-			});
+			// await createUser({
+			// 	displayName: `${this.state.form.firstName} ${this.state.form.lastName}`,
+			// 	email: this.state.form.email,
+			// 	password: this.state.form.password,
+			// });
 
-			const userDetails = await loginUser(
-				this.state.form.email,
-				this.state.form.password
-			);
+			// const userDetails = await loginUser(
+			// 	this.state.form.email,
+			// 	this.state.form.password
+			// );
 
-			this.context.setAuthState({
-				authenticated: true,
-				user: userDetails.user,
-			});
+			// this.context.setAuthState({
+			// 	authenticated: true,
+			// 	user: userDetails.user,
+			// });
 		} catch (error) {
 			console.log(error.response);
 			

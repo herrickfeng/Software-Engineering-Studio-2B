@@ -1,6 +1,5 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { loginUser } from "../../helpers/auth";
 import { TextField, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import Avatar from "@material-ui/core/Avatar";
@@ -38,45 +37,29 @@ const useStyles = makeStyles({
 });
 
 export default function LoginPage() {
-	const [state, setState] = React.useState({
-		form: {
-			email: "",
-			password: "",
-		},
-	});
+	const [email, setEmail] = React.useState("");
+	const [password, setPassword] = React.useState("");
 	const [isLoading, setLoading] = React.useState(false);
 	const [loginError, setLoginError] = React.useState(undefined);
 	// const { authState, setAuthState } = React.useContext(AuthContext);
 	const classes = useStyles();
 
-	const handleFormChange = (event) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
+	const handleEmailChange = (event) => {
+		setEmail(event.target.value);
+	};
 
-		setState({
-			...state,
-			form: { ...state.form, [name]: value },
-		});
+	const handlePasswordChange = (event) => {
+		setPassword(event.target.value);
 	};
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
 		setLoading(true);
-		// try {
-		// 	const userDetails = await loginUser(
-		// 		state.form.email,
-		// 		state.form.password
-		// 	);
-		// 	// Set the global auth context to reflect the successful login
-		// 	// setAuthState({
-		// 	// 	authenticated: true,
-		// 	// 	user: userDetails.user,
-		// 	// });
-		// } catch (error) {
-		// 	console.log("loginError", error);
-		// 	setLoginError(error);
-		// }
+
+		// Do something with email and password.
+		// If errored, do setLoginError(error), whereby error is an error message.
+		// setAuthState(....)
+
 		setLoading(false);
 	};
 
@@ -119,7 +102,7 @@ export default function LoginPage() {
 									name="email"
 									required
 									fullWidth
-									onChange={handleFormChange}
+									onChange={handleEmailChange}
 								/>
 							</div>
 							{/* password */}
@@ -132,7 +115,7 @@ export default function LoginPage() {
 									required
 									fullWidth
 									type="password"
-									onChange={handleFormChange}
+									onChange={handlePasswordChange}
 								/>
 							</div>
 							<br></br>
