@@ -6,6 +6,6 @@ const exampleRouter = Router();
 
 exampleRouter.post("/create/", createExample);
 exampleRouter.get("/:id/", getExample);
-exampleRouter.post("/:id/update/", updateExample);
+exampleRouter.post("/:id/", updateExample);
 
 export default exampleRouter;
