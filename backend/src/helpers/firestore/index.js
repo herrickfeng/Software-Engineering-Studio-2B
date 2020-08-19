@@ -27,7 +27,10 @@ const firestoreSubject = {
   create: (subjectDoc, data) => {
     return subjectDoc.ref.set({ data: data });
   },
-}
+  update: (subjectDoc, data) => {
+    return subjectDoc.ref.update({ data: data });
+  }
+};
 
 export default {
   example: firestoreExample,
