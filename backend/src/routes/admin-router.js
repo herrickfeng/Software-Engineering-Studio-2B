@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { newSubject, getSubject, updateSubject } from "../controllers/newSubject";
+import { newSubject, getSubject, updateSubject } from "../controllers/subject";
 
 const adminSubjectRouter = Router();
 
