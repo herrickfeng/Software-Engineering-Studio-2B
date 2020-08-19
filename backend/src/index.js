@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import exampleRouter from "./routes/example-router";
+import authRouter from "./routes/auth-router";
 import adminSubjectRouter from "./routes/admin-router";
 import userRouter from "./routes/user-router";
 import cors from "cors";
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use("/example", exampleRouter);
+app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/admin/subject", adminSubjectRouter)
 
