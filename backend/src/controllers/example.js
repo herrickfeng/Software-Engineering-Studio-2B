@@ -16,7 +16,7 @@ export const createExample = async (req, res) => {
 
     const id = uuidv4();
     const exampleDoc = await db.collection("examples").doc(id).get();
-
+    
     await firestore.example.create(exampleDoc, data);
 
     return res.status(200).json({

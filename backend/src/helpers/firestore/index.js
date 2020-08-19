@@ -23,6 +23,13 @@ const firestoreExample = {
   }
 };
 
+const firestoreSubject = {
+  create: (subjectDoc, data) => {
+    return subjectDoc.ref.set({ data: data });
+  },
+}
+
 export default {
   example: firestoreExample,
+  subject :firestoreSubject,
 };
