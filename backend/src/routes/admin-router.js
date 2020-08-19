@@ -5,6 +5,6 @@ const adminSubjectRouter = Router();
 
 adminSubjectRouter.post("/create", newSubject);
 adminSubjectRouter.get("/:id", getSubject);
-adminSubjectRouter.post("/:id/update", updateSubject);
+adminSubjectRouter.put("/:id", updateSubject);
 
 export default adminSubjectRouter;

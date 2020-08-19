@@ -16,9 +16,9 @@ export default {
       .get();
   },
   create: (subjectDoc, data) => {
-    return subjectDoc.ref.set({ data: data });
+    return subjectDoc.ref.set(data);
   },
   update: (subjectDoc, data) => {
-    return subjectDoc.ref.update({ data: data });
+    return subjectDoc.ref.update(data);
   }
 };
