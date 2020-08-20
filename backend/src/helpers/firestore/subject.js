@@ -20,5 +20,9 @@ export default {
   },
   update: (subjectDoc, data) => {
     return subjectDoc.ref.update(data);
+  },
+  // TODO : DELETE Oor REMOVE
+  delete: (subjectDoc, data) => {
+    return subjectDoc.ref.delete(data); 
   }
 };

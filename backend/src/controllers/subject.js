@@ -104,3 +104,32 @@ export const updateSubject = async (req, res) => {
         handleApiError(res, error);
     }
 };
+
+export const deleteSubject = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        checkParams({
+            id: {
+                data: id,
+                expectedType: "string"
+            }
+        });
+
+        const subjectDoc = await firestore.subject.get(id);
+        if (subjectDoc.exists === true) {
+            await firestore.subject.delete(subjectDoc, subjectBody);
+            return res.status(200).json(
+                successResponse({
+                    subjectId: id,
+                    subjectName: subjectDoc.data().subjectName,
+                    subjectCode: subjectDoc.data().subjectCode
+                })
+            );
+        } else {
+            throw new FirestoreError("missing", subjectDoc.ref, "subject");
+        }
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
