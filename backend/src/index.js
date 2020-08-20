@@ -1,9 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
 import exampleRouter from "./routes/example-router";
-import authRouter from "./routes/auth-router";
+
+import adminSubjectRouter from "./routes/admin-router";
 import adminSubjectRouter from "./routes/admin-subject-router";
+
+import authRouter from "./routes/auth-router";
+
 import userRouter from "./routes/user-router";
+
 import cors from "cors";
 import env from "./helpers/env";
 const morgan = require("morgan");
@@ -26,6 +31,7 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/admin/subject", adminSubjectRouter)
 
+
 // Default route
 app.get("/", (req, res) => {
   res.json({
@@ -38,6 +44,5 @@ app.get("/", (req, res) => {
 const server = app.listen(config.port, () => {
   console.log(`Server is now running at:  http://localhost:${config.port}`);
 });
-
 
 module.exports = server;

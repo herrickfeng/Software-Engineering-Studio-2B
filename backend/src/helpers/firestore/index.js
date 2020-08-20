@@ -4,4 +4,5 @@ import firestoreSubject from "./subject";
 export default {
   example: firestoreExample,
   subject: firestoreSubject,
+
 };
