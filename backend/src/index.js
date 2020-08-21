@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import exampleRouter from "./routes/example-router";
 
-import adminSubjectRouter from "./routes/admin-router";
 import adminSubjectRouter from "./routes/admin-subject-router";
 
 import authRouter from "./routes/auth-router";
