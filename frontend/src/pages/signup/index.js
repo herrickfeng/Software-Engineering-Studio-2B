@@ -9,7 +9,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { AuthContext } from "../../context/auth";
 import { Redirect } from "react-router-dom";
 import { CircularProgress } from "@material-ui/core";
-import { createUser } from "../../helpers/api/user";
+import api from "../../helpers/api/index";
 
 const styles = {
   test: {
@@ -66,7 +66,7 @@ export class SignUpPage extends React.Component {
 
     try {
       this.setState({ ...this.state, isLoading: true });
-      await createUser({
+      await api.user.create({
        	displayName: `${this.state.form.firstName} ${this.state.form.lastName}`,
        	email: this.state.form.email,
        	password: this.state.form.password,
