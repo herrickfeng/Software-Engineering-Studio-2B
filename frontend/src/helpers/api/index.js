@@ -1,4 +1,3 @@
-export const API_HOST = "localhost:4000";
 import { createUser } from "./user";
 import {
     createSubjectAdmin,
@@ -6,6 +5,8 @@ import {
     updateSubjectAdmin,
     deleteSubjectAdmin
 } from "./subject";
+
+export const API_HOST = "localhost:4000";
 
 export default {
     user: {
