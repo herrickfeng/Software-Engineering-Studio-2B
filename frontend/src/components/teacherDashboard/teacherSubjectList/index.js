@@ -33,7 +33,7 @@ export default function TeacherSubjectList(props) {
 
 	const deleteSubject = async (subjectId) => {
 		await api.admin.subject.delete(authState.user.idToken, subjectId);
-		setSubjectState(subjectState.filter((subject) => subject.subjectId != subjectId));
+		setSubjectState(subjectState.filter((subject) => subject.subjectId !== subjectId));
 	}
 
 	const subjectCard = (subject) => {

@@ -1,4 +1,6 @@
 import React from 'react';
+import { AuthContext } from "../../../context/auth";
+import api from "../../../helpers/api";
 
 //general material-ui components
 import Container from "@material-ui/core/Container";
@@ -20,6 +22,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function TeacherSignUpPopup() {
     const [open, setOpen] = React.useState(false);
+    const [subjectState, setSubjectState] = React.useState({});
+	const { authState } = React.useContext(AuthContext);
 
     const handleClickOpen = () => {
     setOpen(true);
@@ -29,6 +33,19 @@ export default function TeacherSignUpPopup() {
     setOpen(false);
     };
 
+    const handleSubjectChange = (event) => {
+        const { id, value } = event.target;
+        subjectState[id] = value;
+        setSubjectState({ ...subjectState });
+    }
+
+    const handleAddSubject = () => {
+        const subjectData = {
+            subjectName: subjectState.subjectName,
+            subjectCode: subjectState.subjectCode
+        }
+        api.admin.subject.create(authState.user.idToken, subjectData);
+    }
 
     return (
         <Container maxWidth="md">
@@ -55,6 +72,7 @@ export default function TeacherSignUpPopup() {
                             label="Subject Name"
                             fullWidth
                             required
+                            onChange={handleSubjectChange}
                         />
 
                         <TextField
@@ -64,6 +82,7 @@ export default function TeacherSignUpPopup() {
                             id="subjectCode"
                             label="Subject Code"
                             required
+                            onChange={handleSubjectChange}
                         />
                     </DialogContent>
 
@@ -71,7 +90,7 @@ export default function TeacherSignUpPopup() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleAddSubject} color="primary">
                         Add Subject
                     </Button>
                 </DialogActions>
