@@ -9,6 +9,7 @@ import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
 import TeacherSubjectListPage from "./pages/teacherDashboard/teacherSubjectList";
+import StudentDashboardPage from "./pages/studentDashboard";
 
 //Context
 import { AuthProvider } from "./context/auth";
@@ -33,6 +34,10 @@ function AppRouter(props) {
 
       <Route path="/signup" exact>
         <SignupPage />
+      </Route>
+
+      <Route path="/student/dashboard" exact>
+        <StudentDashboardPage />
       </Route>
 
       <Route path="/teacherDashboard/teacherSubjectList" exact>
