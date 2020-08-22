@@ -17,9 +17,9 @@ import { AuthProvider } from "./context/auth";
 function AppProvider(props) {
   return (
     <ThemeProvider theme={appTheme}>
-      {/* <AuthProvider> */}
-      {props.children}
-      {/* </AuthProvider> */}
+      <AuthProvider>
+        {props.children}
+      </AuthProvider>
     </ThemeProvider>
   );
 }
@@ -34,6 +34,7 @@ function AppRouter(props) {
       <Route path="/signup" exact>
         <SignupPage />
       </Route>
+
 
       <Route path="/teacherDashboard/teacherSubjectList" exact>
         <TeacherSubjectListPage />
