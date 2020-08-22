@@ -27,15 +27,15 @@ function AppProvider(props) {
 function AppRouter(props) {
   return (
     <Switch>
-      <Route path="/login" exact={true}>
+      <Route path="/login" exact>
         <LoginPage />
       </Route>
 
-      <Route path="/signup" exact={true}>
+      <Route path="/signup" exact>
         <SignupPage />
       </Route>
 
-      <Route path="/teacherDashboard/teacherSubjectList" exact={true}>
+      <Route path="/teacherDashboard/teacherSubjectList" exact>
         <TeacherSubjectListPage />
       </Route>
 
