@@ -109,6 +109,20 @@ temp/
 
 # End of https://www.gitignore.io/api/node
 
+### React ###
+
+# Dependencies
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# End of React
+
 # Node app sepcific ignores
 node_modules
 out
