@@ -11,6 +11,8 @@ import appTheme from "./helpers/appTheme";
 import TeacherSubjectListPage from "./pages/teacherDashboard/teacherSubjectList";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
+import Navigation from "./components/navigation";
+import Footer from "./components/footer";
 
 //Context
 import { AuthProvider } from "./context/auth";
@@ -58,11 +60,13 @@ function App() {
     <div className="App">
       <AppProvider>
         <BrowserRouter>
+        <Navigation />
           <div>
             <AppRouter />
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
             {/* <Footer /> */}
           </div>
+        <Footer />
         </BrowserRouter>
       </AppProvider>
     </div>
