@@ -118,12 +118,10 @@ export const deleteSubject = async (req, res) => {
 
         const subjectDoc = await firestore.subject.get(id);
         if (subjectDoc.exists === true) {
-            await firestore.subject.delete(subjectDoc, subjectBody);
+            await subjectDoc.ref.delete();
             return res.status(200).json(
                 successResponse({
-                    subjectId: id,
-                    subjectName: subjectDoc.data().subjectName,
-                    subjectCode: subjectDoc.data().subjectCode
+                    msg: "Subject successfully deleted"
                 })
             );
         } else {
