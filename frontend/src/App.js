@@ -18,7 +18,7 @@ function AppProvider(props) {
   return (
     <ThemeProvider theme={appTheme}>
       {/* <AuthProvider> */}
-        {props.children}
+      {props.children}
       {/* </AuthProvider> */}
     </ThemeProvider>
   );
@@ -27,19 +27,17 @@ function AppProvider(props) {
 function AppRouter(props) {
   return (
     <Switch>
-        <Route path="/login" exact={true}>
-            <LoginPage />
-        </Route>
+      <Route path="/login" exact={true}>
+        <LoginPage />
+      </Route>
 
-        <Route path="/signup" exact={true}>
-            <SignupPage />
-        </Route>
+      <Route path="/signup" exact={true}>
+        <SignupPage />
+      </Route>
 
-        <Route
-			path="/teacherDashboard/teacherSubjectList"
-			exact={true}>
-            <TeacherSubjectListPage />
-        </Route>
+      <Route path="/teacherDashboard/teacherSubjectList" exact={true}>
+        <TeacherSubjectListPage />
+      </Route>
 
     </Switch>
   );
