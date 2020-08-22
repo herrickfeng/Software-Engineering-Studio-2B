@@ -1,5 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
+import { loginUser } from "../../helpers/auth";
 import { TextField, Grid, Box } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import Avatar from "@material-ui/core/Avatar";
@@ -72,15 +73,15 @@ export class SignUpPage extends React.Component {
        	password: this.state.form.password,
        });
 
-      // const userDetails = await loginUser(
-      // 	this.state.form.email,
-      // 	this.state.form.password
-      // );
+      const userDetails = await loginUser(
+      	this.state.form.email,
+      	this.state.form.password
+      );
 
-      // this.context.setAuthState({
-      // 	authenticated: true,
-      // 	user: userDetails.user,
-      // });
+      this.context.setAuthState({
+      	authenticated: true,
+      	user: userDetails.user,
+      });
     } catch (error) {
       console.log(error.response);
       
@@ -194,11 +195,11 @@ export class SignUpPage extends React.Component {
   };
 
    render() {
-  // 	if (!this.context.authState.authenticated) {
+  	if (!this.context.authState.authenticated) {
       return this.signupForm();
-    // } else {
-    // 	return <Redirect to="/" />;
-    // }
+    } else {
+    	return <Redirect to="/" />;
+    }
   }
  }
 
