@@ -1,6 +1,7 @@
 import { createUser } from "./user";
 import {
     createSubjectAdmin,
+    getAllSubjectAdmin,
     getSubjectAdmin,
     updateSubjectAdmin,
     deleteSubjectAdmin
@@ -15,6 +16,7 @@ export default {
     admin: {
         subject: {
             create: createSubjectAdmin,
+            getAll: getAllSubjectAdmin,
             get: getSubjectAdmin,
             update: updateSubjectAdmin,
             delete: deleteSubjectAdmin
