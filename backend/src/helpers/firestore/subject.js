@@ -15,6 +15,12 @@ export default {
       .collection(exampleCollectionName)
       .get();
   },
+  getAllWhere: (where, userId) => {
+    return db
+      .collection("subjects")
+      .where(where, "array-contains", userId)
+      .get();
+  },
   create: (subjectDoc, data) => {
     return subjectDoc.ref.set(data);
   },
@@ -23,6 +29,6 @@ export default {
   },
   // TODO : DELETE Oor REMOVE
   delete: (subjectDoc) => {
-    return subjectDoc.ref.delete(); 
+    return subjectDoc.ref.delete();
   }
 };

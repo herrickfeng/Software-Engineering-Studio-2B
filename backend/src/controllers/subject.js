@@ -9,6 +9,7 @@ import {
 
 export const newSubject = async (req, res) => {
     try {
+        const userId = req.authId;
         const subjectBody = req.body;
         const { subjectName, subjectCode } = subjectBody;
 
@@ -16,6 +17,9 @@ export const newSubject = async (req, res) => {
         if (subjectBody.subjectId === undefined) {
             subjectBody.subjectId = uuidv4();
         }
+
+        // Add this user as a teacher
+        subjectBody.teacher = [userId]
 
         checkParams({
             subjectName: {
@@ -28,15 +32,15 @@ export const newSubject = async (req, res) => {
             }
         });
 
-        const id = uuidv4();
-        const subjectDoc = await firestore.subject.get(id);
+        const subjectDoc = await firestore.subject.get(subjectBody.subjectId);
 
         await firestore.subject.create(subjectDoc, subjectBody);
 
         return res.status(200).json(
             successResponse({
                 msg: "Subject created successfully",
-                subjectId: id
+                subjectId: subjectBody.subjectId,
+                data: subjectBody
             })
         );
     } catch (error) {
@@ -58,15 +62,27 @@ export const getSubject = async (req, res) => {
         const subjectDoc = await firestore.subject.get(id);
         if (subjectDoc.exists === true) {
             return res.status(200).json(
-                successResponse({
-                    subjectId: id,
-                    subjectName: subjectDoc.data().subjectName,
-                    subjectCode: subjectDoc.data().subjectCode
-                })
+                successResponse(subjectDoc.data())
             );
         } else {
             throw new FirestoreError("missing", subjectDoc.ref, "subject");
         }
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getAllSubject = async (req, res) => {
+    try {
+        const userId = req.authId;
+
+        const allSubjectDoc = await firestore.subject.getAllWhere("teacher", userId);
+
+        var subjectsList = allSubjectDoc.docs.map((doc) => {
+            return doc.data();
+        });
+
+        return res.status(200).json(successResponse(subjectsList));
     } catch (error) {
         handleApiError(res, error);
     }
