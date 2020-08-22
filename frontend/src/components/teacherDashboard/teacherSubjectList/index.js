@@ -28,7 +28,6 @@ export default function TeacherSubjectList(props) {
 	const fetchSubjectList = async () => {
 		const res = await api.admin.subject.getAll(authState.user.idToken);
 		setSubjectState(res.data.data);
-		console.log(subjectState);
 	};
 
 	const deleteSubject = async (subjectId) => {

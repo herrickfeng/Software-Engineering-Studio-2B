@@ -45,6 +45,7 @@ export default function TeacherSignUpPopup() {
             subjectCode: subjectState.subjectCode
         }
         api.admin.subject.create(authState.user.idToken, subjectData);
+        handleClose();
     }
 
     return (

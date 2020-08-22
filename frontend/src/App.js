@@ -5,6 +5,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 //Components
 
 //Pages
+import HomePage from "./pages/home";
 import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
@@ -27,6 +28,10 @@ function AppProvider(props) {
 function AppRouter(props) {
   return (
     <Switch>
+      <Route path="/" exact>
+        <HomePage />
+      </Route>
+
       <Route path="/login" exact>
         <LoginPage />
       </Route>
