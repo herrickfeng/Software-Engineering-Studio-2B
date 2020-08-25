@@ -14,7 +14,6 @@ export default function UploadImageForm() {
             setProgressValue(0)
             var file = event.target.files[0]
             var storageRef = store().ref(file.name)
-            //var metadata = { contentType: 'image/jpeg' };
             var task = storageRef.put(file)
 
             task.on('state_changed',
