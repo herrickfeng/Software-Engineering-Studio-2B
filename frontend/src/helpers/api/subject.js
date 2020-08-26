@@ -12,6 +12,13 @@ export const createSubjectAdmin = async (idToken, subjectData) => {
 	return res;
 };
 
+export const getAllSubjectAdmin = async (idToken) => {
+	const res = await axios.get(`http://${API_HOST}/admin/subject/`, {
+		headers: { Authorization: `Bearer ${idToken}` },
+	});
+	return res;
+};
+
 export const getSubjectAdmin = async (idToken, subjectId) => {
 	const res = await axios.get(`http://${API_HOST}/admin/subject/${subjectId}`, {
 		headers: { Authorization: `Bearer ${idToken}` },
