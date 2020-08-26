@@ -13,6 +13,7 @@ import UploadPage from "./pages/upload";
 import TeacherSubjectListPage from "./pages/teacherDashboard/teacherSubjectList";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
+import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
 import Footer from "./components/footer";
 import ClassList from "./pages/classList/index.js"
@@ -54,6 +55,10 @@ function AppRouter(props) {
 
       <Route path="/student/attendance" exact>
         <StudentAttendancePage />
+      </Route>
+
+      <Route path="/student/profile" exact>
+        <StudentProfilePage />
       </Route>
 
       <Route path="/teacherDashboard/teacherSubjectList" exact>
