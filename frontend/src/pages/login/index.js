@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { loginUser } from "../../helpers/auth";
 import { TextField, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import Avatar from "@material-ui/core/Avatar";
@@ -41,7 +42,7 @@ export default function LoginPage() {
   const [password, setPassword] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [loginError, setLoginError] = React.useState(undefined);
-  // const { authState, setAuthState } = React.useContext(AuthContext);
+  const { authState, setAuthState } = React.useContext(AuthContext);
   const classes = useStyles();
 
   const handleEmailChange = (event) => {
@@ -55,10 +56,20 @@ export default function LoginPage() {
   const handleLogin = async (event) => {
     event.preventDefault();
     setLoading(true);
-
-    // Do something with email and password.
-    // If errored, do setLoginError(error), whereby error is an error message.
-    // setAuthState(....)
+    try {
+      const userDetails = await loginUser(
+        email,
+        password
+      );
+      // Set the global auth context to reflect the successful login
+      setAuthState({
+        authenticated: true,
+        user: userDetails.user,
+      });
+    } catch (error) {
+      console.log("loginError", error);
+      setLoginError(error);
+    }
 
     setLoading(false);
   };
@@ -138,9 +149,9 @@ export default function LoginPage() {
 
   // Redirect the user to the homepage if they are already logged in
   // tother wise show the login form
-  // if (authState.authenticated) {
-  // 	return <Redirect to="/" />;
-  // } else {
+  if (authState.authenticated) {
+    return <Redirect to="/" />;
+  } else {
     return buildLoginForm();
-  // }
+  }
 }

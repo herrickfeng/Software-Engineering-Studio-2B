@@ -5,9 +5,11 @@ import { ThemeProvider } from "@material-ui/core/styles";
 //Components
 
 //Pages
+import HomePage from "./pages/home";
 import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
+import UploadPage from "./pages/upload";
 import TeacherSubjectListPage from "./pages/teacherDashboard/teacherSubjectList";
 import ClassList from "./pages/classList/index.js"
 
@@ -18,9 +20,9 @@ import { AuthProvider } from "./context/auth";
 function AppProvider(props) {
   return (
     <ThemeProvider theme={appTheme}>
-      {/* <AuthProvider> */}
+      <AuthProvider>
         {props.children}
-      {/* </AuthProvider> */}
+      </AuthProvider>
     </ThemeProvider>
   );
 }
@@ -28,13 +30,13 @@ function AppProvider(props) {
 function AppRouter(props) {
   return (
     <Switch>
-        <Route path="/login" exact={true}>
-            <LoginPage />
-        </Route>
+      <Route path="/" exact>
+        <HomePage />
+      </Route>
 
-        <Route path="/signup" exact={true}>
-            <SignupPage />
-        </Route>
+      <Route path="/login" exact>
+        <LoginPage />
+      </Route>
 
         <Route
           path="/teacherDashboard/teacherSubjectList"
