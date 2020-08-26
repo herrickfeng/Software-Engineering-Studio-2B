@@ -11,6 +11,7 @@ import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
 import UploadPage from "./pages/upload";
 import TeacherSubjectListPage from "./pages/teacherDashboard/teacherSubjectList";
+import ClassList from "./pages/classList/index.js"
 
 //Context
 import { AuthProvider } from "./context/auth";
@@ -37,17 +38,17 @@ function AppRouter(props) {
         <LoginPage />
       </Route>
 
-      <Route path="/signup" exact>
-        <SignupPage />
-          </Route>
-      <Route path="/upload" exact>
-        <UploadPage />
-      </Route>
+        <Route
+          path="/teacherDashboard/teacherSubjectList"
+          exact={true}>
+          <TeacherSubjectListPage />
+        </Route>
 
-
-      <Route path="/teacherDashboard/teacherSubjectList" exact>
-        <TeacherSubjectListPage />
-      </Route>
+        <Route
+          path="/teacherDashBoard/teacherSubjectList/classList"
+          exact={true}>
+          <ClassList/>
+        </Route>
 
     </Switch>
   );
