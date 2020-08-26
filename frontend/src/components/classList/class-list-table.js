@@ -19,25 +19,25 @@ export default function ClassListTable(props) {
             <tbody>
                 {/* Insert some kind of map */}
                 <tr>
-                    <td>SES1A</td>
+                    <td>SES2A Wednesday</td>
                     <td>5/10/20</td>
                     <td>1pm</td>
                     <td>3pm</td>
                     <td>40382</td>
                 </tr>
                 <tr>
-                    <td>Eng Comm</td>
+                    <td>SES2A Thursday</td>
                     <td>6/10/20</td>
                     <td>9am</td>
                     <td>11am</td>
-                    <td>30324</td>
+                    <td>40382</td>
                 </tr>
                 <tr>
-                    <td>MM1</td>
+                    <td>SES2A Extra Help</td>
                     <td>6/10/20</td>
                     <td>11am</td>
                     <td>1pm</td>
-                    <td>46324</td>
+                    <td>40382</td>
                 </tr>
             </tbody>
         </table>
