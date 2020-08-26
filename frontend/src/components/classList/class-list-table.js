@@ -23,21 +23,21 @@ export default function ClassListTable(props) {
                     <td>5/10/20</td>
                     <td>1pm</td>
                     <td>3pm</td>
-                    <td>40382</td>
+                    <td>41095</td>
                 </tr>
                 <tr>
                     <td>SES2A Thursday</td>
                     <td>6/10/20</td>
                     <td>9am</td>
                     <td>11am</td>
-                    <td>40382</td>
+                    <td>41095</td>
                 </tr>
                 <tr>
                     <td>SES2A Extra Help</td>
                     <td>6/10/20</td>
                     <td>11am</td>
                     <td>1pm</td>
-                    <td>40382</td>
+                    <td>41095</td>
                 </tr>
             </tbody>
         </table>
