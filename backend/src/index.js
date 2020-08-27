@@ -8,6 +8,8 @@ import authRouter from "./routes/auth-router";
 
 import userRouter from "./routes/user-router";
 
+import uploadRouter from "./routes/upload";
+
 import cors from "cors";
 import env from "./helpers/env";
 const morgan = require("morgan");
@@ -29,6 +31,7 @@ app.use("/example", exampleRouter);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/admin/subject", adminSubjectRouter)
+app.use("/image", uploadRouter)
 
 
 // Default route

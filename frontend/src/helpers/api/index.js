@@ -1,4 +1,5 @@
 import { createUser } from "./user";
+import { uploadImage } from "./upload";
 import {
     createSubjectAdmin,
     getAllSubjectAdmin,
@@ -11,7 +12,9 @@ export const API_HOST = "localhost:4000";
 
 export default {
     user: {
-        create: createUser
+      create: createUser,
+      upload: uploadImage
+
     },
     admin: {
         subject: {
