@@ -33,7 +33,7 @@ export default function ClassListTable(props) {
                     <td>41095</td>
                 </tr>
                 <tr>
-                    <td>SES2A Extra Help</td>
+                    <td>SES2A Extra</td>
                     <td>6/10/20</td>
                     <td>11am</td>
                     <td>1pm</td>

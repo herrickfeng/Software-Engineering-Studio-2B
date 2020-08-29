@@ -10,8 +10,17 @@ import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
 import UploadPage from "./pages/upload";
+
 import TeacherSubjectListPage from "./pages/teacher/subjectList/index.js";
 import TeacherClassListPage from "./pages/teacher/classList/index.js"
+
+
+import StudentDashboardPage from "./pages/studentDashboard";
+import StudentAttendancePage from "./pages/studentAttendance";
+import Navigation from "./components/navigation";
+import Footer from "./components/footer";
+import ClassList from "./pages/classList/index.js"
+
 
 //Context
 import { AuthProvider } from "./context/auth";
@@ -44,6 +53,17 @@ function AppRouter(props) {
           <TeacherSubjectListPage />
         </Route>
 
+      <Route path="/student/dashboard" exact>
+        <StudentDashboardPage />
+      </Route>
+
+      <Route path="/student/attendance" exact>
+        <StudentAttendancePage />
+      </Route>
+
+      <Route path="/teacherDashboard/teacherSubjectList" exact>
+        <TeacherSubjectListPage />
+      </Route>
         <Route
           path="/teacher/subjectList/classList"
           exact={true}>
@@ -59,11 +79,13 @@ function App() {
     <div className="App">
       <AppProvider>
         <BrowserRouter>
+        <Navigation />
           <div>
             <AppRouter />
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
             {/* <Footer /> */}
           </div>
+        <Footer />
         </BrowserRouter>
       </AppProvider>
     </div>
