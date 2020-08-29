@@ -9,8 +9,7 @@ export default function UploadImageForm() {
     try {
       var file = event.target.files[0]
       var fileSend = new FormData() 
-      fileSend.append("image", file, file.fileName)
-      fileSend.append("textstuff", "WHAT IS GOING ON")
+      fileSend.append('image', file);
       console.log(file)
       for (var key of fileSend.entries()) {
         console.log(key[0] + ', ' + key[1]);
