@@ -26,15 +26,15 @@ export default class classList extends React.Component {
 		return (
 			<Box>
 				<Box textAlign="center" my={5}>
-					<Typography variant="h4">SES2A Class List</Typography>
+					<Typography variant="h4">Software Engineering Studio 2A Class List</Typography>
 				</Box>
 				{/* Add classes for styles */}
 				<div style={{display:"flex", justifyContent:"center", alignItems: "center"}}> 
 					<Button variant="contained" color="primary" startIcon={<AddIcon/>} >
-						Add Subject
+						Add Class 
 					</Button>
 				</div>
-				<ClassListTable/>     
+				<ClassListTable/>      
 			</Box>
 		);
 	}
