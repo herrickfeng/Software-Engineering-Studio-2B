@@ -13,7 +13,7 @@ export const API_HOST = "localhost:4000";
 export default {
     user: {
       create: createUser,
-      upload: uploadImage
+      upload: uploadImage,
 
     },
     admin: {
