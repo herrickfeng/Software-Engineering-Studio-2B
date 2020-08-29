@@ -1,5 +1,6 @@
 // import * as moment from 'moment';
 import * as React from 'react';
+import './styles.css'
 
 export default function ClassListTable(props) {
 
@@ -18,13 +19,27 @@ export default function ClassListTable(props) {
             <tbody>
                 {/* Insert some kind of map */}
                 <tr>
-                    <td>SES2A</td>
+                    <td>SES2A Wednesday</td>
                     <td>5/10/20</td>
                     <td>1pm</td>
                     <td>3pm</td>
-                    <td>40382</td>
+                    <td>41095</td>
+                </tr>
+                <tr>
+                    <td>SES2A Thursday</td>
+                    <td>6/10/20</td>
+                    <td>9am</td>
+                    <td>11am</td>
+                    <td>41095</td>
+                </tr>
+                <tr>
+                    <td>SES2A Extra Help</td>
+                    <td>6/10/20</td>
+                    <td>11am</td>
+                    <td>1pm</td>
+                    <td>41095</td>
                 </tr>
             </tbody>
         </table>
-	);
+    );
 }

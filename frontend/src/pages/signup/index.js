@@ -1,5 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
+import { loginUser } from "../../helpers/auth";
 import { TextField, Grid, Box } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import Avatar from "@material-ui/core/Avatar";
@@ -9,6 +10,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { AuthContext } from "../../context/auth";
 import { Redirect } from "react-router-dom";
 import { CircularProgress } from "@material-ui/core";
+import api from "../../helpers/api/index";
 
 const styles = {
   test: {
@@ -65,21 +67,21 @@ export class SignUpPage extends React.Component {
 
     try {
       this.setState({ ...this.state, isLoading: true });
-      // await createUser({
-      // 	displayName: `${this.state.form.firstName} ${this.state.form.lastName}`,
-      // 	email: this.state.form.email,
-      // 	password: this.state.form.password,
-      // });
+      await api.user.create({
+       	displayName: `${this.state.form.firstName} ${this.state.form.lastName}`,
+       	email: this.state.form.email,
+       	password: this.state.form.password,
+       });
 
-      // const userDetails = await loginUser(
-      // 	this.state.form.email,
-      // 	this.state.form.password
-      // );
+      const userDetails = await loginUser(
+      	this.state.form.email,
+      	this.state.form.password
+      );
 
-      // this.context.setAuthState({
-      // 	authenticated: true,
-      // 	user: userDetails.user,
-      // });
+      this.context.setAuthState({
+      	authenticated: true,
+      	user: userDetails.user,
+      });
     } catch (error) {
       console.log(error.response);
       
@@ -193,11 +195,11 @@ export class SignUpPage extends React.Component {
   };
 
    render() {
-  // 	if (!this.context.authState.authenticated) {
+  	if (!this.context.authState.authenticated) {
       return this.signupForm();
-    // } else {
-    // 	return <Redirect to="/" />;
-    // }
+    } else {
+    	return <Redirect to="/" />;
+    }
   }
  }
 

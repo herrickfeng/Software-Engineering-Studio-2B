@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { AuthContext } from "../../../context/auth";
+import api from "../../../helpers/api";
 
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,11 +15,28 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
-
 export default function TeacherSubjectList(props) {
+	const [subjectState, setSubjectState] = React.useState(undefined);
+	const { authState } = React.useContext(AuthContext);
 
-	return (
-		<Container maxWidth="md">
+	useEffect(() => {
+		if (subjectState === undefined) {
+			fetchSubjectList();
+		}
+	});
+
+	const fetchSubjectList = async () => {
+		const res = await api.admin.subject.getAll(authState.user.idToken);
+		setSubjectState(res.data.data);
+	};
+
+	const deleteSubject = async (subjectId) => {
+		await api.admin.subject.delete(authState.user.idToken, subjectId);
+		setSubjectState(subjectState.filter((subject) => subject.subjectId !== subjectId));
+	}
+
+	const subjectCard = (subject) => {
+		return (
 			<Box my={5}>
 				<Card >
 					<CardActionArea>
@@ -27,21 +46,36 @@ export default function TeacherSubjectList(props) {
 						/>
 						<CardContent>
 							<Typography gutterBottom variant="h5" component="h2">
-							Software Engineering Studio 2A 41095
+								{`${subject.subjectCode} ${subject.subjectName}`}
 							</Typography>
 							<Typography variant="body2" color="textSecondary" component="p">
-							This is a safe space.
+								This is a safe space. {subject.subjectId}
 							</Typography>
 						</CardContent>
 					</CardActionArea>
 
 					<CardActions>
-						<Button size="small" color="primary">
-							Open
-						</Button>
+						<Button size="small" color="primary" onClick={() => deleteSubject(subject.subjectId)}>
+							Delete
+					</Button>
 					</CardActions>
 				</Card>
 			</Box>
+		)
+	}
+
+	return (
+		<Container maxWidth="md">
+			{subjectState === undefined ? (
+				// TODO Loading spinner
+				<h1>Loading</h1>
+			) : (
+					subjectState.map((subject) => {
+						return subjectCard(subject);
+					})
+				)}
+
+
 		</Container>
 	);
 }
