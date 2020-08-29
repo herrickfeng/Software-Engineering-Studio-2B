@@ -1,9 +1,9 @@
 import React from "react";
 
 // project components
-import SubjectList from "../../../components/teacherDashboard/teacherSubjectList/index.js";
 import { AuthContext } from "../../../context/auth";
-import Popup from "../../../components/teacherDashboard/teacherSubjectList/popup.js"
+import SubjectList from "../../../components/subjectList/index.js";
+import Popup from "../../../components/subjectList/popup.js"
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";

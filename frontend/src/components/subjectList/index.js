@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { AuthContext } from "../../../context/auth";
-import api from "../../../helpers/api";
+import { AuthContext } from "../../context/auth";
+import api from "../../helpers/api";
 
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,6 +14,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+
 
 export default function TeacherSubjectList(props) {
 	const [subjectState, setSubjectState] = React.useState(undefined);

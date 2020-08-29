@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
-import TeacherSubjectListPage from "../teacherDashboard/teacherSubjectList";
+import TeacherSubjectListPage from "../teacher/subjectList";
 
 export default function HomePage() {
   const { authState, setAuthState } = React.useContext(AuthContext);
