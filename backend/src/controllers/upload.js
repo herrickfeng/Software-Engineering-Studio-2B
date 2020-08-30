@@ -10,51 +10,35 @@ export const UploadImage = async (req, res) => {
 
   try {
     const uuid = uuidv4();
-
-
-
-
-
-
-
+    let bucketFile = store.file(req.file.originalname);
     const metadata = {
       metadata: {
+        contentType: req.file.mimetype,
         firebaseStorageDownloadTokens: uuid,
-        contentType: 'images/jpeg'
       }
     };
-
-    let bucketFile = store.file('boaty.JPG');
-    let fileInfo = req.body;
-    //let fileInfo = form;
-    console.log(req.file)
-
-    //store.upload('Boat.JPG')
-    //bucketFile.setMetadata(metadata, function (err, apiResponse) { });
     
-    await bucketFile.save(fileInfo, function (err) {
+    await bucketFile.save(req.file.buffer, function (err) {
       if (err) {
         console.log(err);
+        return err;
       }
       else {
         console.log("Uploaded!");
-        bucketFile.setMetadata(metadata, function (err, apiResponse) { });
+        bucketFile.setMetadata(metadata, function (err, apiResponse) {
+          if (err) {
+            return err
+          }
+            });
         return res.status(200).json(
           successResponse()
         );
       }
     })
 
-
-    /*
-    await store.upload(uploadFile, function (err, file, apiResponse) {
-      console.log(err);
-    })
-    */
-
   }
   catch (error) {
     return handleApiError(res, error);
-    console.log("did an oopsie at the back")
+    console.log("did an oopsie at the back ( ${ error })");
   }
 }

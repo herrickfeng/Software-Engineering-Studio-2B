@@ -14,16 +14,6 @@ const uploader = multer({
 
 //userRouter.post("/upload", uploader.single('image'), UploadImage);
 
-userRouter.post("/upload", uploader.single('image'), async (req, res) => {
-  //console.log(uploader.single('picture'));
-  console.log("please I'm going crazy")
-  console.log(req.file.originalname)
-  console.log(req.body.image)
-  if (!req.file) {
-    res.status(400).send('Error, could not upload file');
-    return;
-  }
-  console.log(req.file)
-});
+userRouter.post("/upload", uploader.single('image'), UploadImage);
 
 export default userRouter;
