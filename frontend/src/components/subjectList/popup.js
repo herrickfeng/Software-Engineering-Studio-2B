@@ -1,6 +1,6 @@
 import React from 'react';
-import { AuthContext } from "../../../context/auth";
-import api from "../../../helpers/api";
+import { AuthContext } from "../../context/auth";
+import api from "../../helpers/api";
 
 //general material-ui components
 import Container from "@material-ui/core/Container";

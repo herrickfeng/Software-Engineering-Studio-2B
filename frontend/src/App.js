@@ -10,12 +10,17 @@ import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
 import UploadPage from "./pages/upload";
-import TeacherSubjectListPage from "./pages/teacherDashboard/teacherSubjectList";
+
+import TeacherSubjectListPage from "./pages/teacherSubjectList/index.js";
+import TeacherClassListPage from "./pages/teacherClassList/index.js"
+import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
+
+
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
 import Navigation from "./components/navigation";
 import Footer from "./components/footer";
-import ClassList from "./pages/classList/index.js"
+
 
 //Context
 import { AuthProvider } from "./context/auth";
@@ -34,35 +39,38 @@ function AppProvider(props) {
 function AppRouter(props) {
   return (
     <Switch>
-      <Route path="/" exact>
-        <HomePage />
-      </Route>
-
-      <Route path="/login" exact>
-        <LoginPage />
-      </Route>
-
-        <Route
-          path="/teacherDashboard/teacherSubjectList"
-          exact={true}>
-          <TeacherSubjectListPage />
+        <Route path="/" exact>
+            <HomePage />
         </Route>
 
-      <Route path="/student/dashboard" exact>
-        <StudentDashboardPage />
-      </Route>
+        <Route path="/login" exact>
+            <LoginPage />
+        </Route>
 
-      <Route path="/student/attendance" exact>
-        <StudentAttendancePage />
-      </Route>
+        <Route path="/student/dashboard" exact>
+            <StudentDashboardPage />
+        </Route>
 
-      <Route path="/teacherDashboard/teacherSubjectList" exact>
-        <TeacherSubjectListPage />
-      </Route>
+        <Route path="/student/attendance" exact>
+            <StudentAttendancePage />
+        </Route>
+
         <Route
-          path="/teacherDashBoard/teacherSubjectList/classList"
-          exact={true}>
-          <ClassList/>
+            path="/teacher/subjectList"
+            exact={true}>
+            <TeacherSubjectListPage />
+        </Route>
+
+        <Route
+            path="/teacher/subjectList/classList"
+            exact={true}>
+            <TeacherClassListPage/>
+        </Route>
+
+        <Route
+            path="/teacher/subjectList/classList/applicationsView"
+            exact={true}>
+            <TeacherApplicationsViewPage/>
         </Route>
 
     </Switch>
