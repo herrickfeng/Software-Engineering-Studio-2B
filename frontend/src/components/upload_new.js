@@ -10,16 +10,10 @@ export default function UploadImageForm() {
       var file = event.target.files[0]
       var fileSend = new FormData() 
       fileSend.append('image', file);
-      console.log(file)
-      for (var key of fileSend.entries()) {
-        console.log(key[0] + ', ' + key[1]);
-      }
       await api.user.upload(fileSend)
-
-      /*let file = event.target.files[0]
-      await api.user.upload(file)*/
     }
     catch (error) {
+      //just add the error stuff here
       console.log("did an oopsie")
     }
   }
