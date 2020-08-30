@@ -2,8 +2,9 @@ import React from "react";
 
 // project components
 import { AuthContext } from "../../../context/auth";
-import SubjectList from "../../../components/subjectList/subject.js";
-import Popup from "../../../components/subjectList/popup.js"
+import TeacherClassInformationView from "../../../components/applicationsView/classInformation.js"
+import TeacherApplicationsView from "../../../components/applicationsView/applications.js"
+
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";
@@ -18,22 +19,13 @@ const Subject = () => {
 	return <p>Subject</p>
 }
 
-export default class TeacherSubjectListPage extends React.Component {
+export default class TeacherApplicationsViewPage extends React.Component {
 
 	render() {
 		return (
 			<Box>
-				<Box textAlign="center" my={5}>
-					<Typography variant="h4">Subject List</Typography>
-				</Box>
-
-				<Box>
-					<Popup />
-				</Box>
-
-				<Box>
-					<SubjectList />
-				</Box>
+				<TeacherClassInformationView/>
+				<TeacherApplicationsView/>
 			</Box>
 		);
 	}

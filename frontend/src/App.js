@@ -12,6 +12,7 @@ import appTheme from "./helpers/appTheme";
 import UploadPage from "./pages/upload";
 import TeacherSubjectListPage from "./pages/teacher/subjectList/index.js";
 import TeacherClassListPage from "./pages/teacher/classList/index.js"
+import TeacherApplicationsViewPage from "./pages/teacher/applicationsView/index.js"
 
 //Context
 import { AuthProvider } from "./context/auth";
@@ -48,6 +49,12 @@ function AppRouter(props) {
           path="/teacher/subjectList/classList"
           exact={true}>
           <TeacherClassListPage/>
+        </Route>
+
+        <Route
+          path="/teacher/subjectList/classList/applicationsView"
+          exact={true}>
+          <TeacherApplicationsViewPage/>
         </Route>
 
     </Switch>
