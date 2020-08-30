@@ -4,8 +4,8 @@ import React from "react";
 // import SubjectList from "../../../components/teacherDashboard/teacherSubjectList/index.js";
 // import { AuthContext } from "../../../context/auth";
 // import Popup from "../../../components/teacherDashboard/teacherSubjectList/popup.js"
-import ClassListTable from "../../../components/classList/class-list-table.js";
-import Popup from "../../../components/classList/popup.js";
+import ClassListTable from "../../components/classList/class-list-table.js";
+import Popup from "../../components/classList/popup.js";
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";

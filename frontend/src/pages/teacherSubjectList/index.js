@@ -1,9 +1,9 @@
 import React from "react";
 
 // project components
-import { AuthContext } from "../../../context/auth";
-import SubjectList from "../../../components/subjectList/subject.js";
-import Popup from "../../../components/subjectList/popup.js"
+import { AuthContext } from "../../context/auth";
+import SubjectList from "../../components/subjectList/subject.js";
+import Popup from "../../components/subjectList/popup.js"
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";
@@ -26,14 +26,10 @@ export default class TeacherSubjectListPage extends React.Component {
 				<Box textAlign="center" my={5}>
 					<Typography variant="h4">Subject List</Typography>
 				</Box>
-
-				<Box>
-					<Popup />
-				</Box>
-
-				<Box>
-					<SubjectList />
-				</Box>
+				
+				<Popup />
+				<SubjectList />
+				
 			</Box>
 		);
 	}
