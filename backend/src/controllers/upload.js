@@ -11,19 +11,12 @@ export const UploadImage = async (req, res) => {
     let bucketFile = store.file(req.file.originalname);
     console.log(req.file.mimetype);
 
-    if (req.file.mimetype !== "image/jpeg" ||
-      req.file.mimetype !== "image/bmp" ||
-      req.file.mimetype !== "image/png" ||
-      req.file.mimetype !== "image/tiff" ||
-      req.file.mimetype !== "image/webp") {
+    if (req.file.mimetype === "image/jpeg" ||
+      req.file.mimetype === "image/bmp" ||
+      req.file.mimetype === "image/png" ||
+      req.file.mimetype === "image/tiff" ||
+      req.file.mimetype === "image/webp") {
 
-      return res.status(422).json(
-        errorResponse(
-          'Incorrect file type uploaded', 422
-        )
-      );
-    }
-    else {
       const metadata = {
         metadata: {
           contentType: req.file.mimetype,
@@ -49,7 +42,13 @@ export const UploadImage = async (req, res) => {
         }
       })
     }
-
+    else {
+      return res.status(422).json(
+        errorResponse(
+          'Incorrect file type uploaded', 422
+        )
+      );
+    }
   }
   catch (error) {
     return handleApiError(res, error);
