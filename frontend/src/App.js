@@ -73,6 +73,10 @@ function AppRouter(props) {
             <TeacherApplicationsViewPage/>
         </Route>
 
+      <Route path="/upload" exact>
+        <UploadPage />
+      </Route>
+
     </Switch>
   );
 }
@@ -82,7 +86,7 @@ function App() {
     <div className="App">
       <AppProvider>
         <BrowserRouter>
-        <Navigation />
+          <Navigation />
           <div>
             <AppRouter />
             {/* TODO: Fix this so it actually goes to the bottom of the page */}

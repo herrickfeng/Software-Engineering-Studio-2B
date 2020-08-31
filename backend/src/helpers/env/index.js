@@ -4,6 +4,7 @@ export default {
   firebase: {
     serviceAccountPath: process.env.FIREBASE_SVC_PATH,
     dbUrl: process.env.FIREBASE_DB_URL,
+    sUrl: process.env.FIREBASE_SB_URL,
     webApiKey: process.env.FIREBASE_WEB_API_KEY
   }
 };
