@@ -22,6 +22,7 @@ import Footer from "./components/footer";
 
 //Context
 import { AuthProvider } from "./context/auth";
+import StudentClassListPage from "./pages/studentClassList/index";
 
 
 function AppProvider(props) {
@@ -46,7 +47,7 @@ function AppRouter(props) {
       </Route>
 
       <Route path="/student/dashboard" exact>
-          <StudentDashboardPage />
+        <StudentDashboardPage />
       </Route>
 
       <Route path="/student/attendance" exact>
@@ -55,6 +56,10 @@ function AppRouter(props) {
 
       <Route path="/student/profile" exact>
         <StudentProfilePage />
+      </Route>
+
+      <Route path="/student/classList" exact>
+        <StudentClassListPage />
       </Route>
 
       <Route
