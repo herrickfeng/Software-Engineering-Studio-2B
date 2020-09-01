@@ -8,6 +8,8 @@ import authRouter from "./routes/auth-router";
 
 import userRouter from "./routes/user-router";
 
+import uploadRouter from "./routes/upload-router";
+
 import cors from "cors";
 import env from "./helpers/env";
 const morgan = require("morgan");
@@ -21,14 +23,19 @@ const config = {
 // Middleware
 app.use(morgan("tiny"));
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.raw({ limit: '10mb', type: 'multipart/form-data' }));
+app.use(bodyParser.json({ limit: '10mb', extended: true }));
+//app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+//app.use(bodyParser.json());
+
 
 // Routes
 app.use("/example", exampleRouter);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/admin/subject", adminSubjectRouter)
+app.use("/image", uploadRouter)
 
 
 // Default route

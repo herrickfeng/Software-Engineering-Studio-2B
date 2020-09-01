@@ -10,13 +10,15 @@ import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
 import UploadPage from "./pages/upload";
-import TeacherSubjectListPage from "./pages/teacherDashboard/teacherSubjectList";
+import TeacherSubjectListPage from "./pages/teacherSubjectList/index.js";
+import TeacherClassListPage from "./pages/teacherClassList/index.js"
+import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
 import Footer from "./components/footer";
-import ClassList from "./pages/classList/index.js"
+
 
 //Context
 import { AuthProvider } from "./context/auth";
@@ -43,14 +45,8 @@ function AppRouter(props) {
         <LoginPage />
       </Route>
 
-        <Route
-          path="/teacherDashboard/teacherSubjectList"
-          exact={true}>
-          <TeacherSubjectListPage />
-        </Route>
-
       <Route path="/student/dashboard" exact>
-        <StudentDashboardPage />
+          <StudentDashboardPage />
       </Route>
 
       <Route path="/student/attendance" exact>
@@ -61,14 +57,27 @@ function AppRouter(props) {
         <StudentProfilePage />
       </Route>
 
-      <Route path="/teacherDashboard/teacherSubjectList" exact>
-        <TeacherSubjectListPage />
-      </Route>
-        <Route
-          path="/teacherDashBoard/teacherSubjectList/classList"
+      <Route
+          path="/teacher/subjectList"
           exact={true}>
-          <ClassList/>
-        </Route>
+          <TeacherSubjectListPage />
+      </Route>
+
+      <Route
+          path="/teacher/subjectList/classList"
+          exact={true}>
+          <TeacherClassListPage/>
+      </Route>
+
+      <Route
+          path="/teacher/subjectList/classList/applicationsView"
+          exact={true}>
+          <TeacherApplicationsViewPage/>
+      </Route>
+
+      <Route path="/upload" exact>
+        <UploadPage />
+      </Route>
 
     </Switch>
   );
@@ -79,7 +88,7 @@ function App() {
     <div className="App">
       <AppProvider>
         <BrowserRouter>
-        <Navigation />
+          <Navigation />
           <div>
             <AppRouter />
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
