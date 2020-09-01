@@ -17,8 +17,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 
-
-export default function TeacherSignUpPopup() {
+export default function TeacherAddClassPopup(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
