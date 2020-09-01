@@ -9,27 +9,24 @@ import { Box, Container } from "@material-ui/core";
 import ClassList from "../../components/classList/index";
 
 
-const Subject = () => {
-  return <text>SES2A</text>
-}
+export default function TeacherClassListPage(props) {
+  const [openAddPopup, setOpenAddPopup] = React.useState(false);
 
-export default class TeacherClassListPage extends React.Component {
+  return (
+    <Container maxWidth={"md"}>
+      <Box textAlign="center" my={5}>
+        <Typography variant="h4">SES2A Class List</Typography>
+      </Box>
 
-  render() {
-    return (
-      <Container maxWidth={"md"}>
-        <Box textAlign="center" my={5}>
-          <Typography variant="h4">SES2A Class List</Typography>
-        </Box>
+      <Box>
+        <TeacherAddClassPopup />
+      </Box>
 
-        <Box>
-          <TeacherAddClassPopup />
-        </Box>
+      <Box>
+        <ClassList onAddClick={() => setOpenAddPopup(true)} backTo={"/teacher/subjectList"}/>
+      </Box>
 
-        <Box>
-          <ClassList />
-        </Box>
-      </Container>
-    );
-  }
+      <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)}/>
+    </Container>
+  );
 }
