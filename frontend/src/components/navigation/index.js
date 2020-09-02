@@ -13,6 +13,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import Box from "@material-ui/core/Box";
 
 // import { AuthContext } from "../../context/auth";
 const drawerWidth = 240;
@@ -68,7 +69,7 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
 
 const MyDrawer = withStyles(styles)(
   ({ classes, variant, open, onClose, onItemClick }) => (
-    <Router history={history}>
+    <Box>
       <Drawer
         variant={variant}
         open={open}
@@ -109,11 +110,11 @@ const MyDrawer = withStyles(styles)(
         </List>
       </Drawer>
       <main className={classes.content}>
-        <Route exact path="/" component={Link} />
-        <Route path="/login" component={Link} />
-        <Route path="/signup" component={Link} />
+        <Link exact to="/" />
+        <Link to="/login" />
+        <Link to="/signup" />
       </main>
-    </Router>
+    </Box>
   )
 );
 
