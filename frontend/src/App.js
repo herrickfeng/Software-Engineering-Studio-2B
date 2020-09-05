@@ -14,6 +14,7 @@ import UploadPage from "./pages/upload";
 import TeacherSubjectListPage from "./pages/teacherSubjectList/index.js";
 import TeacherClassListPage from "./pages/teacherClassList/index.js"
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
+
 import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js"
 
 import StudentDashboardPage from "./pages/studentDashboard";
