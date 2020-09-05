@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useState } from "react"
 import { Box, Container, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import SubjectList from "../../components/subjectList/index";
 import Typography from "@material-ui/core/Typography";
+import CodePopup from "../../components/codePopup/index";
 
 export default function StudentDashboardPage(props) {
 
@@ -21,6 +22,7 @@ export default function StudentDashboardPage(props) {
     }
   ];
 
+  const [openCodePopup, setOpenCodePopup] = useState(false);
   const history = useHistory();
 
   function handleSubjectClick(subject) {
@@ -35,11 +37,12 @@ export default function StudentDashboardPage(props) {
       </Box>
 
       <Box textAlign="center" my={5}>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={() => setOpenCodePopup(true)}>
           <Typography>
             Add Subject
           </Typography>
         </Button>
+        <CodePopup title="Enter Subject Code" open={openCodePopup} onClose={() => setOpenCodePopup(false)}/>
       </Box>
 
       <SubjectList data={sampleData} onSubjectClick={handleSubjectClick}/>
