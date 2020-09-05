@@ -15,6 +15,7 @@ import TeacherSubjectListPage from "./pages/teacherSubjectList/index.js";
 import TeacherClassListPage from "./pages/teacherClassList/index.js"
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
 
+import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js"
 
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
@@ -73,9 +74,11 @@ function AppRouter(props) {
             <TeacherApplicationsViewPage/>
         </Route>
 
-      <Route path="/upload" exact>
-        <UploadPage />
-      </Route>
+        <Route
+            path="/teacher/subjectList/classList/applicationsView/classAttendanceView"
+            exact={true}>
+            <TeacherClassAttendanceViewPage/>
+        </Route>
 
     </Switch>
   );
@@ -86,7 +89,7 @@ function App() {
     <div className="App">
       <AppProvider>
         <BrowserRouter>
-          <Navigation />
+        <Navigation />
           <div>
             <AppRouter />
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
