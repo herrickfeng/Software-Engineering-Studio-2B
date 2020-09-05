@@ -4,12 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 import { successResponse, handleApiError, errorResponse } from "../helpers/apiResponse";
 
 export const UploadImage = async (req, res) => {
-  console.log("\nbeginning")
-
   try {
     const uuid = uuidv4();
     let bucketFile = store.file(req.file.originalname);
-    console.log(req.file.mimetype);
 
     if (req.file.mimetype === "image/jpeg" ||
       req.file.mimetype === "image/bmp" ||

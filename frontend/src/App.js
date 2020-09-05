@@ -10,6 +10,7 @@ import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
 import UploadPage from "./pages/upload";
+import VideoPage from "./pages/videoStream";
 import TeacherSubjectListPage from "./pages/teacherDashboard/teacherSubjectList";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
@@ -50,6 +51,10 @@ function AppRouter(props) {
 
       <Route path="/student/dashboard" exact>
         <StudentDashboardPage />
+      </Route>
+
+      <Route path="/video" exact>
+        <VideoPage />
       </Route>
 
       <Route path="/student/attendance" exact>

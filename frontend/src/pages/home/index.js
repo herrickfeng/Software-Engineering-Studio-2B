@@ -6,6 +6,7 @@ import TeacherSubjectListPage from "../teacherDashboard/teacherSubjectList";
 
 export default function HomePage() {
   const { authState, setAuthState } = React.useContext(AuthContext);
+  console.log(authState.user.uid);
 
   if (authState.authenticated) {
     return <TeacherSubjectListPage />;
