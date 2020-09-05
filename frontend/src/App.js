@@ -14,7 +14,7 @@ import UploadPage from "./pages/upload";
 import TeacherSubjectListPage from "./pages/teacherSubjectList/index.js";
 import TeacherClassListPage from "./pages/teacherClassList/index.js"
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
-
+import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js"
 
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
@@ -71,6 +71,12 @@ function AppRouter(props) {
             path="/teacher/subjectList/classList/applicationsView"
             exact={true}>
             <TeacherApplicationsViewPage/>
+        </Route>
+
+        <Route
+            path="/teacher/subjectList/classList/applicationsView/classAttendanceView"
+            exact={true}>
+            <TeacherClassAttendanceViewPage/>
         </Route>
 
     </Switch>
