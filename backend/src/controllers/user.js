@@ -32,7 +32,7 @@ export const newUser = async (req, res) => {
 
         const defaultUserRoles = {
             "student": true,
-            "teacher": false,
+            "teacher": true,
             "admin": true
         }
         await admin.auth().setCustomUserClaims(user.uid, defaultUserRoles);
