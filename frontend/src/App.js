@@ -17,6 +17,7 @@ import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
+import StudentNavigation from "./components/studentNavigation";
 import Footer from "./components/footer";
 
 
@@ -39,26 +40,37 @@ function AppRouter(props) {
   return (
     <Switch>
       <Route path="/" exact>
+        <Navigation />
         <HomePage />
       </Route>
 
       <Route path="/login" exact>
+        <Navigation />
         <LoginPage />
       </Route>
 
+      <Route path="/signup" exact>
+        <Navigation />
+        <SignupPage />
+      </Route>
+
       <Route path="/student/dashboard" exact>
+        <StudentNavigation />
         <StudentDashboardPage />
       </Route>
 
       <Route path="/student/attendance" exact>
+        <StudentNavigation />
         <StudentAttendancePage />
       </Route>
 
       <Route path="/student/profile" exact>
+        <StudentNavigation />
         <StudentProfilePage />
       </Route>
 
       <Route path="/student/classList" exact>
+        <StudentNavigation />
         <StudentClassListPage />
       </Route>
 
@@ -93,7 +105,7 @@ function App() {
     <div className="App">
       <AppProvider>
         <BrowserRouter>
-          <Navigation />
+          {/* <Navigation /> */}
           <div>
             <AppRouter />
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
