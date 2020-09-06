@@ -26,20 +26,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClassSlotOption(props) {
   const classes = useStyles();
+  const { completed, incompleted, ...otherProps } = props;
 
   let colorClass = null;
 
-  if (props.completed) {
+  if (completed) {
     colorClass = classes.completed
-  } else if (props.incompleted) {
+  } else if (incompleted) {
     colorClass = classes.incompleted
   }
 
   return (
-    <Button variant="outlined" className={clsx(classes.bigFlatButton, props.className, colorClass)} {...props}>
+    <Button variant="outlined" className={clsx(classes.bigFlatButton, props.className, colorClass)} {...otherProps}>
       <Box m={1}>
-        {props.completed ? <DoneIcon/> : null}
-        {props.incompleted ? <CloseIcon/> : null}
+        {completed ? <DoneIcon/> : null}
+        {incompleted ? <CloseIcon/> : null}
       </Box>
 
       <Box>
