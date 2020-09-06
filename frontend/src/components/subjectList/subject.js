@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,11 +18,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 export default function TeacherSubjectList(props) {
 	var subjectState = props.subjectState;
 	var deleteSubject = props.deleteSubject;
+	const history = useHistory();
 
 	const subjectCard = (subject) => {
 		return (
 			<Box my={5}>
-				<Card >
+				<Card onClick={() => history.push(`/subject/${subject.subjectId}`)}>
 					<CardActionArea>
 						<CardMedia
 							image="/download/picture.jpg"
