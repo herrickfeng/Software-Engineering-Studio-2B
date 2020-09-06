@@ -20,10 +20,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 
-export default function TeacherSignUpPopup() {
+export default function TeacherSignUpPopup(props) {
     const [open, setOpen] = React.useState(false);
     const [subjectState, setSubjectState] = React.useState({});
-	const { authState } = React.useContext(AuthContext);
 
     const handleClickOpen = () => {
     setOpen(true);
@@ -44,7 +43,7 @@ export default function TeacherSignUpPopup() {
             subjectName: subjectState.subjectName,
             subjectCode: subjectState.subjectCode
         }
-        api.admin.subject.create(authState.user.idToken, subjectData);
+        props.addSubject(subjectData);
         handleClose();
     }
 
