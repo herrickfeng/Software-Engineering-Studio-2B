@@ -41,45 +41,49 @@ function AppProvider(props) {
 function AppRouter(props) {
   return (
     <Switch>
-        <Route path="/" exact>
-            <HomePage />
-        </Route>
+      <Route path="/" exact>
+        <HomePage />
+      </Route>
 
-        <Route path="/login" exact>
-            <LoginPage />
-        </Route>
+      <Route path="/login" exact>
+        <LoginPage />
+      </Route>
 
-        <PrivateRoute path="/student/dashboard" exact>
-            <StudentDashboardPage />
-        </PrivateRoute>
+      <PrivateRoute
+        path="/student/dashboard"
+        exact={true}
+        component={StudentDashboardPage}
+      />
 
-        <PrivateRoute path="/student/attendance" exact>
-            <StudentAttendancePage />
-        </PrivateRoute>
+      <PrivateRoute
+        path="/student/attendance"
+        exact={true}
+        component={StudentAttendancePage}
+      />
 
-        <PrivateRoute
-            path="/teacher/subjectList"
-            exact={true}>
-            <TeacherSubjectListPage />
-        </PrivateRoute>
+      <PrivateRoute
+        path="/teacher/subjectList"
+        exact={true}
+        component={TeacherSubjectListPage}
+      />
 
-        <PrivateRoute
-            path="/teacher/subjectList/classList"
-            exact={true}>
-            <TeacherClassListPage/>
-        </PrivateRoute>
+      <PrivateRoute
+        path="/teacher/subjectList/classList"
+        exact={true}
+        component={TeacherClassListPage}
+      />
 
-        <PrivateRoute
-            path="/teacher/subjectList/classList/applicationsView"
-            exact={true}>
-            <TeacherApplicationsViewPage/>
-        </PrivateRoute>
+      <PrivateRoute
+        path="/teacher/subjectList/classList/applicationsView"
+        exact={true}
+        component={TeacherApplicationsViewPage}
+      />
 
-        <PrivateRoute
-            path="/teacher/subjectList/classList/applicationsView/classAttendanceView"
-            exact={true}>
-            <TeacherClassAttendanceViewPage/>
-        </PrivateRoute>
+      <PrivateRoute
+        path="/teacher/subjectList/classList/applicationsView/classAttendanceView"
+        exact={true}
+        component={TeacherClassAttendanceViewPage}
+      />
 
     </Switch>
   );
@@ -90,13 +94,13 @@ function App() {
     <div className="App">
       <AppProvider>
         <BrowserRouter>
-        <Navigation />
+          <Navigation />
           <div>
             <AppRouter />
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
             {/* <Footer /> */}
           </div>
-        <Footer />
+          <Footer />
         </BrowserRouter>
       </AppProvider>
     </div>
