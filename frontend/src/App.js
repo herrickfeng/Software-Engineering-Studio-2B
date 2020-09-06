@@ -18,11 +18,12 @@ import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
 import Footer from "./components/footer";
+import StudentClassListPage from "./pages/studentClassList";
+import StudentClassPage from "./pages/studentClass";
 
 
 //Context
 import { AuthProvider } from "./context/auth";
-import StudentClassListPage from "./pages/studentClassList/index";
 
 
 function AppProvider(props) {
@@ -60,6 +61,10 @@ function AppRouter(props) {
 
       <Route path="/student/classList" exact>
         <StudentClassListPage />
+      </Route>
+
+      <Route path="/student/class">
+        <StudentClassPage />
       </Route>
 
       <Route
