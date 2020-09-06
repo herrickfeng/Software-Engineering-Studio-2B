@@ -1,0 +1,52 @@
+[
+    {
+        "displayName": "Herrick",
+        "email": "Herrick@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "Agid",
+        "email": "Agid@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "Andrew",
+        "email": "Andrew@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "Andy",
+        "email": "Andy@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "Brendon",
+        "email": "Brendon@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "Bryan",
+        "email": "Bryan@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "Calvin",
+        "email": "Calvin@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "David",
+        "email": "David@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "Mitchell",
+        "email": "Mitchell@student.com",
+        "password": "abc123"
+    },
+    {
+        "displayName": "Vanisha",
+        "email": "Vanisha@student.com",
+        "password": "abc123"
+    }
+]

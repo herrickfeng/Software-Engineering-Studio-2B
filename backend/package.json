@@ -24,7 +24,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r esm -r dotenv/config src/index.js",
     "dev": "nodemon --exec \"npm run start\"",
-    "seed": "mocha -r esm -r dotenv/config 'src/**/seed/*.seed.js'",
+    "seed": "mocha -r esm -r dotenv/config 'src/**/seed/*.seed.js' --exit",
     "lint": "prettier \"src/**/*.js\" --write"
   },
   "repository": {
