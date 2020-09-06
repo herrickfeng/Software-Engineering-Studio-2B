@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import exampleRouter from "./routes/example-router";
 import adminSubjectRouter from "./routes/admin-subject-router";
+import subjectRouter from "./routes/subject-router";
 import authRouter from "./routes/auth-router";
 import userRouter from "./routes/user-router";
 import adminUserRouter from "./routes/admin-user-router";
@@ -31,6 +32,7 @@ app.use(bodyParser.json({ limit: '10mb', extended: true }));
 app.use("/example", exampleRouter);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
+app.use("/subject", subjectRouter)
 app.use("/admin/subject", adminSubjectRouter)
 app.use("/admin/user", adminUserRouter)
 app.use("/image", uploadRouter)

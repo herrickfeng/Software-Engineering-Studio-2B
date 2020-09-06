@@ -20,6 +20,7 @@ export const newSubject = async (req, res) => {
 
         // Add this user as a teacher
         subjectBody.teacher = [userId]
+        subjectBody.students = []
 
         checkParams({
             subjectName: {
@@ -50,6 +51,7 @@ export const newSubject = async (req, res) => {
 export const getSubject = async (req, res) => {
     try {
         const id = req.params.id;
+        const subjectBody = req.body;
 
         checkParams({
             id: {
@@ -71,7 +73,40 @@ export const getSubject = async (req, res) => {
     }
 };
 
-export const getAllSubject = async (req, res) => {
+export const joinSubject = async (req, res) => {
+    try {
+        const userId = req.authId;
+
+        // TODO: join subject
+        // const allSubjectDoc = await firestore.subject.getAllWhere("students", userId);
+
+        // var subjectsList = allSubjectDoc.docs.map((doc) => {
+        //     return doc.data();
+        // });
+
+        return res.status(200).json(successResponse());
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getAllStudentSubject = async (req, res) => {
+    try {
+        const userId = req.authId;
+
+        const allSubjectDoc = await firestore.subject.getAllWhere("students", userId);
+
+        var subjectsList = allSubjectDoc.docs.map((doc) => {
+            return doc.data();
+        });
+
+        return res.status(200).json(successResponse(subjectsList));
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getAllTeacherSubject = async (req, res) => {
     try {
         const userId = req.authId;
 
