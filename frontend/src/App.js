@@ -25,6 +25,7 @@ import Footer from "./components/footer";
 
 //Context
 import { AuthProvider } from "./context/auth";
+import PrivateRoute from "./components/PrivateRoute";
 
 
 function AppProvider(props) {
@@ -48,37 +49,37 @@ function AppRouter(props) {
             <LoginPage />
         </Route>
 
-        <Route path="/student/dashboard" exact>
+        <PrivateRoute path="/student/dashboard" exact>
             <StudentDashboardPage />
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/student/attendance" exact>
+        <PrivateRoute path="/student/attendance" exact>
             <StudentAttendancePage />
-        </Route>
+        </PrivateRoute>
 
-        <Route
+        <PrivateRoute
             path="/teacher/subjectList"
             exact={true}>
             <TeacherSubjectListPage />
-        </Route>
+        </PrivateRoute>
 
-        <Route
+        <PrivateRoute
             path="/teacher/subjectList/classList"
             exact={true}>
             <TeacherClassListPage/>
-        </Route>
+        </PrivateRoute>
 
-        <Route
+        <PrivateRoute
             path="/teacher/subjectList/classList/applicationsView"
             exact={true}>
             <TeacherApplicationsViewPage/>
-        </Route>
+        </PrivateRoute>
 
-        <Route
+        <PrivateRoute
             path="/teacher/subjectList/classList/applicationsView/classAttendanceView"
             exact={true}>
             <TeacherClassAttendanceViewPage/>
-        </Route>
+        </PrivateRoute>
 
     </Switch>
   );
