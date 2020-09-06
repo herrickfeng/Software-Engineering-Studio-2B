@@ -39,8 +39,7 @@ export const newSubject = async (req, res) => {
         return res.status(200).json(
             successResponse({
                 msg: "Subject created successfully",
-                subjectId: subjectBody.subjectId,
-                data: subjectBody
+                ...subjectBody
             })
         );
     } catch (error) {
