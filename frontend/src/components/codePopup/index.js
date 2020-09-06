@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
@@ -16,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     backgroundColor: "#334dbb",
+  },
+  codeField: {
+    fontSize: "48px",
+    fontWeight: "bold",
+    textAlign: "center",
+    width: theme.spacing(40),
   },
 }));
 
@@ -58,13 +63,16 @@ export default function CodePopup(props) {
       <Dialog open={props.open} onClose={props.onClose}>
 
         <DialogTitle className={classes.header}>
-          <Typography variant="h5" align="center" className={classes.title}>
-            {props.title || "Enter Code"}
-          </Typography>
+          <Box>
+            <Typography variant="h5" align="center" className={classes.title}>
+              {props.title || "Enter Code"}
+            </Typography>
+          </Box>
         </DialogTitle>
 
-        <Box mx={2}>
-          <TextField autoFocus variant="outlined" margin="normal" fullWidth required onChange={onCodeChange}/>
+        <Box mx={5} mt={2}>
+          <TextField inputProps={{className: classes.codeField}}
+                     autoFocus variant="outlined" fullWidth required onChange={onCodeChange} />
 
           {shouldShowWarning ? (
             <Typography color="error">
