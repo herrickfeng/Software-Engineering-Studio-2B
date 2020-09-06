@@ -13,7 +13,9 @@ import UploadPage from "./pages/upload";
 import TeacherSubjectListPage from "./pages/teacherSubjectList/index.js";
 import TeacherClassListPage from "./pages/teacherClassList/index.js"
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
+import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js"
 import StudentDashboardPage from "./pages/studentDashboard";
+import StudentClassListPage from "./pages/studentClassList/index";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
@@ -23,7 +25,8 @@ import Footer from "./components/footer";
 
 //Context
 import { AuthProvider } from "./context/auth";
-import StudentClassListPage from "./pages/studentClassList/index";
+import Signout from "./helpers/auth/signout.js";
+import PrivateRoute from "./components/PrivateRoute";
 
 
 function AppProvider(props) {
@@ -39,63 +42,70 @@ function AppProvider(props) {
 function AppRouter(props) {
   return (
     <Switch>
-      <Route path="/" exact>
+      <Route path="/" exact={true}>
         <Navigation />
         <HomePage />
       </Route>
 
-      <Route path="/login" exact>
+      <Route path="/login" exact={true}>
         <Navigation />
         <LoginPage />
       </Route>
 
-      <Route path="/signup" exact>
+      <Route path="/signup" exact={true}>
         <Navigation />
         <SignupPage />
       </Route>
 
-      <Route path="/student/dashboard" exact>
+      <Route path="/signout" exact={true}>
+        <Navigation />
+        <Signout />
+      </Route>
+
+      <PrivateRoute path="/student/dashboard" exact={true}>
         <StudentNavigation />
         <StudentDashboardPage />
-      </Route>
+      </PrivateRoute>
 
-      <Route path="/student/attendance" exact>
+      <PrivateRoute path="/student/attendance" exact={true}>
         <StudentNavigation />
         <StudentAttendancePage />
-      </Route>
+      </PrivateRoute>
 
-      <Route path="/student/profile" exact>
+      <PrivateRoute path="/student/profile" exact={true}>
         <StudentNavigation />
         <StudentProfilePage />
-      </Route>
+      </PrivateRoute>
 
-      <Route path="/student/classList" exact>
+      <PrivateRoute path="/student/classList" exact={true}>
         <StudentNavigation />
         <StudentClassListPage />
-      </Route>
+      </PrivateRoute>
 
-      <Route
-          path="/teacher/subjectList"
-          exact={true}>
-          <TeacherSubjectListPage />
-      </Route>
+      <PrivateRoute
+        path="/teacher/subjectList"
+        exact={true}
+        adminRoute={true}>
+        <StudentNavigation />
+        <TeacherSubjectListPage />
+      </PrivateRoute>
 
-      <Route
-          path="/teacher/subjectList/classList"
-          exact={true}>
-          <TeacherClassListPage/>
-      </Route>
+      <PrivateRoute
+        path="/teacher/subjectList/classList"
+        exact={true}>
+        <TeacherClassListPage />
+      </PrivateRoute>
 
-      <Route
-          path="/teacher/subjectList/classList/applicationsView"
-          exact={true}>
-          <TeacherApplicationsViewPage/>
-      </Route>
+      <PrivateRoute
+        path="/teacher/subjectList/classList/applicationsView"
+        exact={true}>
+        <TeacherApplicationsViewPage />
+      </PrivateRoute>
 
       <Route path="/upload" exact>
         <UploadPage />
+        <HomePage />
       </Route>
-
     </Switch>
   );
 }
@@ -111,7 +121,7 @@ function App() {
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
             {/* <Footer /> */}
           </div>
-        <Footer />
+          <Footer />
         </BrowserRouter>
       </AppProvider>
     </div>

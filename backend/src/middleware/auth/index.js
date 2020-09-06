@@ -24,7 +24,11 @@ export const checkToken = (req, res, next) => {
       const { authToken } = req;
       const userInfo = await admin.auth().verifyIdToken(authToken);
       req.authId = userInfo.uid;
-      // TODO: userClaims roles
+      req.userRoles = {
+        student: userInfo.student,
+        teacher: userInfo.teacher,
+        admin: userInfo.admin
+      };
       return next();
     } catch (error) {
       return handleApiError(res, new AuthenticationError());
