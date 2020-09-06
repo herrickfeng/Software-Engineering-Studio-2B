@@ -25,6 +25,7 @@ import Footer from "./components/footer";
 
 //Context
 import { AuthProvider } from "./context/auth";
+import Signout from "./helpers/auth/signout.js";
 import PrivateRoute from "./components/PrivateRoute";
 
 
@@ -47,6 +48,14 @@ function AppRouter(props) {
 
       <Route path="/login" exact>
         <LoginPage />
+      </Route>
+
+      <Route path="/signup" exact>
+        <SignupPage />
+      </Route>
+
+      <Route path="/signout" exact>
+        <Signout />
       </Route>
 
       <PrivateRoute
