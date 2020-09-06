@@ -198,7 +198,7 @@ export class SignUpPage extends React.Component {
   	if (!this.context.authState.authenticated) {
       return this.signupForm();
     } else {
-    	return <Redirect to="/" />;
+    	return <Redirect to="/login" />;
     }
   }
  }

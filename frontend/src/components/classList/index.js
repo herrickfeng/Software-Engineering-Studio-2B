@@ -76,10 +76,10 @@ export default function ClassList(props) {
       </LinedTable>
 
       <Box my={3} display={"flex"} justifyContent={"space-between"}>
-        <Button variant={"outlined"} color={"primary"} component={Link} to={props.backPath} onClick={props.onBackClick}>
+        <Button variant={"outlined"} color={"primary"} component={Link} to={props.backTo} onClick={props.onBackClick}>
           Back
         </Button>
-        <Button variant={"outlined"} color={"primary"} component={Link} to={props.addPath} onClick={props.onAddClick}>
+        <Button variant={"outlined"} color={"primary"} component={Link} to={props.addTo} onClick={props.onAddClick}>
           + Add Class
         </Button>
       </Box>

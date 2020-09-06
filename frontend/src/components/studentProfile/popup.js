@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 // icon material-ui components
-import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 
 // dialog material-ui components
 import Dialog from '@material-ui/core/Dialog';
@@ -33,8 +33,8 @@ export default function TeacherSignUpPopup() {
     return (
         <Container maxWidth="md">
             <Box style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
-                <Button variant="contained" color="primary" onClick={handleClickOpen} startIcon={<AddIcon/>} >
-                    Add Class
+                <Button variant="contained" color="primary" onClick={handleClickOpen} startIcon={<EditIcon/>} >
+                   Edit
                 </Button>
             </Box>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
@@ -47,8 +47,8 @@ export default function TeacherSignUpPopup() {
                             autoFocus
                             variant="outlined"
                             margin="normal"
-                            id="subjectName"
-                            label="Subject Name"
+                            id="name"
+                            label="Name"
                             fullWidth
                             required
                         />
@@ -57,8 +57,8 @@ export default function TeacherSignUpPopup() {
                             autoFocus
                             variant="outlined"
                             margin="normal"
-                            id="date"
-                            label="Date"
+                            id="studentid"
+                            label="Student ID"
                             fullWidth
                             required
                         />
@@ -67,8 +67,8 @@ export default function TeacherSignUpPopup() {
                             autoFocus
                             variant="outlined"
                             margin="normal"
-                            id="startTime"
-                            label="Start Time"
+                            id="emailaddress"
+                            label="Email Address"
                             fullWidth
                             required
                         />
@@ -77,18 +77,8 @@ export default function TeacherSignUpPopup() {
                             autoFocus
                             variant="outlined"
                             margin="normal"
-                            id="endTime"
-                            label="End Time"
-                            fullWidth
-                            required
-                        />
-
-                        <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="subjectCode"
-                            label="Subject Code"
+                            id="password"
+                            label="Password"
                             fullWidth
                             required
                         />
@@ -99,7 +89,7 @@ export default function TeacherSignUpPopup() {
                         Cancel
                     </Button>
                     <Button onClick={handleClose} color="primary">
-                        Add Class
+                        Save
                     </Button>
                 </DialogActions>
 

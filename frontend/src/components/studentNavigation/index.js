@@ -14,8 +14,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Box from "@material-ui/core/Box";
-import { Divider, ListItemIcon } from "@material-ui/core";
-import HomeIcon from '@material-ui/icons/Home';
+import { Divider, ListItemIcon, ListSubheader } from "@material-ui/core";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 //import { AuthContext } from "../../context/auth";
 const drawerWidth = 240;
 const history = createBrowserHistory();
@@ -34,7 +34,10 @@ const styles = theme => ({
 	menuButton: {
 	  marginLeft: -12,
 	  marginRight: 20
-	},
+  },
+  signOut:{
+    color: "red"
+  },
 	toolbarMargin: theme.mixins.toolbar,
 	aboveDrawer: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
@@ -43,8 +46,8 @@ const styles = theme => ({
 	  zIndex: theme.zIndex.drawer + 1
 	}
   });
-
-//Guest Tool bar
+    
+//Student tool bar
 const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
   <Fragment>
     <AppBar className={classes.aboveDrawer}>
@@ -61,7 +64,7 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
         variant="h5" 
         color="inherit" 
         className={classes.flex}>
-          FAST W13
+          FAST W13 - Student
         </Typography>
       </Toolbar>
     </AppBar>
@@ -88,40 +91,51 @@ const MyDrawer = withStyles(styles)(
         <List>
           <ListItem>
             <ListItemIcon>
-              <HomeIcon fontSize="large"/>
+              <AccountBoxIcon fontSize="large"/>
             </ListItemIcon>
-            <ListItemText primary="Home Directory" />
+            <ListItemText primary="Student Directory" />
           </ListItem>
           <Divider/>
           <ListItem
             button
             component={Link}
-            to="/"
+            to="/student/dashboard"
             onClick={onItemClick("HomePage")}
           >
-            <ListItemText>Home</ListItemText>
+            <ListItemText>Dashboard</ListItemText>
           </ListItem>
           <ListItem
             button
             component={Link}
-            to="/login"
-            onClick={onItemClick("LoginPage")}
+            to="/student/profile"
+            onClick={onItemClick("ProfilePage")}
           >
-            <ListItemText>Login</ListItemText>
+            <ListItemText>Profile</ListItemText>
           </ListItem>
           <ListItem 
           button 
           component={Link}
-          to="/signup"
-          onClick={onItemClick("Signup")}>
-            <ListItemText>Signup</ListItemText>
+          to="/student/attendance"
+          onClick={onItemClick("AttendancePage")}>
+            <ListItemText>Attendance</ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem
+          button
+          component={Link}
+          to="/"
+          onClick={onItemClick("/")}
+          className={classes.signOut}
+          >
+          <ListItemText>Sign Out</ListItemText>
           </ListItem>
         </List>
       </Drawer>
       <main className={classes.content}>
-        <Link exact to="/" />
-        <Link to="/login" />
-        <Link to="/signup" />
+        <Link exact to="/student/dashboard" />
+        <Link to="/student/profile" />
+        <Link to="/studnet/attendance" />
+        <Link to="/" />
       </main>
     </Box>
   )

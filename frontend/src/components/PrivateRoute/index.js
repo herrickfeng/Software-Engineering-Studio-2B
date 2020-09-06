@@ -13,7 +13,7 @@ const PrivateRoute = ({
 		if (adminRoute) {
 			return (
 				authState.authenticated &&
-				(authState.user.claims.superuser || authState.user.claims.teacher)
+				(authState.user.claims.admin || authState.user.claims.teacher)
 			);
 		} else {
 			return authState.authenticated;
@@ -22,9 +22,8 @@ const PrivateRoute = ({
 
 	return (
 		<Route
-			{...routeProps}
 			render={(props) =>
-				isAuthenticated() ? <Component {...props} /> : <Redirect to="/login" />
+				isAuthenticated() ? props.children : <Redirect to="/login" />
 			}
 		/>
 	);
