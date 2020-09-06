@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { AuthContext } from "../../context/auth";
-import api from "../../helpers/api";
 
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,24 +15,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 
 export default function TeacherSubjectList(props) {
-	const [subjectState, setSubjectState] = React.useState(undefined);
-	const { authState } = React.useContext(AuthContext);
-
-	useEffect(() => {
-		if (subjectState === undefined) {
-			fetchSubjectList();
-		}
-	});
-
-	const fetchSubjectList = async () => {
-		const res = await api.admin.subject.getAll(authState.user.idToken);
-		setSubjectState(res.data.data);
-	};
-
-	const deleteSubject = async (subjectId) => {
-		await api.admin.subject.delete(authState.user.idToken, subjectId);
-		setSubjectState(subjectState.filter((subject) => subject.subjectId !== subjectId));
-	}
+	var subjectState = props.subjectState;
+	var deleteSubject = props.deleteSubject;
 
 	const subjectCard = (subject) => {
 		return (
@@ -67,16 +49,14 @@ export default function TeacherSubjectList(props) {
 
 	return (
 		<Container maxWidth="md">
-			{subjectState === undefined ? (
-				// TODO Loading spinner
-				<h1>Loading</h1>
+			{subjectState ? (
+				subjectState.subjects.map((subject) => {
+					return subjectCard(subject);
+				})
 			) : (
-					subjectState.map((subject) => {
-						return subjectCard(subject);
-					})
+					// TODO Loading spinner
+					<h1>Loading</h1>
 				)}
-
-
 		</Container>
 	);
 }
