@@ -5,8 +5,9 @@ import TeacherAddClassPopup from "../../components/classList/TeacherAddClassPopu
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";
-import { Box, Container } from "@material-ui/core";
+import { Box, Button, Container } from "@material-ui/core";
 import ClassList from "../../components/classList/index";
+import { Link } from "react-router-dom";
 
 
 export default function TeacherClassListPage(props) {
@@ -23,7 +24,16 @@ export default function TeacherClassListPage(props) {
       </Box>
 
       <Box>
-        <ClassList onAddClick={() => setOpenAddPopup(true)} backTo={"/teacher/subjectList"}/>
+        <ClassList />
+
+        <Box my={3} display="flex" justifyContent="space-between">
+          <Button variant="outlined" color="primary" component={Link} to="/teacher/subjectList">
+            Back
+          </Button>
+          <Button variant="outlined" color="primary" onClick={() => setOpenAddPopup(true)}>
+            + Add Class
+          </Button>
+        </Box>
       </Box>
 
       <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)}/>
