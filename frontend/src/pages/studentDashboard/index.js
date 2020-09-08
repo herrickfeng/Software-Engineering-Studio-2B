@@ -24,8 +24,7 @@ export default function StudentDashboardPage(props) {
   const history = useHistory();
 
   function handleSubjectClick(subject) {
-    // TODO pass subject information or do something with it towards the class list
-    history.push("/student/classList")
+    history.push(`/student/subject/${subject.subjectId}`)
   }
 
   return (

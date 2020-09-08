@@ -23,7 +23,7 @@ export default function SubjectList(props) {
 
   function subjectCard(subject) {
     return (
-      <Box my={2} key={subject.subjectCode} onClick={props.onSubjectClick}>
+      <Box my={2} key={subject.subjectCode} onClick={() => {props.onSubjectClick(subject)}}>
         <Card>
           <CardActionArea>
             <CardMedia
@@ -42,7 +42,7 @@ export default function SubjectList(props) {
 
           {props.onDeleteSubjectClick ? (
             <CardActions>
-              <Button size="small" color="primary" onClick={props.onDeleteSubjectClick}>
+              <Button size="small" color="primary" onClick={() => props.onDeleteSubjectClick(subject)}>
                 Delete
               </Button>
             </CardActions>
