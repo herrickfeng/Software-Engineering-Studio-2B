@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 import Popup from "../../components/studentProfile/popup";
 import api from "../../helpers/api";
 import { AuthContext } from "../../context/auth";
+import { Alert } from "@material-ui/lab";
 
 export default function StudentProfilePage(props) {
   const { authState } = React.useContext(AuthContext);
@@ -23,9 +24,8 @@ export default function StudentProfilePage(props) {
 
   const updateProfile = async (userData) => {
     // TODO: Error toast 
-    setProfileState(undefined);
-    await api.user.update(authState.user.idToken, authState.user.uid, userData);
     setProfileState(userData);
+    api.user.update(authState.user.idToken, authState.user.uid, userData)
   }
 
   const handleResetPassword = async () => {

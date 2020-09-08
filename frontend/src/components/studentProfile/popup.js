@@ -37,7 +37,8 @@ export default function TeacherSignUpPopup(props) {
 
     const handleSave = () => {
         handleClose();
-        props.updateProfile(formState);
+        props.updateProfile({...formState});
+        setFormState({...formState});
     }
 
     return (
