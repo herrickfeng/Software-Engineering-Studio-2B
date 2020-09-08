@@ -46,3 +46,13 @@ export const deleteUser = async (idToken, userId) => {
 	);
 	return res;
 };
+
+export const resetPassword = async (email) => {
+	const res = await axios.post(
+		`http://${API_HOST}/auth/reset`,
+		{
+			"email": email
+		}
+	);
+	return res;
+};

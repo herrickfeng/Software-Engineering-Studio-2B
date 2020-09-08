@@ -4,6 +4,7 @@ import {
   getUserById,
   updateUser,
   deleteUser,
+  resetPassword
 } from "./user";
 import { uploadImage } from "./upload";
 import {
@@ -17,6 +18,9 @@ import {
 export const API_HOST = "localhost:4000";
 
 export default {
+  auth: {
+    reset: resetPassword
+  },
   user: {
     create: createUser,
     get: getUser,

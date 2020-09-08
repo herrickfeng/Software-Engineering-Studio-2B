@@ -1,7 +1,7 @@
 import React from "react"
-import {Button, TableHead, TableRow, TableCell, TableBody, Box} from "@material-ui/core";
+import { Button, TableHead, TableRow, TableCell, TableBody, Box } from "@material-ui/core";
 import LinedTable from "../../components/linedTable/index";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 /**
  * An example for what can be passed in via props
@@ -16,18 +16,16 @@ import {Link} from "react-router-dom";
  * @return {React.Component}
  */
 export default function StudentProfile(props) {
+  let sampleData = [props.profileState]
 
-  // TODO there should be some way to pass the data that is fetched from the backend into the props of this component.
-  // We can then pass it into table rows as shown below.
-
-  let sampleData = [
-    {
-      name: "Peter Pan",
-      id: "12345678",
-      email: "hsu.myat.win@uts.edu.au",
-      password: "*********",
-    }
-  ];
+  // let sampleData = [
+  //   {
+  //     name: "Peter Pan",
+  //     id: "12345678",
+  //     email: "hsu.myat.win@uts.edu.au",
+  //     password: "*********",
+  //   }
+  // ];
 
   return (
     <>
@@ -36,7 +34,7 @@ export default function StudentProfile(props) {
           {sampleData.map(entry => (
             <TableRow>
               <TableCell>Name:</TableCell>
-              <TableCell>{entry.name}</TableCell>
+              <TableCell>{entry.displayName}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -44,7 +42,7 @@ export default function StudentProfile(props) {
           {sampleData.map(entry => (
             <TableRow>
               <TableCell>Student ID:</TableCell>
-              <TableCell>{entry.id}</TableCell>
+              <TableCell>{entry.uid}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -60,7 +58,9 @@ export default function StudentProfile(props) {
           {sampleData.map(entry => (
             <TableRow>
               <TableCell>Password</TableCell>
-              <TableCell>{entry.password}</TableCell>
+              <TableCell>
+                <Button variant="contained" color="primary" onClick={props.handleResetPassword} >Email Reset Link</Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
