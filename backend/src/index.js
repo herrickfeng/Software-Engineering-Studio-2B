@@ -28,8 +28,7 @@ app.use(bodyParser.json());
 app.use("/example", exampleRouter);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
-app.use("/admin/subject", adminSubjectRouter)
-
+app.use("/admin/subject", adminSubjectRouter);
 
 // Default route
 app.get("/", (req, res) => {
