@@ -32,7 +32,7 @@ export default {
     delete: deleteUser,
     upload: uploadImage,
   },
-  student: {
+  subject: {
     get: getSubjectStudent,
     getAll: getAllSubjectStudent,
     join: joinSubject,
