@@ -4,8 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import { FirestoreError } from "../errors/firestore";
 import {
     successResponse,
+    errorResponse,
     handleApiError
 } from "../helpers/apiResponse";
+import subject from "../helpers/firestore/subject";
 
 export const newSubject = async (req, res) => {
     try {
@@ -24,6 +26,7 @@ export const newSubject = async (req, res) => {
 
         // Add this user as a teacher
         subjectBody.teacher = [userId]
+        subjectBody.students = []
 
         checkParams({
             subjectName: {
@@ -43,8 +46,7 @@ export const newSubject = async (req, res) => {
         return res.status(200).json(
             successResponse({
                 msg: "Subject created successfully",
-                subjectId: subjectBody.subjectId,
-                data: subjectBody
+                ...subjectBody
             })
         );
     } catch (error) {
@@ -55,6 +57,7 @@ export const newSubject = async (req, res) => {
 export const getSubject = async (req, res) => {
     try {
         const id = req.params.id;
+        const subjectBody = req.body;
 
         checkParams({
             id: {
@@ -76,7 +79,49 @@ export const getSubject = async (req, res) => {
     }
 };
 
-export const getAllSubject = async (req, res) => {
+export const joinSubject = async (req, res) => {
+    try {
+        const userId = req.authId;
+        const { subjectCode } = req.body;
+
+        const allSubjectDoc = await firestore.subject.getByCode(subjectCode);
+
+        if (allSubjectDoc.size > 0) {
+            const subjectDoc = allSubjectDoc.docs[0];
+            var subjectBody = subjectDoc.data()
+
+            if (subjectBody.students.includes(userId)){
+                return res.status(400).json(errorResponse(`Student already enrolled into ${subjectCode}`));
+            }
+
+            subjectBody.students.push(userId);
+            await firestore.subject.update(subjectDoc, subjectBody);
+            return res.status(200).json(successResponse({msg: "Student successfully enrolled"}));
+        } else {
+            return res.status(400).json(errorResponse(`No such subject with code ${subjectCode}`, "subject-missing", "FirestoreError"));
+        }
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getAllStudentSubject = async (req, res) => {
+    try {
+        const userId = req.authId;
+
+        const allSubjectDoc = await firestore.subject.getAllWhere("students", userId);
+
+        var subjectsList = allSubjectDoc.docs.map((doc) => {
+            return doc.data();
+        });
+
+        return res.status(200).json(successResponse(subjectsList));
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getAllTeacherSubject = async (req, res) => {
     try {
         const userId = req.authId;
 

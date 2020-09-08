@@ -1,5 +1,6 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firebase-storage";
 
 // TODO: This shouldnt be an issue to be public but it might be a good idea to move this to an untracked file
 // https://javebratt.com/hide-firebase-api/
@@ -17,5 +18,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth;
+
+export const store = firebase.storage;
 
 export default firebase;
