@@ -54,12 +54,12 @@ describe("seed", () => {
     for (var i = 0; i < subjects.length; i++) {
       var subjectBody = subjects[i];
       for (var j = 0; j < rnd(10); j++) {
-        const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/create`)
+        const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/class/create`)
           .set("Authorization", `Bearer ${teacherBody.idToken}`)
           .send({
             className: `Week ${j}`,
             classCode: j,
-            classTime: new Date()
+            classTime: {}
           });
       }
     }
