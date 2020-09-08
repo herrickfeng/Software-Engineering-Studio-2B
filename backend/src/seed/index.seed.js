@@ -44,7 +44,24 @@ describe("seed", () => {
       var subjectBody = subjects[i];
 
       const response = await request(server).post("/admin/subject/create").set("Authorization", `Bearer ${teacherBody.idToken}`).send(subjectBody);
-      subjectBody = { ...subjectBody, ...response.body.data }
+      subjects[i] = { ...subjectBody, ...response.body.data }
+    }
+  });
+
+  it("create classes", async function () {
+    this.timeout(10000)
+    var teacherBody = teachers[teacherId]
+    for (var i = 0; i < subjects.length; i++) {
+      var subjectBody = subjects[i];
+      for (var j = 0; j < rnd(10); j++) {
+        const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/create`)
+          .set("Authorization", `Bearer ${teacherBody.idToken}`)
+          .send({
+            className: `Week ${j}`,
+            classCode: j,
+            classTime: new Date()
+          });
+      }
     }
   });
 
