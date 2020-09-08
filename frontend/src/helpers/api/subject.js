@@ -1,6 +1,40 @@
 import axios from "axios";
 import { API_HOST } from ".";
 
+export const getSubjectStudent = async (idToken, subjectId) => {
+	const res = await axios.get(
+		`http://${API_HOST}/subject/${subjectId}`,
+		{
+			headers: { Authorization: `Bearer ${idToken}` },
+		}
+	);
+	return res;
+};
+
+export const getAllSubjectStudent = async (idToken) => {
+	const res = await axios.get(
+		`http://${API_HOST}/subject`,
+		{
+			headers: { Authorization: `Bearer ${idToken}` },
+		}
+	);
+	return res;
+};
+
+export const joinSubject = async (idToken, subjectCode) => {
+	const res = await axios.post(
+		`http://${API_HOST}/subject/join`,
+		{
+			subjectCode: subjectCode
+		},
+		{
+			headers: { Authorization: `Bearer ${idToken}` },
+		}
+	);
+	return res;
+};
+
+
 export const createSubjectAdmin = async (idToken, subjectData) => {
 	const res = await axios.post(
 		`http://${API_HOST}/admin/subject/create`,
