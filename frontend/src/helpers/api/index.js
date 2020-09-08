@@ -1,4 +1,10 @@
-import { createUser } from "./user";
+import {
+  createUser,
+  getUser,
+  getUserById,
+  updateUser,
+  deleteUser,
+} from "./user";
 import { uploadImage } from "./upload";
 import {
   createSubjectAdmin,
@@ -13,8 +19,11 @@ export const API_HOST = "localhost:4000";
 export default {
   user: {
     create: createUser,
+    get: getUser,
+    getById: getUserById,
+    update: updateUser,
+    delete: deleteUser,
     upload: uploadImage,
-
   },
   admin: {
     subject: {
