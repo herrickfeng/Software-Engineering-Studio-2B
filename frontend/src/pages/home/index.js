@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import TeacherSubjectListPage from "../teacherSubjectList";
 
@@ -8,7 +8,7 @@ export default function HomePage() {
   const { authState, setAuthState } = React.useContext(AuthContext);
 
   if (authState.authenticated) {
-    return <TeacherSubjectListPage />;
+    return authState.user.claims.teacher ? <Redirect to="/teacher/subjectList" />: <Redirect to="/student/dashboard" />; 
   } else {
     return (
       <Container>
