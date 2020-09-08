@@ -1,25 +1,25 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Box, Container, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import SubjectList from "../../components/subjectList/index";
 import Typography from "@material-ui/core/Typography";
+import api from "../../helpers/api";
+import { AuthContext } from "../../context/auth";
 
 export default function StudentDashboardPage(props) {
+  const { authState } = React.useContext(AuthContext);
+  const [state, setState] = useState(undefined);
 
-  let sampleData = [
-    {
-      code: 31263,
-      name: "Introduction to Game Design"
-    },
-    {
-      code: 31251,
-      name: "Data Structures and Algorithms"
-    },
-    {
-      code: 41039,
-      name: "Programming 1"
+  const fetchData = async () => {
+    const subjects = await api.subject.getAll(authState.user.idToken);
+    setState(subjects.data.data);
+  };
+
+  useEffect(() => {
+    if (state === undefined) {
+      fetchData();
     }
-  ];
+  });
 
   const history = useHistory();
 
@@ -37,12 +37,12 @@ export default function StudentDashboardPage(props) {
       <Box textAlign="center" my={5}>
         <Button variant="contained" color="primary">
           <Typography>
-            Add Subject
+            Join Subject
           </Typography>
         </Button>
       </Box>
 
-      <SubjectList data={sampleData} onSubjectClick={handleSubjectClick}/>
+      <SubjectList data={state} onSubjectClick={handleSubjectClick} />
     </Container>
   );
 }
