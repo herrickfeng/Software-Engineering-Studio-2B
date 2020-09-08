@@ -37,7 +37,6 @@ app.use("/admin/subject", adminSubjectRouter)
 app.use("/admin/user", adminUserRouter)
 app.use("/image", uploadRouter)
 
-
 // Default route
 app.get("/", (req, res) => {
   res.json({
