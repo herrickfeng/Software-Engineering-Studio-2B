@@ -19,9 +19,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 export default function TeacherSignUpPopup(props) {
-    var userData = props.profileState;
     const [open, setOpen] = React.useState(false);
-	const [formState, setFormState] = React.useState(userData);
+    const [formState, setFormState] = React.useState(props.profileState);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -31,10 +30,10 @@ export default function TeacherSignUpPopup(props) {
         setOpen(false);
     };
 
-	const handleChange = (event) => {
+    const handleChange = (event) => {
         formState[event.target.id] = event.target.value;
-		setFormState(formState);
-	};
+        setFormState({...formState});
+    };
 
     const handleSave = () => {
         handleClose();
@@ -63,7 +62,7 @@ export default function TeacherSignUpPopup(props) {
                         fullWidth
                         required
                         onChange={handleChange}
-                        value={userData.displayName}
+                        value={formState.displayName}
                     />
 
                     {/* <TextField
@@ -85,7 +84,7 @@ export default function TeacherSignUpPopup(props) {
                         fullWidth
                         required
                         onChange={handleChange}
-                        value={userData.email}
+                        value={formState.email}
                     />
 
                     {/* <TextField

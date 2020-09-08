@@ -23,8 +23,8 @@ export default function StudentProfilePage(props) {
 
   const updateProfile = async (userData) => {
     // TODO: Error toast 
+    setProfileState(undefined);
     await api.user.update(authState.user.idToken, authState.user.uid, userData);
-    console.log(userData)
     setProfileState(userData);
   }
 

@@ -95,18 +95,11 @@ export class SignUpPage extends React.Component {
 
   buildLoginError = () => {
     let errorMessage = "An error occurred.";
-    const errorCode = this.state.signupError.errorCode;
-
-    console.log(errorCode);
-
-    if (errorCode === "auth/email-already-exists") {
-      errorMessage = "The email already exists";
-    } else if (errorCode === "auth/invalid-password") {
-      errorMessage = "The password must meet requirements (min 6 characters)";
-    } else if (errorCode === "auth/email-invalid") {
-      errorMessage = "The provided email format is invalid";
+    const error = this.state.signupError.error;
+    if (error){
+      errorMessage = error;
     }
-
+    
     return (
       <>
         <Alert severity="error">{errorMessage}</Alert>
