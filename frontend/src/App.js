@@ -20,6 +20,7 @@ import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
 import StudentNavigation from "./components/studentNavigation";
+import TeacherNavigation from "./components/teacherNavigation";
 import Footer from "./components/footer";
 
 
@@ -86,23 +87,26 @@ function AppRouter(props) {
         path="/teacher/subjectList"
         exact={true}
         adminRoute={true}>
-        <StudentNavigation />
+        <TeacherNavigation />
         <TeacherSubjectListPage />
       </PrivateRoute>
 
       <PrivateRoute
         path="/teacher/subjectList/classList"
         exact={true}>
+        <TeacherNavigation />
         <TeacherClassListPage />
       </PrivateRoute>
 
       <PrivateRoute
         path="/teacher/subjectList/classList/applicationsView"
         exact={true}>
+        <TeacherNavigation />
         <TeacherApplicationsViewPage />
       </PrivateRoute>
 
       <Route path="/upload" exact>
+        <TeacherNavigation />
         <UploadPage />
         <HomePage />
       </Route>

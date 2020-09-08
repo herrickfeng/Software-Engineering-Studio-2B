@@ -47,7 +47,7 @@ const styles = theme => ({
 	}
   });
     
-//Student tool bar
+//Teacher tool bar
 const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
   <Fragment>
     <AppBar className={classes.aboveDrawer}>
@@ -64,14 +64,14 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
         variant="h5" 
         color="inherit" 
         className={classes.flex}>
-          FAST W13 - Student
+          FAST W13 - Teacher
         </Typography>
       </Toolbar>
     </AppBar>
     <div className={classes.toolbarMargin} />
   </Fragment>
 ));
-//Student drawer
+//Teacher drawer
 const MyDrawer = withStyles(styles)(
   ({ classes, variant, open, onClose, onItemClick }) => (
     <Box>
@@ -93,31 +93,31 @@ const MyDrawer = withStyles(styles)(
             <ListItemIcon>
               <AccountBoxIcon fontSize="large"/>
             </ListItemIcon>
-            <ListItemText primary="Student Directory" />
+            <ListItemText primary="Teacher Directory" />
           </ListItem>
           <Divider/>
           <ListItem
             button
             component={Link}
-            to="/student/dashboard"
-            onClick={onItemClick("HomePage")}
+            to="/teacher/subjectList"
+            onClick={onItemClick("SubjectList")}
           >
-            <ListItemText>Dashboard</ListItemText>
+            <ListItemText>Staff Dashboard</ListItemText>
           </ListItem>
           <ListItem
             button
             component={Link}
-            to="/student/profile"
-            onClick={onItemClick("ProfilePage")}
+            to="/upload"
+            onClick={onItemClick("UploadPage")}
           >
-            <ListItemText>Profile</ListItemText>
+            <ListItemText>Upload</ListItemText>
           </ListItem>
           <ListItem 
           button 
           component={Link}
-          to="/student/attendance"
-          onClick={onItemClick("AttendancePage")}>
-            <ListItemText>Attendance</ListItemText>
+          to="/teacher/subjectList/classList"
+          onClick={onItemClick("ClassList")}>
+            <ListItemText>Class List</ListItemText>
           </ListItem>
           <Divider/>
           <ListItem
@@ -132,8 +132,8 @@ const MyDrawer = withStyles(styles)(
         </List>
       </Drawer>
       <main className={classes.content}>
-        <Link exact to="/student/dashboard" />
-        <Link to="/student/profile" />
+        <Link exact to="/teacher/subjectList" />
+        <Link to="/teacher/subjectList" />
         <Link to="/studnet/attendance" />
         <Link to="/signout" />
       </main>

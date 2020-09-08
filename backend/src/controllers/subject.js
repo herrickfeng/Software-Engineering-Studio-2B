@@ -19,6 +19,10 @@ export const newSubject = async (req, res) => {
         if (subjectBody.subjectId === undefined) {
             subjectBody.subjectId = uuidv4();
         }
+        // Generate class array if no classes was provided
+        if (subjectBody.classes === undefined) {
+            subjectBody.classes = [];
+        }
 
         // Add this user as a teacher
         subjectBody.teacher = [userId]
@@ -136,7 +140,7 @@ export const getAllTeacherSubject = async (req, res) => {
 export const updateSubject = async (req, res) => {
     try {
         const subjectBody = req.body;
-        const { subjectName, subjectCode } = subjectBody;
+        const { subjectName, subjectCode, classes} = subjectBody;
         const id = req.params.id;
 
         checkParams({
@@ -151,7 +155,13 @@ export const updateSubject = async (req, res) => {
             id: {
                 data: id,
                 expectedType: "string"
+            },
+
+            classes: {
+                data: classes,
+                expectedType: "array"
             }
+
         });
 
         const subjectDoc = await firestore.subject.get(id);
