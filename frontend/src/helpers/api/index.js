@@ -8,6 +8,9 @@ import {
 } from "./user";
 import { uploadImage } from "./upload";
 import {
+  getSubjectStudent,
+  getAllSubjectStudent,
+  joinSubject,
   createSubjectAdmin,
   getAllSubjectAdmin,
   getSubjectAdmin,
@@ -28,6 +31,11 @@ export default {
     update: updateUser,
     delete: deleteUser,
     upload: uploadImage,
+  },
+  student: {
+    get: getSubjectStudent,
+    getAll: getAllSubjectStudent,
+    join: joinSubject,
   },
   admin: {
     subject: {
