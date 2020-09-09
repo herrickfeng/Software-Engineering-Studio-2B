@@ -15,7 +15,6 @@ import TeacherClassListPage from "./pages/teacherClassList/index.js"
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
 import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js"
 import StudentDashboardPage from "./pages/studentDashboard";
-import StudentClassListPage from "./pages/studentClassList/index";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
