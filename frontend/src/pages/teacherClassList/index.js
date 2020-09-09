@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 // project components
 import TeacherAddClassPopup from "../../components/classList/TeacherAddClassPopup.js";
@@ -7,16 +7,45 @@ import TeacherAddClassPopup from "../../components/classList/TeacherAddClassPopu
 import Typography from "@material-ui/core/Typography";
 import { Box, Button, Container } from "@material-ui/core";
 import ClassList from "../../components/classList/index";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import api from "../../helpers/api"
+import { AuthContext } from "../../context/auth";
 
 
 export default function TeacherClassListPage(props) {
+  const subjectId = props.match.params.subjectId;
+  const { authState } = React.useContext(AuthContext);
+  const [state, setState] = useState(undefined);
   const [openAddPopup, setOpenAddPopup] = React.useState(false);
+  const history = useHistory();
+
+  const fetchData = async () => {
+    const subject = (await api.subject.get(authState.user.idToken, subjectId)).data.data;
+    subject.classes = (await api.subject.class.getAll(authState.user.idToken, subjectId)).data.data;
+    setState(subject);
+  };
+
+  useEffect(() => {
+    if (state === undefined) {
+      fetchData();
+    }
+  });
+
+  function onRowClick(event, entry) {
+    history.push(`/teacher/subject/${subjectId}/class/${entry.classId}`);
+  }
+
+	const addClass = async (classData) => {
+		const { idToken } = authState.user;
+    const subjectClass = (await api.admin.subject.class.create(idToken, subjectId, classData)).data.data.data;
+		setState(undefined);
+	}
 
   return (
+    (state ? 
     <Container maxWidth={"md"}>
       <Box textAlign="center" my={5}>
-        <Typography variant="h4">SES2A Class List</Typography>
+        <Typography variant="h4">{state.subjectName} Class List</Typography>
       </Box>
 
       <Box>
@@ -24,7 +53,7 @@ export default function TeacherClassListPage(props) {
       </Box>
 
       <Box>
-        <ClassList />
+        <ClassList backTo="/student/dashboard" onRowClick={onRowClick} data={state.classes}/>
 
         <Box my={3} display="flex" justifyContent="space-between">
           <Button variant="outlined" color="primary" component={Link} to="/teacher/subjectList">
@@ -36,7 +65,10 @@ export default function TeacherClassListPage(props) {
         </Box>
       </Box>
 
-      <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)}/>
+      <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)} onAdd={addClass}/>
     </Container>
+    // TODO: Loading spinner icon thingy
+    : <h1>Loading</h1>
+    )
   );
 }

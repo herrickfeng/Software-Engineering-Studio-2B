@@ -16,32 +16,32 @@ export default function ClassList(props) {
 
   let sampleData = [
     {
-      name: "Week 1",
+      className: "Week 1",
       date: "11/8/2020",
-      startTime: "12:00",
+      classTime: "12:00",
       endTime: "14:00",
-      code: 123123,
+      classCode: 123123,
     },
     {
-      name: "Week 2",
+      className: "Week 2",
       date: "18/8/2020",
-      startTime: "12:00",
+      classTime: "12:00",
       endTime: "14:00",
-      code: 392044,
+      classCode: 392044,
     },
     {
-      name: "Week 3",
+      className: "Week 3",
       date: "25/8/2020",
-      startTime: "12:00",
+      classTime: "12:00",
       endTime: "14:00",
-      code: 320940,
+      classCode: 320940,
     },
     {
-      name: "Week 4",
+      className: "Week 4",
       date: "1/1/2020",
-      startTime: "12:00",
+      classTime: "12:00",
       endTime: "14:00",
-      code: 129032,
+      classCode: 129032,
     },
   ];
 
@@ -72,10 +72,10 @@ export default function ClassList(props) {
           {data.map(entry => (
             <TableRow key={entry.code}
               onClick={(e) => onRowClick(e, entry)} hover={props.onRowClick !== undefined}>
-              <TableCell>{entry.name}</TableCell>
-              <TableCell>{entry.date}</TableCell>
+              <TableCell>{entry.className}</TableCell>
+              <TableCell>{entry.classId}</TableCell>
               <TableCell>{entry.startTime}-{entry.endTime}</TableCell>
-              <TableCell>{entry.code}</TableCell>
+              <TableCell>{entry.classCode}</TableCell>
             </TableRow>
           ))}
         </TableBody>

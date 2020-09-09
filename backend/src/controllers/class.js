@@ -22,11 +22,11 @@ export const newClass = async (req, res) => {
         checkParams({
             className: {
                 data: className,
-                expectedType: "number"
+                expectedType: "string"
             },
             classCode: {
                 data: classCode,
-                expectedType: "number"
+                expectedType: "string"
             },
             classTime: {
                 data: classTime,

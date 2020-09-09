@@ -22,6 +22,16 @@ export default function StudentDashboardPage(props) {
     }
   });
 
+  async function handleJoinSubject(subjectCode) {
+    // TODO error handling toast
+    try {
+      await api.subject.join(authState.user.idToken, subjectCode);
+      setState(undefined);
+    }
+    catch (error) {
+    }
+  }
+
   const [openCodePopup, setOpenCodePopup] = useState(false);
   const history = useHistory();
 
@@ -51,7 +61,7 @@ export default function StudentDashboardPage(props) {
             Add Subject
           </Typography>
         </Button>
-        <CodePopup title="Enter Subject Code" open={openCodePopup} onClose={() => setOpenCodePopup(false)}/>
+        <CodePopup title="Enter Subject Code" open={openCodePopup} onClose={() => setOpenCodePopup(false)} onCodeEntered={handleJoinSubject}/>
       </Box>
 
       <SubjectList data={state} onSubjectClick={handleSubjectClick} />
