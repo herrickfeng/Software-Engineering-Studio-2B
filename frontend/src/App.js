@@ -68,10 +68,12 @@ function AppRouter(props) {
         <StudentNavigation />
         <StudentDashboardPage />
       </PrivateRoute>
-    
-      <PrivateRoute path="/student/class" exact={true}>
+
+      {/* TODO Fix route auth. It is fucked yet again */}
+      <Route path="/student/subject/:subjectId/class/:classId" exact={true} component={StudentClassPage} />
+      {/* <PrivateRoute path="/student/class" exact={true}>
         <StudentClassPage />
-      </PrivateRoute>
+      </PrivateRoute> */}
 
       <PrivateRoute path="/student/attendance" exact={true}>
         <StudentNavigation />
@@ -83,10 +85,14 @@ function AppRouter(props) {
         <StudentProfilePage />
       </PrivateRoute>
 
-      <PrivateRoute path="/student/classList" exact={true}>
+      {/* TODO Fix route auth. It is fucked yet again */}
+      <Route path="/student/subject/:subjectId" exact={true} component={StudentClassListPage} />
+      {/* <Route path="/student/subject/:subjectId" exact={true}
+        render={(props)=>{<StudentClassListPage props />}}
+      />
         <StudentNavigation />
         <StudentClassListPage />
-      </PrivateRoute>
+      </Route> */}
 
       <PrivateRoute
         path="/teacher/subjectList"
