@@ -39,7 +39,7 @@ export default function ClassSlot(props) {
   return (
     <Box>
       <Box mt={5}>
-        <Typography variant="h4">Software Engineering Studio 2B</Typography>
+        <Typography variant="h4">{props.data.subject.subjectName}</Typography>
       </Box>
 
       <Box display="flex" flexDirection="row">
@@ -47,9 +47,7 @@ export default function ClassSlot(props) {
         <Box m={2}>
           <Box>
             <Typography>
-              Week 3:
-              16
-              12
+              {props.data.class.className}
             </Typography>
           </Box>
           <Box>
@@ -66,7 +64,7 @@ export default function ClassSlot(props) {
 
         <Box m={2}>
           <Typography>
-            Code: 123413
+            {props.data.class.classCode}
           </Typography>
         </Box>
       </Box>
