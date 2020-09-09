@@ -93,14 +93,16 @@ function AppRouter(props) {
 
       <PrivateRoute
         path="/teacher/subjectList/classList"
-        exact={true}>
+        exact={true}
+        adminRoute={true}>
         <TeacherNavigation />
         <TeacherClassListPage />
       </PrivateRoute>
 
       <PrivateRoute
         path="/teacher/subjectList/classList/applicationsView"
-        exact={true}>
+        exact={true}
+        adminRoute={true}>
         <TeacherNavigation />
         <TeacherApplicationsViewPage />
       </PrivateRoute>
