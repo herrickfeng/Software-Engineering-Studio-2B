@@ -16,7 +16,6 @@ export default function StudentClassListPage(props) {
     const subject = (await api.subject.get(authState.user.idToken, subjectId)).data.data;
     subject.classes = (await api.subject.class.getAll(authState.user.idToken, subjectId)).data.data;
     setState(subject);
-    console.log(subject);
   };
 
   useEffect(() => {

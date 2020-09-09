@@ -23,7 +23,7 @@ export default function TeacherSubjectList(props) {
 	const subjectCard = (subject) => {
 		return (
 			<Box my={5}>
-				<Card onClick={() => history.push(`/subject/${subject.subjectId}`)}>
+				<Card onClick={() => history.push(`/teacher/subject/${subject.subjectId}`)}>
 					<CardActionArea>
 						<CardMedia
 							image="/download/picture.jpg"

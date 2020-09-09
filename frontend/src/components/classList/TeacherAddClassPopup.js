@@ -15,6 +15,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 export default function TeacherAddClassPopup(props) {
+  const [state, setState] = React.useState({className: "", classTime:{}, classCode: ""});
+
+
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    state[id] = value;
+    setState(state);
+  }
+
+  const handleAddSubject = () => {
+    props.onAdd(state);
+    props.onClose();
+  }
 
   return (
     <>
@@ -28,13 +41,14 @@ export default function TeacherAddClassPopup(props) {
             autoFocus
             variant="outlined"
             margin="normal"
-            id="subjectName"
-            label="Subject Name"
+            id="className"
+            label="Class Name"
             fullWidth
             required
+            onChange={handleChange}
           />
 
-          <TextField
+          {/* <TextField
             autoFocus
             variant="outlined"
             margin="normal"
@@ -42,9 +56,10 @@ export default function TeacherAddClassPopup(props) {
             label="Date"
             fullWidth
             required
-          />
+            onChange={handleChange}
+          /> */}
 
-          <TextField
+          {/* <TextField
             autoFocus
             variant="outlined"
             margin="normal"
@@ -52,6 +67,7 @@ export default function TeacherAddClassPopup(props) {
             label="Start Time"
             fullWidth
             required
+            onChange={handleChange}
           />
 
           <TextField
@@ -62,16 +78,18 @@ export default function TeacherAddClassPopup(props) {
             label="End Time"
             fullWidth
             required
-          />
+            onChange={handleChange}
+          /> */}
 
           <TextField
             autoFocus
             variant="outlined"
             margin="normal"
-            id="subjectCode"
-            label="Subject Code"
+            id="classCode"
+            label="Class Code"
             fullWidth
             required
+            onChange={handleChange}
           />
         </DialogContent>
 
@@ -79,7 +97,7 @@ export default function TeacherAddClassPopup(props) {
           <Button onClick={props.onClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={props.onClose} color="primary">
+          <Button onClick={handleAddSubject} color="primary">
             Add Class
           </Button>
         </DialogActions>

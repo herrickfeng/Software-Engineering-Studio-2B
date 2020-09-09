@@ -102,21 +102,23 @@ function AppRouter(props) {
         <TeacherSubjectListPage />
       </PrivateRoute>
 
-      <PrivateRoute
+      <Route path="/teacher/subject/:subjectId" exact={true} component={TeacherClassListPage} />
+      {/* <PrivateRoute
         path="/teacher/subjectList/classList"
         exact={true}
         adminRoute={true}>
         <TeacherNavigation />
         <TeacherClassListPage />
-      </PrivateRoute>
+      </PrivateRoute> */}
 
-      <PrivateRoute
+      <Route path="/teacher/subject/:subjectId/class/:classId" exact={true} component={TeacherApplicationsViewPage} />
+      {/* <PrivateRoute
         path="/teacher/subjectList/classList/applicationsView"
         exact={true}
         adminRoute={true}>
         <TeacherNavigation />
         <TeacherApplicationsViewPage />
-      </PrivateRoute>
+      </PrivateRoute> */}
 
       <Route path="/upload" exact>
         <TeacherNavigation />
