@@ -39,29 +39,21 @@ export default function TeacherSignUpPopup() {
             </Box>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
                 <DialogTitle id="form-dialog-title">
-                    Add a New Class
+                    Edit profile
                 </DialogTitle>
 
-                    <DialogContent>
+                    <DialogContent >
                         <TextField
                             autoFocus
                             variant="outlined"
                             margin="normal"
                             id="name"
                             label="Name"
+                            defaultValue="Peter Pan"
                             fullWidth
                             required
                         />
 
-                        <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="studentid"
-                            label="Student ID"
-                            fullWidth
-                            required
-                        />
 
                         <TextField
                             autoFocus
@@ -69,19 +61,13 @@ export default function TeacherSignUpPopup() {
                             margin="normal"
                             id="emailaddress"
                             label="Email Address"
+                            defaultValue="hsu.myat.win@uts.edu.au"
                             fullWidth
                             required
                         />
-
-                        <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="password"
-                            label="Password"
-                            fullWidth
-                            required
-                        />
+                        <Button variant="contained" color="primary">
+                            Reset Password
+                        </Button>
                     </DialogContent>
 
                 <DialogActions>

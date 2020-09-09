@@ -35,16 +35,16 @@ export default function StudentProfile(props) {
         <TableBody>
           {sampleData.map(entry => (
             <TableRow>
-              <TableCell>Name:</TableCell>
-              <TableCell>{entry.name}</TableCell>
+              <TableCell>Student ID:</TableCell>
+              <TableCell>{entry.id}</TableCell>
             </TableRow>
           ))}
         </TableBody>
         <TableBody>
           {sampleData.map(entry => (
             <TableRow>
-              <TableCell>Student ID:</TableCell>
-              <TableCell>{entry.id}</TableCell>
+              <TableCell>Name:</TableCell>
+              <TableCell>{entry.name}</TableCell>
             </TableRow>
           ))}
         </TableBody>
