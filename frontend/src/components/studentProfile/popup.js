@@ -18,63 +18,92 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 
-export default function TeacherSignUpPopup() {
+export default function TeacherSignUpPopup(props) {
     const [open, setOpen] = React.useState(false);
+    const [formState, setFormState] = React.useState(props.profileState);
 
     const handleClickOpen = () => {
-    setOpen(true);
+        setOpen(true);
     };
 
     const handleClose = () => {
-    setOpen(false);
+        setOpen(false);
     };
 
+    const handleChange = (event) => {
+        formState[event.target.id] = event.target.value;
+        setFormState({...formState});
+    };
+
+    const handleSave = () => {
+        handleClose();
+        props.updateProfile({...formState});
+        setFormState({...formState});
+    }
 
     return (
         <Container maxWidth="md">
-            <Box style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
-                <Button variant="contained" color="primary" onClick={handleClickOpen} startIcon={<EditIcon/>} >
-                   Edit
+            <Box style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Button variant="contained" color="primary" onClick={handleClickOpen} startIcon={<EditIcon />} >
+                    Edit
                 </Button>
             </Box>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
                 <DialogTitle id="form-dialog-title">
-                    Edit profile
+                    Edit Profile
                 </DialogTitle>
 
-                    <DialogContent >
-                        <TextField
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        variant="outlined"
+                        margin="normal"
+                        id="displayName"
+                        label="Name"
+                        fullWidth
+                        required
+                        onChange={handleChange}
+                        value={formState.displayName}
+                    />
+
+                    {/* <TextField
                             autoFocus
                             variant="outlined"
                             margin="normal"
-                            id="name"
-                            label="Name"
-                            defaultValue="Peter Pan"
+                            id="studentid"
+                            label="Student ID"
                             fullWidth
                             required
-                        />
+                        /> */}
 
+                    <TextField
+                        autoFocus
+                        variant="outlined"
+                        margin="normal"
+                        id="email"
+                        label="Email Address"
+                        fullWidth
+                        required
+                        onChange={handleChange}
+                        value={formState.email}
+                    />
 
-                        <TextField
+                    {/* <TextField
                             autoFocus
                             variant="outlined"
                             margin="normal"
-                            id="emailaddress"
-                            label="Email Address"
-                            defaultValue="hsu.myat.win@uts.edu.au"
+                            id="password"
+                            label="Password"
                             fullWidth
                             required
-                        />
-                        <Button variant="contained" color="primary">
-                            Reset Password
-                        </Button>
-                    </DialogContent>
+                        /> */}
+                </DialogContent>
 
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleSave} color="primary">
                         Save
                     </Button>
                 </DialogActions>

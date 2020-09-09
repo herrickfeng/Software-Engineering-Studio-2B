@@ -23,7 +23,7 @@ export default function SubjectList(props) {
 
   function subjectCard(subject) {
     return (
-      <Box my={2} key={subject.code} onClick={props.onSubjectClick}>
+      <Box my={2} key={subject.subjectCode} onClick={() => {props.onSubjectClick(subject)}}>
         <Card>
           <CardActionArea>
             <CardMedia
@@ -32,17 +32,17 @@ export default function SubjectList(props) {
             />
             <CardContent>
               <Typography gutterBottom variant="h5">
-                {subject.code} {subject.name}
+                {subject.subjectCode} {subject.subjectName}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                This is a safe space. {subject.id}
+                {subject.subjectId}
               </Typography>
             </CardContent>
           </CardActionArea>
 
           {props.onDeleteSubjectClick ? (
             <CardActions>
-              <Button size="small" color="primary" onClick={props.onDeleteSubjectClick}>
+              <Button size="small" color="primary" onClick={() => props.onDeleteSubjectClick(subject)}>
                 Delete
               </Button>
             </CardActions>
