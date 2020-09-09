@@ -3,70 +3,9 @@ import { Box, Container, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import SubjectList from "../../components/subjectList/index";
 import Typography from "@material-ui/core/Typography";
-import api from "../../helpers/api";
+import CodePopup from "../../components/codePopup/index";
+import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core';
-
-function JoinClassPopup(props) {
-  const [open, setOpen] = React.useState(false);
-  const [formState, setFormState] = React.useState("");
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleChange = (event) => {
-    setFormState(event.target.value);
-  };
-
-  const handleJoin = () => {
-    handleClose();
-    props.joinClass(formState);
-    setFormState("");
-  }
-
-  return (
-    <Container maxWidth="md">
-      <Box textAlign="center" my={5}>
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
-          <Typography>
-            Join Subject
-          </Typography>
-        </Button>
-      </Box>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
-        <DialogTitle id="form-dialog-title">
-          Enter class code
-        </DialogTitle>
-
-        <DialogContent>
-          <TextField
-            autoFocus
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            required
-            onChange={handleChange}
-            value={formState}
-          />
-        </DialogContent>
-
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-                  </Button>
-          <Button onClick={handleJoin} color="primary">
-            Join
-                  </Button>
-        </DialogActions>
-      </Dialog>
-    </Container>
-  );
-}
 
 export default function StudentDashboardPage(props) {
   const { authState } = React.useContext(AuthContext);
@@ -83,6 +22,7 @@ export default function StudentDashboardPage(props) {
     }
   });
 
+  const [openCodePopup, setOpenCodePopup] = useState(false);
   const history = useHistory();
 
   function handleSubjectClick(subject) {
@@ -105,7 +45,14 @@ export default function StudentDashboardPage(props) {
         <Typography variant="h4">Subject List</Typography>
       </Box>
 
-      <JoinClassPopup joinClass={handleJoinSubject} />
+      <Box textAlign="center" my={5}>
+        <Button variant="contained" color="primary" onClick={() => setOpenCodePopup(true)}>
+          <Typography>
+            Add Subject
+          </Typography>
+        </Button>
+        <CodePopup title="Enter Subject Code" open={openCodePopup} onClose={() => setOpenCodePopup(false)}/>
+      </Box>
 
       <SubjectList data={state} onSubjectClick={handleSubjectClick} />
     </Container>

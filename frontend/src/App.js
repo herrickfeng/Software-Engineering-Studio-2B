@@ -15,13 +15,14 @@ import TeacherClassListPage from "./pages/teacherClassList/index.js"
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
 import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js"
 import StudentDashboardPage from "./pages/studentDashboard";
-import StudentClassListPage from "./pages/studentClassList/index";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
 import StudentNavigation from "./components/studentNavigation";
 import TeacherNavigation from "./components/teacherNavigation";
 import Footer from "./components/footer";
+import StudentClassListPage from "./pages/studentClassList";
+import StudentClassPage from "./pages/studentClass";
 
 
 //Context
@@ -66,6 +67,10 @@ function AppRouter(props) {
       <PrivateRoute path="/student/dashboard" exact={true}>
         <StudentNavigation />
         <StudentDashboardPage />
+      </PrivateRoute>
+    
+      <PrivateRoute path="/student/class" exact={true}>
+        <StudentClassPage />
       </PrivateRoute>
 
       <PrivateRoute path="/student/attendance" exact={true}>
