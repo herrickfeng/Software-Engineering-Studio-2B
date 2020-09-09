@@ -17,6 +17,15 @@ import {
   updateSubjectAdmin,
   deleteSubjectAdmin
 } from "./subject";
+import {
+  getClassStudent,
+  getAllClassStudent,
+  createClassAdmin,
+  getClassAdmin,
+  getAllClassAdmin,
+  updateClassAdmin,
+  deleteClassAdmin,
+} from "./class";
 
 export const API_HOST = "localhost:4000";
 
@@ -36,6 +45,10 @@ export default {
     get: getSubjectStudent,
     getAll: getAllSubjectStudent,
     join: joinSubject,
+    class: {
+      get: getClassStudent,
+      getAll: getAllClassStudent,
+    }
   },
   admin: {
     subject: {
@@ -43,7 +56,14 @@ export default {
       getAll: getAllSubjectAdmin,
       get: getSubjectAdmin,
       update: updateSubjectAdmin,
-      delete: deleteSubjectAdmin
+      delete: deleteSubjectAdmin,
+      class: {
+        create: createClassAdmin,
+        get: getClassAdmin,
+        getAll: getAllClassAdmin,
+        update: updateClassAdmin,
+        delete: deleteClassAdmin,
+      }
     }
   }
 }
