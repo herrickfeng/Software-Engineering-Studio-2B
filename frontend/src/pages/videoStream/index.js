@@ -58,9 +58,7 @@ export default function VideoStream() {
     const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, .6)
     console.log(stream.id)
     if (stream) {
-      const faceSearch = setInterval(async () => {
-        console.log("hello there")
-        //console.log(videoTag.current.srcObject)
+      setInterval(async () => {
         if (videoTag.current != null){
           const detection = await faceapi.detectSingleFace(videoTag.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
           console.log(detection)
@@ -69,7 +67,6 @@ export default function VideoStream() {
             console.log(bestMatch.label)
             //clearInterval(faceSearch)
             setShowDetection(bestMatch.label)
-            //setShowDetection(Math.floor((Math.random() * 100) + 1))
           }
         }
       }, 2000)
@@ -87,8 +84,6 @@ export default function VideoStream() {
         HandleDetections(stream)
       })
       .catch(err => console.error(err))
-    //setShowDetection(Math.floor((Math.random() * 100) + 1))
-    //setShowDetection(bestMatch.label)
   })
 
 
@@ -98,8 +93,9 @@ export default function VideoStream() {
     <div>
       <video ref={videoTag} width="1440" height="1120" muted></video>
       <div>
-      <p>hello {showDetection}</p>
-        <canvas ref={canvas} />
+        <p>hello are you {showDetection}?</p>
+        <button> yes </button>
+        <button> no </button>
       </div>
     </div>
   );
