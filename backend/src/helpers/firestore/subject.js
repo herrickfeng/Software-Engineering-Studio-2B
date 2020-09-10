@@ -1,24 +1,30 @@
 import { db } from "../firebase-admin";
 import { v4 as uuid } from "uuid";
 
-const exampleCollectionName = "subjects";
+const collectionName = "subjects";
 
 export default {
   get: (id) => {
     return db
-      .collection(exampleCollectionName)
+      .collection(collectionName)
       .doc(id)
       .get();
   },
   getAll: () => {
     return db
-      .collection(exampleCollectionName)
+      .collection(collectionName)
       .get();
   },
   getAllWhere: (where, userId) => {
     return db
-      .collection("subjects")
+      .collection(collectionName)
       .where(where, "array-contains", userId)
+      .get();
+  },
+  getByCode: (code) => {
+    return db
+      .collection(collectionName)
+      .where("subjectCode", "==", code)
       .get();
   },
   create: (subjectDoc, data) => {
@@ -27,7 +33,6 @@ export default {
   update: (subjectDoc, data) => {
     return subjectDoc.ref.update(data);
   },
-  // TODO : DELETE Oor REMOVE
   delete: (subjectDoc) => {
     return subjectDoc.ref.delete();
   }

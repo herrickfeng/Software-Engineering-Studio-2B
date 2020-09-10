@@ -1,4 +1,6 @@
 import React from 'react';
+import { AuthContext } from "../../context/auth";
+import api from "../../helpers/api";
 
 //general material-ui components
 import Container from "@material-ui/core/Container";
@@ -18,8 +20,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 
-export default function TeacherSignUpPopup() {
+export default function TeacherSignUpPopup(props) {
     const [open, setOpen] = React.useState(false);
+    const [subjectState, setSubjectState] = React.useState({});
 
     const handleClickOpen = () => {
     setOpen(true);
@@ -29,20 +32,38 @@ export default function TeacherSignUpPopup() {
     setOpen(false);
     };
 
+    const handleSubjectChange = (event) => {
+        const { id, value } = event.target;
+        subjectState[id] = value;
+        setSubjectState({ ...subjectState });
+    }
+
+    const handleAddSubject = () => {
+        const subjectData = {
+            subjectName: subjectState.subjectName,
+            subjectCode: subjectState.subjectCode
+        }
+        props.addSubject(subjectData);
+        handleClose();
+    }
 
     return (
         <Container maxWidth="md">
             <Box style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
                 <Button variant="contained" color="primary" onClick={handleClickOpen} startIcon={<AddIcon/>} >
-                    Add Class
+                    Add Subject
                 </Button>
             </Box>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">
-                    Add a New Class
+                    Add a New Subject
                 </DialogTitle>
 
                     <DialogContent>
+                        <DialogContentText>
+                            To add a new subject, please enter a valid subject name and code down below.
+                        </DialogContentText>
+
                         <TextField
                             autoFocus
                             variant="outlined"
@@ -51,36 +72,7 @@ export default function TeacherSignUpPopup() {
                             label="Subject Name"
                             fullWidth
                             required
-                        />
-
-                        <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="date"
-                            label="Date"
-                            fullWidth
-                            required
-                        />
-
-                        <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="startTime"
-                            label="Start Time"
-                            fullWidth
-                            required
-                        />
-
-                        <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="endTime"
-                            label="End Time"
-                            fullWidth
-                            required
+                            onChange={handleSubjectChange}
                         />
 
                         <TextField
@@ -89,8 +81,8 @@ export default function TeacherSignUpPopup() {
                             margin="normal"
                             id="subjectCode"
                             label="Subject Code"
-                            fullWidth
                             required
+                            onChange={handleSubjectChange}
                         />
                     </DialogContent>
 
@@ -98,8 +90,8 @@ export default function TeacherSignUpPopup() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Add Class
+                    <Button onClick={handleAddSubject} color="primary">
+                        Add Subject
                     </Button>
                 </DialogActions>
 
