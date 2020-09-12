@@ -14,6 +14,28 @@ export const UploadImage = async (req, res) => {
       req.file.mimetype === "image/tiff" ||
       req.file.mimetype === "image/webp") {
 
+      let testFile = store.file('9uyzaLD235YjRwPxpUunS71gOQW2')
+      let fileType = ""
+      testFile.exists().then(function (data) {
+        const exists = data[0];
+        console.log(exists)
+      });
+
+      /*
+      testFile.getMetadata().then(function (data) {
+        const metadata = data[0];
+        console.log(metadata.metadata.contentType)
+        //const apiResponse = data[1];
+        //console.log(apiResponse)
+      });
+      */
+
+      await testFile.getMetadata().then(function (data) {
+        fileType = data[0].metadata.contentType
+      });
+
+      console.log(fileType)
+
       const metadata = {
         metadata: {
           contentType: req.file.mimetype,
@@ -51,4 +73,28 @@ export const UploadImage = async (req, res) => {
     return handleApiError(res, error);
     console.log("did an oopsie at the back ( ${ error })");
   }
+}
+
+export const DownloadImage = async (req, res) => {
+  try {
+    let testFile = store.file('9uyzaLD235YjRwPxpUunS71gOQW2')
+    let fileType = ""
+
+    await testFile.getMetadata().then(function (data) {
+      fileType = data[0].metadata.contentType
+    });
+
+    testFile.download(function (err, contents) {
+      //res.set('Content-Type', fileType)
+      console.log(contents)
+      return res.status(200).send(contents.toString('base64'))
+    });
+
+  }
+  catch (error){
+    console.log(error)
+  }
+
+
+
 }

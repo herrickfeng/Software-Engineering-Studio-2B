@@ -6,7 +6,6 @@ import TeacherSubjectListPage from "../teacherSubjectList";
 
 export default function HomePage() {
   const { authState, setAuthState } = React.useContext(AuthContext);
-  console.log(authState.user.uid);
 
   if (authState.authenticated) {
     return authState.user.claims.teacher ? <Redirect to="/teacher/subjectList" />: <Redirect to="/student/dashboard" />; 
