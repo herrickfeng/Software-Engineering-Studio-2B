@@ -85,9 +85,11 @@ export const DownloadImage = async (req, res) => {
     });
 
     testFile.download(function (err, contents) {
-      //res.set('Content-Type', fileType)
+      res.set('Content-Type', fileType)
+      const conversion = contents.toString('base64')
+      const conversionFileType = "data:" + fileType + ';base64,'
       console.log(contents)
-      return res.status(200).send(contents.toString('base64'))
+      return res.status(200).send(conversionFileType + conversion)
     });
 
   }

@@ -20,7 +20,7 @@ export default function StudentProfilePage(props) {
 
   const fetchImage = async () => {
     const imageData = await api.user.download(authState.user.uid)
-    console.log(imageData)
+    //console.log(imageData)
     setProfileImage(imageData.data)
     console.log(profileImage)
   }
