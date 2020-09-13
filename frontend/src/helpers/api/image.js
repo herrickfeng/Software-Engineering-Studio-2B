@@ -9,6 +9,7 @@ export const uploadImage = async (fileData) => {
 };
 
 export const downloadImage = async (userId) => {
-  const res = await axios.get(`http://${API_HOST}/image/download`, userId)
+  console.log("the userid is " + userId)
+  const res = await axios.get(`http://${API_HOST}/image/${userId}/download`);
   return res;
 }

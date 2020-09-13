@@ -15,6 +15,6 @@ const uploader = multer({
 //userRouter.post("/upload", uploader.single('image'), UploadImage);
 
 userRouter.post("/upload", uploader.single('image'), UploadImage);
-userRouter.get("/download", DownloadImage);
+userRouter.get("/:userId/download", DownloadImage);
 
 export default userRouter;

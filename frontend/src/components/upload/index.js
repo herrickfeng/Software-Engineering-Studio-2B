@@ -1,12 +1,13 @@
 import React from "react";
 import Input from '@material-ui/core/Input';
-import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button"
 import LinearProgress from "@material-ui/core/LinearProgress"
+import CircularProgress from "@material-ui/core/CircularProgress"
 import api from "../../helpers/api/index";
 import FormData from 'form-data';
 import { AuthContext } from "../../context/auth";
 
-export default function UploadImageForm() {
+export default function UploadImageForm(props) {
   const [showResult, setShowResult] = React.useState(false);
   const [showProgress, setShowProgress] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -33,13 +34,18 @@ export default function UploadImageForm() {
     }
   }
 
+  const uploadButton = () => {
+    return (<Button variant="contained" component="label" color='primary'>
+      Upload File
+        <Input type="file" style={{ display: "none" }} onChange={handleUpload} disableUnderline/>
+    </Button>
+    )
+  }
+
   return (
-    <Grid container>
-      <Grid item>
-        <Input type="file" onChange={handleUpload} disableUnderline />
-        {showProgress ? <LinearProgress />: null}
-        {showResult ? <p> {message} </p>: null}
-      </Grid>
-    </Grid>
+    <div>
+      {showProgress ? <CircularProgress color="primary"/> : uploadButton()}
+      {showResult ? <p> {message} </p>: null}
+    </div>
   );
 };

@@ -14,28 +14,6 @@ export const UploadImage = async (req, res) => {
       req.file.mimetype === "image/tiff" ||
       req.file.mimetype === "image/webp") {
 
-      let testFile = store.file('9uyzaLD235YjRwPxpUunS71gOQW2')
-      let fileType = ""
-      testFile.exists().then(function (data) {
-        const exists = data[0];
-        console.log(exists)
-      });
-
-      /*
-      testFile.getMetadata().then(function (data) {
-        const metadata = data[0];
-        console.log(metadata.metadata.contentType)
-        //const apiResponse = data[1];
-        //console.log(apiResponse)
-      });
-      */
-
-      await testFile.getMetadata().then(function (data) {
-        fileType = data[0].metadata.contentType
-      });
-
-      console.log(fileType)
-
       const metadata = {
         metadata: {
           contentType: req.file.mimetype,
@@ -77,20 +55,27 @@ export const UploadImage = async (req, res) => {
 
 export const DownloadImage = async (req, res) => {
   try {
-    let testFile = store.file('9uyzaLD235YjRwPxpUunS71gOQW2')
+    const userId = req.params.userId
+
+    let file = store.file(userId)
     let fileType = ""
+    let exists = await file.exists()
 
-    await testFile.getMetadata().then(function (data) {
-      fileType = data[0].metadata.contentType
-    });
+    if (exists) {
+      await file.getMetadata().then(function (data) {
+        fileType = data[0].metadata.contentType
+      });
 
-    testFile.download(function (err, contents) {
-      res.set('Content-Type', fileType)
-      const conversion = contents.toString('base64')
-      const conversionFileType = "data:" + fileType + ';base64,'
-      console.log(contents)
-      return res.status(200).send(conversionFileType + conversion)
-    });
+      file.download(function (err, contents) {
+        res.set('Content-Type', fileType)
+        const conversion = contents.toString('base64')
+        const conversionFileType = "data:" + fileType + ';base64,'
+        return res.status(200).send(conversionFileType + conversion)
+      });
+    }
+    else {
+      return res.status(404)
+    }
 
   }
   catch (error){
