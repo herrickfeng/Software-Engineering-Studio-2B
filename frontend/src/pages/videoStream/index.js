@@ -5,7 +5,19 @@ import * as faceapi from 'face-api.js';
 
 export default function VideoStream() {
 
-  const sampleClass = ['Andrew', 'Herrick', 'Jesus Christ', 'Bryan', 'Calvin', 'Brendon', 'Andy', 'Agid', 'Mitchell', 'Ryan', 'Vabnisha', 'David']
+  const sampleClass = [
+    '4UIjqGTLo5UvUL42juUU0cT05kf2',
+    '10pfIkcBBwfbLfCqp9EedlJhHjt1',
+    '7sS9jJ0HAjOkyEcRq2zr9bwfMFa2',
+    'mCxm0I2I0wc2VYb4dktQxC5OZuJ3',
+    '9uyzaLD235YjRwPxpUunS71gOQW2',
+    'LmUyt7oSimO1aPM0v9Usw4zxRNP2',
+    '4UIjqGTLo5UvUL42juUU0cT05kf2',
+    'ifqV3hCwScgnr24LtXOXpKB3O8n1',
+    'O03MbmTBYAUv68SOcsKLZgpvoAW2',
+    'WSzHDHqUSOWQEZkh8BigJ8pOKkA3',
+    'ENYh7F3VePgq9Nc7EjuHQahRxl53'
+  ]
   const [mediaStream, setMediaStream] = useState(false)
   const [showDetection, setShowDetection] = useState(" ")
   //const labeledDescriptors = getImages() // This is an array of arrays. The Arrays are hold each labeled face descriptor
