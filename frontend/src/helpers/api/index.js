@@ -6,7 +6,10 @@ import {
   deleteUser,
   resetPassword
 } from "./user";
-import { uploadImage } from "./upload";
+import {
+  uploadImage,
+  downloadImage
+} from "./image";
 import {
   getSubjectStudent,
   getAllSubjectStudent,
@@ -40,6 +43,7 @@ export default {
     update: updateUser,
     delete: deleteUser,
     upload: uploadImage,
+    download: downloadImage
   },
   subject: {
     get: getSubjectStudent,

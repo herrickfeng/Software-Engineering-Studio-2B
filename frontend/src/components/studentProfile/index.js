@@ -2,6 +2,7 @@ import React from "react"
 import { Button, TableHead, TableRow, TableCell, TableBody, Box } from "@material-ui/core";
 import LinedTable from "../../components/linedTable/index";
 import { Link } from "react-router-dom";
+import UploadImageForm from "../../components/upload"; 
 
 /**
  * An example for what can be passed in via props
@@ -63,6 +64,16 @@ export default function StudentProfile(props) {
               </TableCell>
             </TableRow>
           ))}
+        </TableBody>
+        <TableBody>
+            <TableRow>
+            <TableCell align="left">
+              <img src={props.imageState} height="200vh" objectFit="contain" />
+            </TableCell>
+            <TableCell>
+              <UploadImageForm/>
+              </TableCell>
+            </TableRow>
         </TableBody>
       </LinedTable>
 

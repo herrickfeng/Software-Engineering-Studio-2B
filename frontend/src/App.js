@@ -23,6 +23,7 @@ import TeacherNavigation from "./components/teacherNavigation";
 import Footer from "./components/footer";
 import StudentClassListPage from "./pages/studentClassList";
 import StudentClassPage from "./pages/studentClass";
+import VideoPage from "./pages/videoStream";
 
 
 //Context
@@ -62,6 +63,11 @@ function AppRouter(props) {
       <Route path="/signout" exact={true}>
         <Navigation />
         <Signout />
+      </Route>
+
+      <Route path="/video" exact={true}>
+        <Navigation />
+        <VideoPage />
       </Route>
 
       <PrivateRoute path="/student/dashboard" exact={true}>

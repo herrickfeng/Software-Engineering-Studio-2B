@@ -10,15 +10,23 @@ import { Alert } from "@material-ui/lab";
 export default function StudentProfilePage(props) {
   const { authState } = React.useContext(AuthContext);
   const [profileState, setProfileState] = useState(undefined);
+  const [imageState, setImageState] = useState(undefined);
 
   const fetchData = async () => {
     const userData = await api.user.get(authState.user.idToken)
     setProfileState(userData.data.data);
   };
 
+  const fetchImage = async () => {
+    // TODO: Update displayed image automatically once it's uploaded
+    const imageData = await api.user.download(authState.user.uid)
+    setImageState(imageData.data)
+  }
+
   useEffect(() => {
     if (profileState === undefined) {
       fetchData();
+      fetchImage();
     }
   });
 
@@ -33,15 +41,15 @@ export default function StudentProfilePage(props) {
     await api.auth.reset(profileState.email);
   }
 
-
   return (
     <Container maxWidth={"md"}>
       {/* TODO: LOADING  */}
       {profileState ? [
-        < StudentProfile profileState={profileState} handleResetPassword={handleResetPassword}/>,
+        < StudentProfile profileState={profileState} imageState={imageState} handleResetPassword={handleResetPassword}/>,
         <Box>
           <Popup profileState={profileState} updateProfile={updateProfile} />
-        </Box>]
+        </Box>
+      ]
         :
         <h1>Loading</h1>
       }
