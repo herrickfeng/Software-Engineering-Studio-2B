@@ -58,7 +58,7 @@ describe("seed", () => {
           .set("Authorization", `Bearer ${teacherBody.idToken}`)
           .send({
             className: `Week ${j+1}`,
-            classCode: j,
+            classCode: `${j}`,
             date: "2020-01-01",
             startTime: "10:00",
             endTime: "12:00"
@@ -76,6 +76,7 @@ describe("seed", () => {
       response = await request(server).post("/user/create").send(studentBody);
       response = await request(server).post("/auth/login").send(studentBody);
       studentBody = { ...studentBody, ...response.body.data }
+      response = await request(server).post("/image/upload").attach("image", `./src/seed/images/${studentBody.displayName}.png`, studentBody.userId);
 
       for (var j = 0; j < subjects.length; j++) {
         var subjectBody = subjects[j]
