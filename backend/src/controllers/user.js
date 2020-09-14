@@ -10,7 +10,7 @@ import {
 
 export const newUser = async (req, res) => {
     try {
-        const { email, password, displayName } = req.body;
+        const { email, password, displayName, test } = req.body;
 
         //Check if fields are completed
         checkParams({
@@ -32,8 +32,8 @@ export const newUser = async (req, res) => {
 
         const defaultUserRoles = {
             "student": true,
-            "teacher": false,
-            "admin": false
+            "teacher": test === "teacher" ? true: false,
+            "admin":  test === "admin" ? true: false
         }
         await admin.auth().setCustomUserClaims(user.uid, defaultUserRoles);
 

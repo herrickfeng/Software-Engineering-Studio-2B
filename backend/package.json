@@ -15,13 +15,16 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "mocha": "^8.1.3",
     "nodemon": "^2.0.4",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r esm -r dotenv/config src/index.js",
     "dev": "nodemon --exec \"npm run start\"",
+    "seed": "mocha -r esm -r dotenv/config 'src/**/seed/*.seed.js' --exit",
     "lint": "prettier \"src/**/*.js\" --write"
   },
   "repository": {
