@@ -57,9 +57,11 @@ describe("seed", () => {
         const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/class/create`)
           .set("Authorization", `Bearer ${teacherBody.idToken}`)
           .send({
-            className: `Week ${j}`,
+            className: `Week ${j+1}`,
             classCode: j,
-            classTime: {}
+            date: "2020-01-01",
+            startTime: "10:00",
+            endTime: "12:00"
           });
       }
     }
