@@ -3,6 +3,7 @@ import { Box } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import ClassSlotOption from "./ClassSlotOption";
+import moment from "moment"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,12 +53,12 @@ export default function ClassSlot(props) {
           </Box>
           <Box>
             <Typography>
-              16/2/2020
+              {moment(props.data.class.date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}
             </Typography>
           </Box>
           <Box>
             <Typography>
-              16:00 - 20:00
+            {moment(props.data.class.startTime, "hh:mm").format('LT')} - {moment(props.data.class.endTime, "hh:mm").format('LT')}
             </Typography>
           </Box>
         </Box>
