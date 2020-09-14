@@ -1,6 +1,7 @@
 import React from "react"
 import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import LinedTable from "../../components/linedTable/index";
+import moment from "moment"
 
 /**
  * An example for what can be passed in via props
@@ -73,8 +74,8 @@ export default function ClassList(props) {
             <TableRow key={entry.code}
               onClick={(e) => onRowClick(e, entry)} hover={props.onRowClick !== undefined}>
               <TableCell>{entry.className}</TableCell>
-              <TableCell>{entry.classId}</TableCell>
-              <TableCell>{entry.startTime}-{entry.endTime}</TableCell>
+              <TableCell>{moment(entry.date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</TableCell>
+              <TableCell>{moment(entry.startTime, "hh:mm").format('LT')} - {moment(entry.endTime, "hh:mm").format('LT')}</TableCell>
               <TableCell>{entry.classCode}</TableCell>
             </TableRow>
           ))}
