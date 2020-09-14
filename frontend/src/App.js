@@ -15,13 +15,15 @@ import TeacherClassListPage from "./pages/teacherClassList/index.js"
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
 import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js"
 import StudentDashboardPage from "./pages/studentDashboard";
-import StudentClassListPage from "./pages/studentClassList/index";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
 import StudentNavigation from "./components/studentNavigation";
 import TeacherNavigation from "./components/teacherNavigation";
 import Footer from "./components/footer";
+import StudentClassListPage from "./pages/studentClassList";
+import StudentClassPage from "./pages/studentClass";
+import VideoPage from "./pages/videoStream";
 
 
 //Context
@@ -63,10 +65,21 @@ function AppRouter(props) {
         <Signout />
       </Route>
 
+      <Route path="/video" exact={true}>
+        <Navigation />
+        <VideoPage />
+      </Route>
+
       <PrivateRoute path="/student/dashboard" exact={true}>
         <StudentNavigation />
         <StudentDashboardPage />
       </PrivateRoute>
+
+      {/* TODO Fix route auth. It is fucked yet again */}
+      <Route path="/student/subject/:subjectId/class/:classId" exact={true} component={StudentClassPage} />
+      {/* <PrivateRoute path="/student/class" exact={true}>
+        <StudentClassPage />
+      </PrivateRoute> */}
 
       <PrivateRoute path="/student/attendance" exact={true}>
         <StudentNavigation />
@@ -78,10 +91,14 @@ function AppRouter(props) {
         <StudentProfilePage />
       </PrivateRoute>
 
-      <PrivateRoute path="/student/classList" exact={true}>
+      {/* TODO Fix route auth. It is fucked yet again */}
+      <Route path="/student/subject/:subjectId" exact={true} component={StudentClassListPage} />
+      {/* <Route path="/student/subject/:subjectId" exact={true}
+        render={(props)=>{<StudentClassListPage props />}}
+      />
         <StudentNavigation />
         <StudentClassListPage />
-      </PrivateRoute>
+      </Route> */}
 
       <PrivateRoute
         path="/teacher/subjectList"
@@ -91,19 +108,23 @@ function AppRouter(props) {
         <TeacherSubjectListPage />
       </PrivateRoute>
 
-      <PrivateRoute
+      <Route path="/teacher/subject/:subjectId" exact={true} component={TeacherClassListPage} />
+      {/* <PrivateRoute
         path="/teacher/subjectList/classList"
-        exact={true}>
+        exact={true}
+        adminRoute={true}>
         <TeacherNavigation />
         <TeacherClassListPage />
-      </PrivateRoute>
+      </PrivateRoute> */}
 
-      <PrivateRoute
+      <Route path="/teacher/subject/:subjectId/class/:classId" exact={true} component={TeacherApplicationsViewPage} />
+      {/* <PrivateRoute
         path="/teacher/subjectList/classList/applicationsView"
-        exact={true}>
+        exact={true}
+        adminRoute={true}>
         <TeacherNavigation />
         <TeacherApplicationsViewPage />
-      </PrivateRoute>
+      </PrivateRoute> */}
 
       <Route path="/upload" exact>
         <TeacherNavigation />

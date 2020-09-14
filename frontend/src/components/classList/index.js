@@ -1,19 +1,13 @@
 import React from "react"
-import {Button, TableHead, TableRow, TableCell, TableBody, Box} from "@material-ui/core";
+import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import LinedTable from "../../components/linedTable/index";
-import {Link} from "react-router-dom";
 
 /**
  * An example for what can be passed in via props
- * {
- *   data: // Data containing all the classes which will be displayed
- *   onAddClick: // A listener for when add class is clicked
- *   onBackClick: // A listener for when back is clicked
- *   addPath: // Path to another route via react router
- *   backPath: // Path to previous route via react router
+ * props {
+ *   data // Data containing all the classes which will be displayed
+ *   onRowClick(event, entry) // A callback to when a row is clicked by the user
  * }
- * @param props
- * @return {React.Component}
  */
 export default function ClassList(props) {
 
@@ -22,34 +16,45 @@ export default function ClassList(props) {
 
   let sampleData = [
     {
-      name: "Week 1",
+      className: "Week 1",
       date: "11/8/2020",
-      startTime: "12:00",
+      classTime: "12:00",
       endTime: "14:00",
       classCode: 123123,
     },
     {
-      name: "Week 2",
+      className: "Week 2",
       date: "18/8/2020",
-      startTime: "12:00",
+      classTime: "12:00",
       endTime: "14:00",
       classCode: 392044,
     },
     {
-      name: "Week 3",
+      className: "Week 3",
       date: "25/8/2020",
-      startTime: "12:00",
+      classTime: "12:00",
       endTime: "14:00",
       classCode: 320940,
     },
     {
-      name: "Week 4",
+      className: "Week 4",
       date: "1/1/2020",
-      startTime: "12:00",
+      classTime: "12:00",
       endTime: "14:00",
       classCode: 129032,
     },
   ];
+
+  let data = props.data || sampleData;
+
+  function onRowClick(event, entry) {
+    // Hopefully do something with the given entry and pass it to the next page
+    if (props.onRowClick) {
+      props.onRowClick(event, entry);
+    }
+  }
+
+  console.log(onRowClick);
 
   return (
     <>
@@ -64,25 +69,17 @@ export default function ClassList(props) {
         </TableHead>
 
         <TableBody>
-          {sampleData.map(entry => (
-            <TableRow>
-              <TableCell>{entry.name}</TableCell>
-              <TableCell>{entry.date}</TableCell>
+          {data.map(entry => (
+            <TableRow key={entry.code}
+              onClick={(e) => onRowClick(e, entry)} hover={props.onRowClick !== undefined}>
+              <TableCell>{entry.className}</TableCell>
+              <TableCell>{entry.classId}</TableCell>
               <TableCell>{entry.startTime}-{entry.endTime}</TableCell>
               <TableCell>{entry.classCode}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </LinedTable>
-
-      <Box my={3} display={"flex"} justifyContent={"space-between"}>
-        <Button variant={"outlined"} color={"primary"} component={Link} to={props.backTo} onClick={props.onBackClick}>
-          Back
-        </Button>
-        <Button variant={"outlined"} color={"primary"} component={Link} to={props.addTo} onClick={props.onAddClick}>
-          + Add Class
-        </Button>
-      </Box>
     </>
   );
 }

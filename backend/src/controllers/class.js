@@ -26,7 +26,7 @@ export const newClass = async (req, res) => {
             },
             classCode: {
                 data: classCode,
-                expectedType: "number"
+                expectedType: "string"
             },
             classTime: {
                 data: classTime,
