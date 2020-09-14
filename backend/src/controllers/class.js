@@ -12,7 +12,7 @@ export const newClass = async (req, res) => {
         const userId = req.authId;
         const subjectId = req.params.subjectId;
         const classBody = req.body;
-        const { className, classCode, classTime, classId } = classBody;
+        const { className, classCode, date, startTime, endTime } = classBody;
 
         // Generate a new uuid if no id was provided
         if (classBody.classId === undefined) {
@@ -28,9 +28,17 @@ export const newClass = async (req, res) => {
                 data: classCode,
                 expectedType: "string"
             },
-            classTime: {
-                data: classTime,
-                expectedType: "object"
+            date: {
+                data: date,
+                expectedType: "string"
+            },
+            startTime: {
+                data: startTime,
+                expectedType: "string"
+            },
+            endTime: {
+                data: endTime,
+                expectedType: "string"
             },
             subjectId: {
                 data: subjectId,
@@ -91,24 +99,32 @@ export const getClass = async (req, res) => {
 export const updateClass = async (req, res) => {
     try {
         const classBody = req.body;
-        const { className, classCode, classTime, classId } = classBody;
+        const { className, classCode, date, startTime, endTime } = classBody;
         const id = req.params.classId;
 
         checkParams({
             className: {
                 data: className,
-                expectedType: "int"
+                expectedType: "string"
             },
             classCode: {
                 data: classCode,
-                expectedType: "int"
+                expectedType: "string"
             },
-            classTime: {
-                data: classTime,
-                expectedType: "object"
+            date: {
+                data: date,
+                expectedType: "string"
+            },
+            startTime: {
+                data: startTime,
+                expectedType: "string"
+            },
+            endTime: {
+                data: endTime,
+                expectedType: "string"
             }
         });
-
+        
         const classDoc = await firestore.class.get(id);
         if (classDoc.exists === true) {
             await firestore.class.update(classDoc, classBody);
