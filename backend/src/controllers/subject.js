@@ -1,4 +1,5 @@
 import firestore from "../helpers/firestore";
+import admin from "../helpers/firebase-admin";
 import { checkParams } from "../helpers/validators/params";
 import { v4 as uuidv4 } from "uuid";
 import { FirestoreError } from "../errors/firestore";
@@ -8,6 +9,7 @@ import {
     handleApiError
 } from "../helpers/apiResponse";
 import subject from "../helpers/firestore/subject";
+import { store } from "../helpers/firebase-admin";
 
 export const newSubject = async (req, res) => {
     try {
@@ -90,13 +92,13 @@ export const joinSubject = async (req, res) => {
             const subjectDoc = allSubjectDoc.docs[0];
             var subjectBody = subjectDoc.data()
 
-            if (subjectBody.students.includes(userId)){
+            if (subjectBody.students.includes(userId)) {
                 return res.status(400).json(errorResponse(`Student already enrolled into ${subjectCode}`));
             }
 
             subjectBody.students.push(userId);
             await firestore.subject.update(subjectDoc, subjectBody);
-            return res.status(200).json(successResponse({msg: "Student successfully enrolled"}));
+            return res.status(200).json(successResponse({ msg: "Student successfully enrolled" }));
         } else {
             return res.status(400).json(errorResponse(`No such subject with code ${subjectCode}`, "subject-missing", "FirestoreError"));
         }
@@ -140,7 +142,7 @@ export const getAllTeacherSubject = async (req, res) => {
 export const updateSubject = async (req, res) => {
     try {
         const subjectBody = req.body;
-        const { subjectName, subjectCode, classes} = subjectBody;
+        const { subjectName, subjectCode, classes } = subjectBody;
         const id = req.params.id;
 
         checkParams({
@@ -195,6 +197,39 @@ export const deleteSubject = async (req, res) => {
                     msg: "Subject successfully deleted"
                 })
             );
+        } else {
+            throw new FirestoreError("missing", subjectDoc.ref, "subject");
+        }
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getAllStudents = async (req, res) => {
+    try {
+        const subjectId = req.params.subjectId;
+        const subjectDoc = await firestore.subject.get(subjectId);
+        if (subjectDoc.exists) {
+            var subjectBody = subjectDoc.data();
+            //iterate through students array within subject
+            var studentBodys = [];
+
+            for (var i = 0; i < subjectBody.students.length; i++) {
+                var studentId = subjectBody.students[i];
+                var user = await admin.auth().getUser(studentId);
+                var image = undefined;
+                let file = store.file(studentId)
+                if ((await file.exists())) {
+                    const config = {
+                        action: 'read',
+                        expires: '01-01-2025'
+                    };
+                    image = await file.getSignedUrl(config);
+                }
+                studentBodys.push({...user, image: image[0]});
+            }
+
+            return res.status(200).json(successResponse(studentBodys));
         } else {
             throw new FirestoreError("missing", subjectDoc.ref, "subject");
         }
