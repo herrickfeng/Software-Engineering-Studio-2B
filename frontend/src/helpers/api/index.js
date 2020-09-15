@@ -4,7 +4,8 @@ import {
   getUserById,
   updateUser,
   deleteUser,
-  resetPassword
+  resetPassword,
+  uploadProfilePicture
 } from "./user";
 import {
   uploadImage,
@@ -42,7 +43,7 @@ export default {
     getById: getUserById,
     update: updateUser,
     delete: deleteUser,
-    upload: uploadImage,
+    upload: uploadProfilePicture,
     download: downloadImage
   },
   subject: {
