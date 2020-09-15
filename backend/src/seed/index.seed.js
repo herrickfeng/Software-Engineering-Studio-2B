@@ -53,7 +53,8 @@ describe("seed", () => {
     var teacherBody = teachers[teacherId]
     for (var i = 0; i < subjects.length; i++) {
       var subjectBody = subjects[i];
-      for (var j = 0; j < rnd(10); j++) {
+      const n = 2 + rnd(10)
+      for (var j = 0; j < n; j++) {
         const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/class/create`)
           .set("Authorization", `Bearer ${teacherBody.idToken}`)
           .send({
@@ -68,7 +69,7 @@ describe("seed", () => {
   });
 
   it("create and enroll students subject", async function () {
-    this.timeout(60000)
+    this.timeout(600000)
     for (var i = 0; i < students.length; i++) {
       var studentBody = students[i];
 
@@ -76,7 +77,7 @@ describe("seed", () => {
       response = await request(server).post("/user/create").send(studentBody);
       response = await request(server).post("/auth/login").send(studentBody);
       studentBody = { ...studentBody, ...response.body.data }
-      response = await request(server).post("/image/upload").attach("image", `./src/seed/images/${studentBody.displayName}.png`, studentBody.userId);
+      response = await request(server).put(`/user/${studentBody.userId}/image`).set("Authorization", `Bearer ${studentBody.idToken}`).attach("image", `./src/seed/images/${studentBody.displayName}.png`);
 
       for (var j = 0; j < subjects.length; j++) {
         var subjectBody = subjects[j]
