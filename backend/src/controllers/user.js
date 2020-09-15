@@ -1,16 +1,25 @@
 import firestore from "../helpers/firestore";
-import admin from "../helpers/firebase-admin";
+import admin, { store } from "../helpers/firebase-admin";
 import { checkParams } from "../helpers/validators/params";
 import { checkUserRoles } from "../helpers/validators/userRoles";
 import { v4 as uuidv4 } from "uuid";
 import {
     successResponse,
+    errorResponse,
     handleApiError
 } from "../helpers/apiResponse";
+import * as faceapi from 'face-api.js';
+import * as canvas from 'canvas';
+const { Canvas, Image, ImageData } = canvas
+faceapi.nets.ssdMobilenetv1.loadFromDisk('./models')
+faceapi.nets.tinyFaceDetector.loadFromDisk('./models')
+faceapi.nets.faceLandmark68Net.loadFromDisk('./models')
+faceapi.nets.faceRecognitionNet.loadFromDisk('./models')
+faceapi.env.monkeyPatch({ Canvas, Image, ImageData })
 
 export const newUser = async (req, res) => {
     try {
-        const { email, password, displayName, test } = req.body;
+        const { email, password, displayName, test, studentId } = req.body;
 
         //Check if fields are completed
         checkParams({
@@ -30,15 +39,19 @@ export const newUser = async (req, res) => {
 
         const user = await admin.auth().createUser({ email, password, displayName })
 
+        const userDoc = await firestore.user.get(user.uid);
+        var userBody = { email, password, displayName, studentId: studentId ? studentId : "", uid: user.uid }
+        await firestore.user.create(userDoc, userBody);
+
         const defaultUserRoles = {
             "student": true,
-            "teacher": test === "teacher" ? true: false,
-            "admin":  test === "admin" ? true: false
+            "teacher": test === "teacher" ? true : false,
+            "admin": test === "admin" ? true : false
         }
         await admin.auth().setCustomUserClaims(user.uid, defaultUserRoles);
 
         return res.status(200).json(
-            successResponse(user)
+            successResponse({ ...userBody, userDetails: user })
         );
     } catch (error) {
         return handleApiError(res, error);
@@ -54,7 +67,8 @@ export const getUser = async (req, res) => {
             userId = req.params.userId;
         }
 
-        const user = await admin.auth().getUser(userId);
+        // const user = await admin.auth().getUser(userId);
+        const user = (await firestore.user.get(userId)).data()
 
         return res
             .status(200)
@@ -98,8 +112,13 @@ export const updateUser = async (req, res) => {
             .auth()
             .updateUser(userId, updateUserBody);
 
-        // Prepare a response
-        return res.status(200).json(successResponse(updatedUserDetails));
+        const userDoc = await firestore.user.get(userId);
+        if (userDoc.exists === true) {
+            await firestore.user.update(userDoc, updateUserBody);
+            return res.status(200).json(successResponse({ msg: "User was successfully updated", updatedUserDetails }));
+        } else {
+            throw new FirestoreError("missing", userDoc.ref, "user");
+        }
     } catch (error) {
         return handleApiError(res, error);
     }
@@ -120,10 +139,17 @@ export const deleteUser = async (req, res) => {
         // Delete current user details from firebase
         await admin.auth().deleteUser(userId);
 
-        // Prepare a response
-        return res
-            .status(200)
-            .json(successResponse({ msg: "User was successfully deleted." }));
+        const userDoc = await firestore.user.get(userId);
+        if (userDoc.exists === true) {
+            await userDoc.ref.delete();
+            return res.status(200).json(
+                successResponse({
+                    msg: "User successfully deleted"
+                })
+            );
+        } else {
+            throw new FirestoreError("missing", subjectDoc.ref, "subject");
+        }
     } catch (error) {
         return handleApiError(res, error);
     }
@@ -181,3 +207,70 @@ export const updateUserRoles = async (req, res) => {
         return handleApiError(res, error);
     }
 };
+
+export const uploadProfilePicture = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const uuid = uuidv4();
+
+        const img = await canvas.loadImage(req.file.buffer);
+        const detections = await faceapi.detectSingleFace(img, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
+        if (!detections) {
+            return res.status(400).json(
+                errorResponse(
+                    "No face found"
+                )
+            );
+        }
+
+        if (req.file.mimetype === "image/jpeg" ||
+            req.file.mimetype === "image/bmp" ||
+            req.file.mimetype === "image/png" ||
+            req.file.mimetype === "image/tiff" ||
+            req.file.mimetype === "image/webp") {
+
+            const userDoc = await firestore.user.get(userId);
+            if (userDoc.exists === true) {
+                var userBody = userDoc.data();
+
+                const imageName = `${uuid}.${req.file.mimetype.split("/")[1]}`;
+                let bucketFile = store.file(imageName);
+
+                const metadata = {
+                    metadata: {
+                        contentType: req.file.mimetype,
+                        firebaseStorageDownloadTokens: uuid,
+                    }
+                };
+
+                await bucketFile.save(req.file.buffer)
+                await bucketFile.setMetadata(metadata);
+
+                const imageURL = await bucketFile.getSignedUrl({
+                    action: 'read',
+                    expires: '01-01-2025'
+                });
+                userBody.image = imageURL[0];
+                userBody.imageId = uuid;
+                userBody.imageName = imageName;
+                userBody.descriptor = { ...detections.descriptor };
+
+                // console.log(new Float32Array(detections.descriptor))
+
+                await firestore.user.update(userDoc, userBody);
+
+                return res.status(200).json(successResponse({ msg: "User was successfully updated", userBody }));
+            } else {
+                throw new FirestoreError("missing", userDoc.ref, "user");
+            }
+        } else {
+            return res.status(422).json(
+                errorResponse(
+                    'Incorrect file type uploaded', 422
+                )
+            );
+        }
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+}

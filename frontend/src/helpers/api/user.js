@@ -56,3 +56,10 @@ export const resetPassword = async (email) => {
 	);
 	return res;
 };
+
+export const uploadProfilePicture = async (idToken, userId, fileData) => {
+	const res = await axios.put(`http://${API_HOST}/user/${userId}/image`, fileData, {
+		headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${idToken}` },
+	});
+	return res;
+};

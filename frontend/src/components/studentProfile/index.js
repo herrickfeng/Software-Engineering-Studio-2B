@@ -43,7 +43,7 @@ export default function StudentProfile(props) {
           {sampleData.map(entry => (
             <TableRow>
               <TableCell>Student ID:</TableCell>
-              <TableCell>{entry.uid}</TableCell>
+              <TableCell>{entry.studentId}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -68,10 +68,10 @@ export default function StudentProfile(props) {
         <TableBody>
             <TableRow>
             <TableCell align="left">
-              <img src={props.imageState} height="200vh" objectFit="contain" />
+              <img src={sampleData[0].image} height="200vh" objectFit="contain" />
             </TableCell>
             <TableCell>
-              <UploadImageForm/>
+              <UploadImageForm setState={props.setState}/>
               </TableCell>
             </TableRow>
         </TableBody>
