@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { newSubject, getSubject, getAllTeacherSubject, updateSubject, deleteSubject } from "../controllers/subject";
+import { newSubject, getSubject, getAllTeacherSubject, updateSubject, deleteSubject, getAllStudents } from "../controllers/subject";
 import { checkToken } from "../middleware/auth";
 import { newClass, getClass, updateClass, deleteClass, getAllClass } from "../controllers/class";
 import { checkTeacherRole, checkAdminRole } from "../middleware/roles";
@@ -12,6 +12,7 @@ adminSubjectRouter.get("/:id", getSubject);
 adminSubjectRouter.get("/", getAllTeacherSubject);
 adminSubjectRouter.put("/:id", updateSubject);
 adminSubjectRouter.delete("/:id", deleteSubject);
+adminSubjectRouter.get("/:subjectId/students", getAllStudents);
 
 //For Class
 adminSubjectRouter.post("/:subjectId/class/create", newClass);
