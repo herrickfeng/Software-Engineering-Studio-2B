@@ -2,9 +2,11 @@ import React from "react";
 import {createRef, useEffect, useState} from "react"
 import Grid from "@material-ui/core/Grid";
 import * as faceapi from 'face-api.js';
+import api from "../../helpers/api/index"
 
 export default function VideoStream() {
 
+  /*
   const sampleClass = [
     '4UIjqGTLo5UvUL42juUU0cT05kf2',
     '10pfIkcBBwfbLfCqp9EedlJhHjt1',
@@ -18,11 +20,18 @@ export default function VideoStream() {
     'WSzHDHqUSOWQEZkh8BigJ8pOKkA3',
     'ENYh7F3VePgq9Nc7EjuHQahRxl53'
   ]
+  */
+
+  const sampleClass = [
+    'mCxm0I2I0wc2VYb4dktQxC5OZuJ3',
+    '9uyzaLD235YjRwPxpUunS71gOQW2',
+    'LmUyt7oSimO1aPM0v9Usw4zxRNP2'
+  ]
+
   const [mediaStream, setMediaStream] = useState(false)
   const [showDetection, setShowDetection] = useState(" ")
   //const labeledDescriptors = getImages() // This is an array of arrays. The Arrays are hold each labeled face descriptor
   const videoTag = createRef();
-  const canvas = createRef();
   var bestMatch = {}
   //var labeledDescriptors = []
   /*Promise.all([
@@ -33,7 +42,33 @@ export default function VideoStream() {
   faceapi.nets.tinyFaceDetector.loadFromUri('/models')
   faceapi.nets.faceLandmark68Net.loadFromUri('/models')
   faceapi.nets.faceRecognitionNet.loadFromUri('/models')
+  const img = new Image()
+  const labeledDescriptors = getImages()
 
+  /*
+  function b64ToBlob(imageDown) {
+    const byteCharacters
+  }*/
+
+  async function getImages() {
+    const imageDown = await api.user.download("9uyzaLD235YjRwPxpUunS71gOQW2").then(async function (image) {
+      console.log(imageDown)
+      await fetch(imageDown).then(async res => {
+        console.log("")
+        const imageBlob = res.blob()
+        const dect = await faceapi.fetchImage(imageBlob)
+        console.log(dect)
+
+      })
+      //img.src = image
+      //console.log(img.src)
+      //await faceapi.fetchImage(img)
+    })
+
+        //const imageDown = await api.user.download("9uyzaLD235YjRwPxpUunS71gOQW2")
+  }
+  
+  /*
   async function getImages() {
     console.log("test");
     const labels = ['Calvin_Dong', 'Bernie_Sanders']
@@ -47,6 +82,7 @@ export default function VideoStream() {
       })
     )
   }
+  */
 
   /*
   function getImages() {
@@ -64,36 +100,33 @@ export default function VideoStream() {
   }
   */
 
-  async function HandleDetections(stream) {
-    videoTag.current.play().then(console.log("playing"))
+  async function HandleDetections() {
+    /*videoTag.current.play().then(console.log("playing"))
     const labeledDescriptors = await getImages() // This is an array of arrays. The Arrays are hold each labeled face descriptor
+    console.log(labeledDescriptors)
     const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, .6)
-    console.log(stream.id)
-    if (stream) {
-      setInterval(async () => {
-        if (videoTag.current != null){
-          const detection = await faceapi.detectSingleFace(videoTag.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
-          console.log(detection)
-          if (detection) {
-            bestMatch = faceMatcher.findBestMatch(detection.descriptor)
-            console.log(bestMatch.label)
-            //clearInterval(faceSearch)
-            setShowDetection(bestMatch.label)
-          }
+    setInterval(async () => {
+      if (videoTag.current != null){
+        const detection = await faceapi.detectSingleFace(videoTag.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
+        console.log(detection)
+        if (detection) {
+          bestMatch = faceMatcher.findBestMatch(detection.descriptor)
+          console.log(bestMatch.label)
+          //clearInterval(faceSearch)
+          setShowDetection(bestMatch.label)
         }
-      }, 2000)
-    }
+      }
+    }, 2000)*/
   }
 
   useEffect(() => {
     console.log("yee")
-    setMediaStream(false)
 
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         videoTag.current.srcObject = stream
         console.log(stream)
-        HandleDetections(stream)
+        HandleDetections()
       })
       .catch(err => console.error(err))
   })
