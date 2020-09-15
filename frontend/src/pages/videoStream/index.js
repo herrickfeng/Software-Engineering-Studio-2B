@@ -101,7 +101,7 @@ export default function VideoStream() {
   */
 
   async function HandleDetections() {
-    /*videoTag.current.play().then(console.log("playing"))
+    videoTag.current.play().then(console.log("playing"))
     const labeledDescriptors = await getImages() // This is an array of arrays. The Arrays are hold each labeled face descriptor
     console.log(labeledDescriptors)
     const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, .6)
@@ -116,7 +116,7 @@ export default function VideoStream() {
           setShowDetection(bestMatch.label)
         }
       }
-    }, 2000)*/
+    }, 2000)
   }
 
   useEffect(() => {
