@@ -1,0 +1,27 @@
+[
+  {
+    "displayName": "MinHsiu",
+    "email": "MinHsiu@teacher.com",
+    "password": "abc123"
+  },
+  {
+    "displayName": "Greg from HR",
+    "email": "Greg@teacher.com",
+    "password": "abc123"
+  },
+  {
+    "displayName": "Raymond",
+    "email": "Raymond@teacher.com",
+    "password": "abc123"
+  },
+  {
+    "displayName": "Luke",
+    "email": "Luke@teacher.com",
+    "password": "abc123"
+  },
+  {
+    "displayName": "Ryan",
+    "email": "Ryan@teacher.com",
+    "password": "abc123"
+  }
+]

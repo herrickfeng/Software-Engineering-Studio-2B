@@ -3,6 +3,7 @@ import React from 'react';
 //general material-ui components
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import moment from 'moment';
 
 // icon material-ui components
 import AddIcon from '@material-ui/icons/Add';
@@ -15,7 +16,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 export default function TeacherAddClassPopup(props) {
-  const [state, setState] = React.useState({className: "", classTime:{}, classCode: ""});
+  const [state, setState] = React.useState({
+    className: "", 
+    classCode: "",
+    date: moment().format('YYYY-MM-DD'),
+    startTime: moment().add(0.5, "hours").format('h:mm'),
+    endTime: moment().add(1.5, "hours").format('h:mm')
+  });
 
 
   const handleChange = (event) => {
@@ -25,6 +32,7 @@ export default function TeacherAddClassPopup(props) {
   }
 
   const handleAddSubject = () => {
+    console.log("state", state)
     props.onAdd(state);
     props.onClose();
   }
@@ -48,23 +56,12 @@ export default function TeacherAddClassPopup(props) {
             onChange={handleChange}
           />
 
-          {/* <TextField
+          <TextField
             autoFocus
             variant="outlined"
             margin="normal"
-            id="date"
-            label="Date"
-            fullWidth
-            required
-            onChange={handleChange}
-          /> */}
-
-          {/* <TextField
-            autoFocus
-            variant="outlined"
-            margin="normal"
-            id="startTime"
-            label="Start Time"
+            id="classCode"
+            label="Class Code"
             fullWidth
             required
             onChange={handleChange}
@@ -74,21 +71,38 @@ export default function TeacherAddClassPopup(props) {
             autoFocus
             variant="outlined"
             margin="normal"
-            id="endTime"
-            label="End Time"
+            id="data"
+            type="date"
+            label="Date"
             fullWidth
             required
+            defaultValue={state.date}
             onChange={handleChange}
-          /> */}
+          />
 
           <TextField
             autoFocus
             variant="outlined"
             margin="normal"
-            id="classCode"
-            label="Class Code"
+            id="startTime"
+            type="time"
+            label="Start Time"
             fullWidth
             required
+            defaultValue={state.startTime}
+            onChange={handleChange}
+          />
+
+          <TextField
+            autoFocus
+            variant="outlined"
+            margin="normal"
+            id="endTime"
+            type="time"
+            label="End Time"
+            fullWidth
+            required
+            defaultValue={state.endTime}
             onChange={handleChange}
           />
         </DialogContent>

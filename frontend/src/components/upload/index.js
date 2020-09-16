@@ -21,31 +21,32 @@ export default function UploadImageForm(props) {
       let fileSend = new FormData()
       const fileName = authState.user.uid
       fileSend.append('image', file, fileName)
-      await api.user.upload(fileSend)
+      await api.user.upload(authState.user.idToken, authState.user.uid, fileSend);
       setMessage("Success!")
       setShowResult(true)
       setShowProgress(false)
+      props.setState(undefined)
     }
     catch (error) {
-      setMessage("Upload Failed. Please try again.")
+      setMessage(error.response.data.msg)
       setShowResult(true)
       setShowProgress(false)
-      console.log("did an oopsie")
+      console.log("did an oopsie", error.response)
     }
   }
 
   const uploadButton = () => {
     return (<Button variant="contained" component="label" color='primary'>
       Upload File
-        <Input type="file" style={{ display: "none" }} onChange={handleUpload} disableUnderline/>
+      <Input type="file" style={{ display: "none" }} onChange={handleUpload} disableUnderline />
     </Button>
     )
   }
 
   return (
     <div>
-      {showProgress ? <CircularProgress color="primary"/> : uploadButton()}
-      {showResult ? <p> {message} </p>: null}
+      {showProgress ? <CircularProgress color="primary" /> : uploadButton()}
+      {showResult ? <p> {message} </p> : null}
     </div>
   );
 };

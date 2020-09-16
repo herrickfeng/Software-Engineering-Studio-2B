@@ -1,0 +1,62 @@
+[
+    {
+        "displayName": "Herrick",
+        "email": "Herrick@student.com",
+        "password": "abc123",
+        "studentId": "12559934"
+    },
+    {
+        "displayName": "Agid",
+        "email": "Agid@student.com",
+        "password": "abc123",
+        "studentId": "13068061"
+    },
+    {
+        "displayName": "Andrew",
+        "email": "Andrew@student.com",
+        "password": "abc123",
+        "studentId": "12876520"
+    },
+    {
+        "displayName": "Andy",
+        "email": "Andy@student.com",
+        "password": "abc123",
+        "studentId": "13247895"
+    },
+    {
+        "displayName": "Brendon",
+        "email": "Brendon@student.com",
+        "password": "abc123",
+        "studentId": "13204767"
+    },
+    {
+        "displayName": "Bryan",
+        "email": "Bryan@student.com",
+        "password": "abc123",
+        "studentId": "13227626"
+    },
+    {
+        "displayName": "Calvin",
+        "email": "Calvin@student.com",
+        "password": "abc123",
+        "studentId": "13227638"
+    },
+    {
+        "displayName": "David",
+        "email": "David@student.com",
+        "password": "abc123",
+        "studentId": "12889453"
+    },
+    {
+        "displayName": "Mitchell",
+        "email": "Mitchell@student.com",
+        "password": "abc123",
+        "studentId": "13255120"
+    },
+    {
+        "displayName": "Vanisha",
+        "email": "Vanisha@student.com",
+        "password": "abc123",
+        "studentId": "13225053"
+    }
+]
