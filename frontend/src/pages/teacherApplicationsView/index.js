@@ -37,7 +37,7 @@ export default class TeacherApplicationsViewPage extends React.Component {
 			(this.state ?
 			<Grid>
 				<TeacherClassInformationView data={this.state}/>
-				<TeacherApplicationsView />
+        <TeacherApplicationsView subjectId={this.props.match.params.subjectId} classId={this.props.match.params.classId}/>
 
 				<Box textAlign="center" my={5}>
 					<Button variant={"outlined"} color={"primary"} component={Link} to={`/teacher/subject/${this.state.subject.subjectId}`}>
