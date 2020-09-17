@@ -131,6 +131,9 @@ function AppRouter(props) {
         <UploadPage />
         <HomePage />
       </Route>
+
+      <Route path="/teacher/subject/:subjectId/class/:classId/video" exact={true} component={VideoPage} />
+
     </Switch>
   );
 }
