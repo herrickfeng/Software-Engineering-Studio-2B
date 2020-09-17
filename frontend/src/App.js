@@ -65,11 +65,6 @@ function AppRouter(props) {
         <Signout />
       </Route>
 
-      <Route path="/video" exact={true}>
-        <Navigation />
-        <VideoPage />
-      </Route>
-
       <PrivateRoute path="/student/dashboard" exact={true}>
         <StudentNavigation />
         <StudentDashboardPage />

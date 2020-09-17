@@ -7,7 +7,6 @@ import { AuthContext } from "../../context/auth";
 export default function VideoStream(props) {
 
   const { authState } = React.useContext(AuthContext);
-
   const [showDetection, setShowDetection] = useState(" ")
   const videoTag = createRef();
   let bestMatch = {}
@@ -47,8 +46,11 @@ export default function VideoStream(props) {
         const detection = await faceapi.detectSingleFace(videoTag.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
         if (detection) {
           bestMatch = faceMatcher.findBestMatch(detection.descriptor)
-          console.log(bestMatch.label)// Send detection to class roll
-          setShowDetection(bestMatch.label)
+          console.log(bestMatch.label)
+          // Send detection to subject attendance
+          const bestMatchInfo = await api.user.getById(authState.user.idToken, bestMatch.label)
+          console.log(bestMatchInfo.data.data.displayName)
+          setShowDetection(bestMatchInfo.data.data.displayName)
         }
       }
     }, 2000)
