@@ -5,114 +5,48 @@ import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 
 export default function VideoStream() {
+  const idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjczNzVhZmY3MGRmZTNjMzNlOTBjYTM2OWUzYTBlZjQxMzE3MmZkODIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQ2FsdmluIiwic3R1ZGVudCI6dHJ1ZSwidGVhY2hlciI6ZmFsc2UsImFkbWluIjpmYWxzZSwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZhY2UtYXR0ZW5kYW5jZS1zeXN0ZW0tdGhpbmciLCJhdWQiOiJmYWNlLWF0dGVuZGFuY2Utc3lzdGVtLXRoaW5nIiwiYXV0aF90aW1lIjoxNjAwMzA4NDc3LCJ1c2VyX2lkIjoiYnNQQ0t0WW42c2dmeHZLWjVXODZEV2tSeHFHMyIsInN1YiI6ImJzUENLdFluNnNnZnh2S1o1Vzg2RFdrUnhxRzMiLCJpYXQiOjE2MDAzMDg0NzcsImV4cCI6MTYwMDMxMjA3NywiZW1haWwiOiJjYWx2aW5Ac3R1ZGVudC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiY2FsdmluQHN0dWRlbnQuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.MDIfWh1ulHobpEs2bO1xoyW0KlRPL816n1B2qo1Tibc1yTwLmFUsxMe_qll-jSakF6Www4iqGG16XYBFnzuwyKRsy9GfrkYJ5gcuvivdFmDfSaH51L-QfSZ9faVP_lt8AqSQeRTtnqG_a9MJHbBV24gYMAdUULG8SJxHZSYMersKOVJt8bdI-g7Ij0Iidzh9s4jE0oWxPzTyd6dfI5FpZ5t_znC2GraT-IO7t6hfTMP5Isz1TPyM-RXXzwiWas306g2cMffRZbvQJpgSi6DRzJP_kyEshzCuv67sewVUz5xK_wbK9QhxTPzLeEj855JaFB9eEynZ1HbCERLoFscVzw"
 
-  /*
-  const sampleClass = [
-    '4UIjqGTLo5UvUL42juUU0cT05kf2',
-    '10pfIkcBBwfbLfCqp9EedlJhHjt1',
-    '7sS9jJ0HAjOkyEcRq2zr9bwfMFa2',
-    'mCxm0I2I0wc2VYb4dktQxC5OZuJ3',
-    '9uyzaLD235YjRwPxpUunS71gOQW2',
-    'LmUyt7oSimO1aPM0v9Usw4zxRNP2',
-    '4UIjqGTLo5UvUL42juUU0cT05kf2',
-    'ifqV3hCwScgnr24LtXOXpKB3O8n1',
-    'O03MbmTBYAUv68SOcsKLZgpvoAW2',
-    'WSzHDHqUSOWQEZkh8BigJ8pOKkA3',
-    'ENYh7F3VePgq9Nc7EjuHQahRxl53'
-  ]
-  */
-
-  const sampleClass = [
-    'mCxm0I2I0wc2VYb4dktQxC5OZuJ3',
-    '9uyzaLD235YjRwPxpUunS71gOQW2',
-    'LmUyt7oSimO1aPM0v9Usw4zxRNP2'
-  ]
-
-  const [mediaStream, setMediaStream] = useState(false)
   const [showDetection, setShowDetection] = useState(" ")
-  //const labeledDescriptors = getImages() // This is an array of arrays. The Arrays are hold each labeled face descriptor
   const videoTag = createRef();
-  var bestMatch = {}
-  //var labeledDescriptors = []
-  /*Promise.all([
+  let bestMatch = {}
+  Promise.all([
     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
     faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
     faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  ])*/
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models')
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models')
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models')
-  const img = new Image()
-  const labeledDescriptors = getImages()
-
-  /*
-  function b64ToBlob(imageDown) {
-    const byteCharacters
-  }*/
+  ])
 
   async function getImages() {
-    const imageDown = await api.user.download("9uyzaLD235YjRwPxpUunS71gOQW2").then(async function (image) {
-      console.log(imageDown)
-      await fetch(imageDown).then(async res => {
-        console.log("")
-        const imageBlob = res.blob()
-        const dect = await faceapi.fetchImage(imageBlob)
-        console.log(dect)
-
-      })
-      //img.src = image
-      //console.log(img.src)
-      //await faceapi.fetchImage(img)
-    })
-
-        //const imageDown = await api.user.download("9uyzaLD235YjRwPxpUunS71gOQW2")
-  }
-  
-  /*
-  async function getImages() {
-    console.log("test");
-    const labels = ['Calvin_Dong', 'Bernie_Sanders']
-    return Promise.all( //Promises to return an array of all promised values
-      labels.map(async label => {
-        const descriptions = [] //Array of face information to be pushed to LabeledFaceDescriptors
-        const img = await faceapi.fetchImage('https://raw.githubusercontent.com/CalvinDong/FacialRecognitionTest/master/Live%20Facial%20Recognition%20Test/training/' + label + '.jpg')
-        const detections = await faceapi.detectSingleFace(img, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
-        descriptions.push(detections.descriptor) //Add information of person's face to descriptions array (there can be multiple of the same person)
-        return new faceapi.LabeledFaceDescriptors(label, descriptions)
+    const subject = await api.subject.get(idToken, "153a7909-e4b2-4529-bf2a-5c55fdc3cfea")
+    const studentList = subject.data.data.students;
+    return Promise.all(
+      studentList.map(async label => {
+        const descriptions = []
+        const userData = await api.user.getById(idToken, label)
+        if (userData.data.data.descriptor) {
+          const descriptor = new Float32Array(Object.values(userData.data.data.descriptor))
+          descriptions.push(descriptor)
+          return new faceapi.LabeledFaceDescriptors(label, descriptions)
+        } else {
+          console.log(`Descriptor for ${userData.data.data.studentId} does not exist`);
+        }
       })
     )
   }
-  */
 
-  /*
-  function getImages() {
-    console.log("test");
-    const labels = ['Calvin_Dong', 'Bernie_Sanders']
-    return Promise.all( //Promises to return an array of all promised values
-      labels.map(label => {
-        const descriptions = [] //Array of face information to be pushed to LabeledFaceDescriptors
-        const img = faceapi.fetchImage('https://raw.githubusercontent.com/CalvinDong/FacialRecognitionTest/master/Live%20Facial%20Recognition%20Test/training/' + label + '.jpg')
-        const detections = faceapi.detectSingleFace(img, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
-        descriptions.push(detections.descriptor) //Add information of person's face to descriptions array (there can be multiple of the same person)
-        return new faceapi.LabeledFaceDescriptors(label, descriptions)
-      })
-    )
-  }
-  */
 
   async function HandleDetections() {
     videoTag.current.play().then(console.log("playing"))
-    const labeledDescriptors = await getImages() // This is an array of arrays. The Arrays are hold each labeled face descriptor
+    const labeledDescriptors = await getImages()
+    const filteredLabeledDescriptors = labeledDescriptors.filter(ld => ld != undefined) // Remove any undefined elements
     console.log(labeledDescriptors)
-    const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, .6)
+    const faceMatcher = new faceapi.FaceMatcher(filteredLabeledDescriptors, .6)
     setInterval(async () => {
       if (videoTag.current != null){
         const detection = await faceapi.detectSingleFace(videoTag.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
-        console.log(detection)
         if (detection) {
           bestMatch = faceMatcher.findBestMatch(detection.descriptor)
           console.log(bestMatch.label)
-          //clearInterval(faceSearch)
           setShowDetection(bestMatch.label)
         }
       }
@@ -120,8 +54,6 @@ export default function VideoStream() {
   }
 
   useEffect(() => {
-    console.log("yee")
-
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         videoTag.current.srcObject = stream
