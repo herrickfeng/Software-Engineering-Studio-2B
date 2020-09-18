@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { ShepherdTour, ShepherdTourContext } from 'react-shepherd';
+import steps from "./helpers/tour/steps.js"
 
 //Components
 
@@ -31,12 +33,22 @@ import { AuthProvider } from "./context/auth";
 import Signout from "./helpers/auth/signout.js";
 import PrivateRoute from "./components/PrivateRoute";
 
+const tourOptions = {
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: true
+    }
+  },
+  useModalOverlay: true
+};
 
 function AppProvider(props) {
   return (
     <ThemeProvider theme={appTheme}>
       <AuthProvider>
-        {props.children}
+        <ShepherdTour steps={steps} tourOptions={tourOptions}>
+          {props.children}
+        </ShepherdTour>
       </AuthProvider>
     </ThemeProvider>
   );

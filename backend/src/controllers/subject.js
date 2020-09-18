@@ -211,23 +211,15 @@ export const getAllStudents = async (req, res) => {
         const subjectDoc = await firestore.subject.get(subjectId);
         if (subjectDoc.exists) {
             var subjectBody = subjectDoc.data();
-            //iterate through students array within subject
-            var studentBodys = [];
+            const students = subjectBody.students;
 
-            for (var i = 0; i < subjectBody.students.length; i++) {
-                var studentId = subjectBody.students[i];
-                var user = await admin.auth().getUser(studentId);
-                var image = undefined;
-                let file = store.file(studentId)
-                if ((await file.exists())) {
-                    const config = {
-                        action: 'read',
-                        expires: '01-01-2025'
-                    };
-                    image = await file.getSignedUrl(config);
-                }
-                studentBodys.push({...user, image: image[0]});
-            }
+            var users = await firestore.user.getAllIn(students);
+
+            var studentBodys = users.docs.map((doc) => {
+                return doc.data();
+            });
+
+            // console.log(new Float32Array(detections.descriptor))
 
             return res.status(200).json(successResponse(studentBodys));
         } else {
