@@ -13,9 +13,10 @@ export default function GeoFence() {
 
   // Store Polygon path in state
   const [path, setPath] = useState([
-    { lat: 52.52549080781086, lng: 13.398118538856465 },
-    { lat: 52.48578559055679, lng: 13.36653284549709 },
-    { lat: 52.48871246221608, lng: 13.44618372440334 }
+    {lat: -33.88279028529906, lng: 151.20092378902436},
+    {lat: -33.883389068048494, lng: 151.19960221824647},
+    {lat: -33.88426395513446, lng: 151.20014746494294},
+    {lat: -33.8837497927527, lng: 151.2014797645569} 
   ]);
 
   // Define refs for Polygon instance and listeners
@@ -57,6 +58,11 @@ export default function GeoFence() {
 
   console.log("The path state is", path);
 
+  function savePath(){
+    const newGeofence = path;
+    console.log("Geofence saved");
+  }
+
   if (authState.authenticated) {
     return authState.user.claims.teacher ? <Redirect to="/teacher/subjectList" /> : <Redirect to="/student/dashboard" />;
   } else {
@@ -72,8 +78,8 @@ export default function GeoFence() {
           >
             <GoogleMap
               mapContainerClassName="App-map"
-              center={{ lat: 52.52047739093263, lng: 13.36653284549709 }}
-              zoom={12}
+              center={{ lat: -33.8832, lng: 151.2005 }}
+              zoom={17}
               version="weekly"
               on
             >
@@ -92,7 +98,7 @@ export default function GeoFence() {
             </GoogleMap>
           </LoadScript>
         </div>
-        <Button>
+        <Button onClick={savePath}>
           Create
         </Button>
       </Container>
