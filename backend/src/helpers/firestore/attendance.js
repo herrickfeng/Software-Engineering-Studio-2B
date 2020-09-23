@@ -24,7 +24,27 @@ export default {
       .collection(collectionName)
       .where("subjectId", "==", subjectId)
       .where("classId", "==", classId)
-      .where("userId", "==", userId)
+      .where("uid", "==", userId)
+      .get();
+  },
+  getBySubClass: (subjectId, classId) => {
+    return db
+      .collection(collectionName)
+      .where("subjectId", "==", subjectId)
+      .where("classId", "==", classId)
+      .get();
+  },
+  getBySubStu: (subjectId, userId) => {
+    return db
+      .collection(collectionName)
+      .where("subjectId", "==", subjectId)
+      .where("uid", "==", userId)
+      .get();
+  },
+  getByStu: (userId) => {
+    return db
+      .collection(collectionName)
+      .where("uid", "==", userId)
       .get();
   },
 }

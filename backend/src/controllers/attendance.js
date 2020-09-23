@@ -19,7 +19,7 @@ export const createAttendance = async (req, res) => {
         const attendanceId = uuidv4();
         attendanceBody.subjectId = req.params.subjectId;
         attendanceBody.classId = req.params.classId;
-        attendanceBody.userId = req.params.userId;
+        attendanceBody.uid = req.params.userId;
         checkParams({
             question: {
                 data: question,
@@ -45,6 +45,59 @@ export const createAttendance = async (req, res) => {
                 ...attendanceBody
             })
         );
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
+
+export const updateAttendance = async (req, res) => {
+    try {
+        const attendanceBody = req.body;
+        const { question, location, facial } = attendanceBody;
+
+        attendanceBody.subjectId = req.params.subjectId;
+        attendanceBody.classId = req.params.classId;
+        attendanceBody.uid = req.params.userId;
+        const subjectId = req.params.subjectId;
+        const classId = req.params.classId;
+        const userId = req.params.userId;
+        checkParams({
+            question: {
+                data: question,
+                expectedType: "boolean"
+            },
+            location: {
+                data: location,
+                expectedType: "boolean"
+            },
+            facial: {
+                data: facial,
+                expectedType: "boolean"
+            },
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            },
+            classId: {
+                data: classId,
+                expectedType: "string"
+            },
+            userId: {
+                data: userId,
+                expectedType: "string"
+            }
+        });
+
+        const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
+        if (allAttendanceDoc.size > 0) {
+            const attendanceDoc = allAttendanceDoc.docs[0];
+            await firestore.subject.update(attendanceDoc, attendanceBody);
+            return res.status(200).json(
+                successResponse({msg: "Attendance successfully updated"})
+            );
+        } else {
+            throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
+        }
     } catch (error) {
         return handleApiError(res, error);
     }
@@ -84,6 +137,98 @@ export const getAttendance = async (req, res) => {
             throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
         }
     } catch (error) {
-        handleApiError(res, error); 
+        handleApiError(res, error);
+    }
+};
+
+export const getAttendanceBySubClass = async (req, res) => {
+    try {
+        const attendanceBody = req.body;
+
+        const subjectId = req.params.subjectId;
+        const classId = req.params.classId;
+        //const userId = req.params.userId;
+
+        checkParams({
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            },
+            classId: {
+                data: classId,
+                expectedType: "string"
+            },
+        });
+
+        const allAttendanceDoc = await firestore.attendance.getBySubClass(subjectId, classId);
+
+        var attendances = allAttendanceDoc.docs.map((doc)=>{
+            return doc.data();
+        })
+
+        return res.status(200).json(
+            successResponse(attendances)
+        );
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getAttendanceBySubStu = async (req, res) => {
+    try {
+        const attendanceBody = req.body;
+
+        const subjectId = req.params.subjectId;
+        //const classId = req.params.classId;
+        const userId = req.params.userId;
+
+        checkParams({
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            },
+            userId: {
+                data: userId,
+                expectedType: "string"
+            }
+        });
+
+        const allAttendanceDoc = await firestore.attendance.getBySubStu(subjectId, userId);
+
+        var attendances = allAttendanceDoc.docs.map((doc)=>{
+            return doc.data();
+        })
+
+        return res.status(200).json(
+            successResponse(attendances)
+        );
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getStuAttendance = async (req, res) => {
+    try {
+        const attendanceBody = req.body;
+        const userId = req.params.userId;
+
+        checkParams({
+            userId: {
+                data: userId,
+                expectedType: "string"
+            }
+        });
+
+        const allAttendanceDoc = await firestore.attendance.getByStu(userId);
+
+        var attendances = allAttendanceDoc.docs.map((doc)=>{
+            return doc.data();
+        })
+
+        return res.status(200).json(
+            successResponse(attendances)
+        );
+    } catch (error) {
+        handleApiError(res, error);
     }
 };
