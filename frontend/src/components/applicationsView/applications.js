@@ -140,6 +140,8 @@ export default function TeacherApplicationsView(props) {
                         image={
                             'https://media.istockphoto.com/photos/rear-view-of-large-group-of-students-on-a-class-at-lecture-hall-picture-id1069239598?k=6&m=1069239598&s=612x612&w=0&h=GkYYkDmTqqBYAW3ju6l29eqpIS1e5426oZmVig35Jgc='
                         }
+                        history={history}
+                        url={`${props.classId}/attendance`}
                     />
 			    </Grid>
 		    </Grid>
