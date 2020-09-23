@@ -53,18 +53,9 @@ describe("seed", () => {
     var teacherBody = teachers[teacherId]
     for (var i = 0; i < subjects.length; i++) {
       var subjectBody = subjects[i];
-      const n = 2 + rnd(10)
-      for (var j = 0; j < n; j++) {
-        const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/class/create`)
-          .set("Authorization", `Bearer ${teacherBody.idToken}`)
-          .send({
-            className: `Week ${j+1}`,
-            classCode: `${j}`,
-            date: "2020-01-01",
-            startTime: "10:00",
-            endTime: "12:00"
-          });
-      }
+      const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/class/generate`)
+        .set("Authorization", `Bearer ${teacherBody.idToken}`)
+        .send(subjectBody.classGenerate);
     }
   });
 
