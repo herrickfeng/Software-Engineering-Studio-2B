@@ -253,7 +253,6 @@ export const generateClasses = async (req, res) => {
             var subjectBody = subjectDoc.data();
             var date = firstDate;
             for (var i = 0; i < occurrence; i++) {
-                console.log(date)
                 const classBody = {
                     classId: uuidv4(),
                     className: `${repeatMap[repeat][1]} ${i + 1}`,
