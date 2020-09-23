@@ -127,7 +127,6 @@ export const getAttendance = async (req, res) => {
         });
 
         const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
-        // console.log(allAttendanceDoc.data());
         if (allAttendanceDoc.size > 0) {
             const attendanceDoc = allAttendanceDoc.docs[0];
             return res.status(200).json(

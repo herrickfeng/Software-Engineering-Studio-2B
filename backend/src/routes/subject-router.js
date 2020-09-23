@@ -15,12 +15,12 @@ subjectRouter.get("/:subjectId/class/:classId", getClass);
 subjectRouter.get("/:subjectId/class", getAllClass);
  
 //For Attendance
-subjectRouter.post("/:subjectId/class/:classId/student/:userId/attendance", createAttendance);
-subjectRouter.get("/:subjectId/class/:classId/student/:userId/attendance", getAttendance);
+subjectRouter.post("/:subjectId/class/:classId/user/:userId/attendance", createAttendance);
+subjectRouter.get("/:subjectId/class/:classId/user/:userId/attendance", getAttendance);
 subjectRouter.get("/:subjectId/class/:classId/attendance", getAttendanceBySubClass);
 subjectRouter.get("/:subjectId/user/:userId/attendance", getAttendanceBySubStu);
 
- subjectRouter.put("/:subjectId/class/:classId/student/:userId/attendance", updateAttendance);
+ subjectRouter.put("/:subjectId/class/:classId/user/:userId/attendance", updateAttendance);
 //Get all students from subject
 subjectRouter.get("/:subjectId", getAllStudents);
 
