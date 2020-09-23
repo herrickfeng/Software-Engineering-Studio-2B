@@ -6,6 +6,7 @@ import {
     successResponse,
     handleApiError
 } from "../helpers/apiResponse";
+import moment from "moment"
 
 export const newClass = async (req, res) => {
     try {
@@ -124,7 +125,7 @@ export const updateClass = async (req, res) => {
                 expectedType: "string"
             }
         });
-        
+
         const classDoc = await firestore.class.get(id);
         if (classDoc.exists === true) {
             await firestore.class.update(classDoc, classBody);
@@ -208,3 +209,76 @@ export const getAllClass = async (req, res) => {
     }
 };
 
+export const generateClasses = async (req, res) => {
+    try {
+        const userId = req.authId;
+        const subjectId = req.params.subjectId;
+        const { firstDate, startTime, endTime, repeat, occurrence } = req.body;
+        const repeatMap = {
+            "Daily": ["days", "Day"],
+            "Weekly": ["weeks", "Week"],
+            "Monthly": ["months", "Month"]
+        }
+        const addValue = repeatMap[repeat][0];
+
+        checkParams({
+            firstDate: {
+                data: firstDate,
+                expectedType: "string"
+            },
+            startTime: {
+                data: startTime,
+                expectedType: "string"
+            },
+            endTime: {
+                data: endTime,
+                expectedType: "string"
+            },
+            repeat: {
+                data: repeat,
+                expectedType: "string"
+            },
+            occurrence: {
+                data: occurrence,
+                expectedType: "number"
+            },
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            }
+        });
+
+        const subjectDoc = await firestore.subject.get(subjectId);
+        if (subjectDoc.exists === true) {
+            var subjectBody = subjectDoc.data();
+            var date = firstDate;
+            for (var i = 0; i < occurrence; i++) {
+                console.log(date)
+                const classBody = {
+                    classId: uuidv4(),
+                    className: `${repeatMap[repeat][1]} ${i + 1}`,
+                    classCode: `${i}`,
+                    date: date,
+                    startTime: startTime,
+                    endTime: endTime
+                }
+                const classDoc = await firestore.class.get(classBody.classId);
+                await firestore.class.create(classDoc, classBody);
+                subjectBody.classes.push(classBody.classId);
+
+                date = moment(date).add(1, addValue).format("YYYY-MM-DD");
+            }
+            await firestore.subject.update(subjectDoc, subjectBody);
+        }
+        else {
+            throw new FirestoreError("missing", subjectDoc.ref, "subject");
+        }
+        return res.status(200).json(
+            successResponse({
+                msg: "Classes created successfully"
+            })
+        );
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
