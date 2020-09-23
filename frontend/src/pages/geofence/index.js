@@ -58,14 +58,15 @@ export default function GeoFence() {
   console.log("The path state is", path);
 
   if (authState.authenticated) {
-    return authState.user.claims.teacher ? <Redirect to="/teacher/subjectList" />: <Redirect to="/student/dashboard" />; 
+    return authState.user.claims.teacher ? <Redirect to="/teacher/subjectList" /> : <Redirect to="/student/dashboard" />;
   } else {
     return (
       <Container>
         <h1>UTS Geofence</h1>
+        <div className="App">
           <LoadScript
             id="script-loader"
-            googleMapsApiKey="AaIzaSyCbvf26xF96Lx1RIG6hpCP5-JFjJUkobQg"
+            googleMapsApiKey="AIzaSyCbvf26xF96Lx1RIG6hpCP5-JFjJUkobQg"
             language="en"
             region="us"
           >
@@ -90,6 +91,7 @@ export default function GeoFence() {
               />
             </GoogleMap>
           </LoadScript>
+        </div>
         <Button>
           Create
         </Button>
