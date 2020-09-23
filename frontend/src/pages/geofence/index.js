@@ -4,11 +4,11 @@ import { Link, Redirect } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import TeacherSubjectListPage from "../teacherSubjectList";
 import ReactDOM from "react-dom";
-import { LoadScript, GoogleMap, Polygon } from "react-google-maps";
+import { LoadScript, GoogleMap, Polygon } from "@react-google-maps/api";
 
 import "./styles.css";
 
-export default function Geofence() {
+export default function GeoFence() {
   const { authState, setAuthState } = React.useContext(AuthContext);
 
   // Store Polygon path in state
