@@ -15,6 +15,12 @@ export default {
       .collection(collectionName)
       .get();
   },
+  getAllInArray: (arr) => {
+    return db
+      .collection(collectionName)
+      .where('uid', 'in', arr)
+      .get();
+  },
   create: (doc, data) => {
     return doc.ref.set(data);
   },
