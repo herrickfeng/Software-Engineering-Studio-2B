@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // project components
 import { AuthContext } from "../../context/auth";
-import StudentAttendanceStatus from "../../components/classAttendanceView/studentAttendanceStatus.js"
+import StudentAttendanceStatusView from "../../components/classAttendance/studentAttendanceStatusView.js"
 import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
 
 // material-ui components
@@ -16,17 +17,15 @@ export default class TeacherClassAttendanceView extends React.Component {
 			<Grid container direction="column">
 				<TeacherClassInformationView />
 
-				<Box my={2} display="flex" justifyContent="center" alignItems="center">
-					<Button variant="outlined" color="primary">
-						Mark Manually
-					</Button>
-				</Box>
-
-				<StudentAttendanceStatus/>
+				<StudentAttendanceStatusView/>
 
 				<Box my={2} display="flex" justifyContent="center" alignItems="center">
 					<Box mx={2}>
-						<Button variant="outlined" color="primary">
+						<Button
+							variant="outlined"
+							color="primary"
+							component={Link}
+							to={"/teacher/subjectList/classList/applicationsView"}>
 							Back
 						</Button>
 					</Box>
@@ -36,7 +35,10 @@ export default class TeacherClassAttendanceView extends React.Component {
 						</Button>
 					</Box>
 					<Box mx={2}>
-						<Button variant="outlined" color="secondary">
+						<Button variant="outlined"
+							color="secondary"
+							component={Link}
+							to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceEditPage"}>
 							Edit
 						</Button>
 					</Box>

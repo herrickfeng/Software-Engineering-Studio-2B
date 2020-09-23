@@ -11,9 +11,10 @@ import SignupPage from "./pages/signup";
 import appTheme from "./helpers/appTheme";
 import UploadPage from "./pages/upload";
 import TeacherSubjectListPage from "./pages/teacherSubjectList/index.js";
-import TeacherClassListPage from "./pages/teacherClassList/index.js"
-import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js"
-import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js"
+import TeacherClassListPage from "./pages/teacherClassList/index.js";
+import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js";
+import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js";
+import TeacherClassAttendanceEditPage from "./pages/teacherClassAttendanceEdit/index.js";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentClassListPage from "./pages/studentClassList/index";
 import StudentAttendancePage from "./pages/studentAttendance";
@@ -104,6 +105,20 @@ function AppRouter(props) {
         <TeacherNavigation />
         <TeacherApplicationsViewPage />
       </PrivateRoute>
+
+        <PrivateRoute
+            path="/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceViewPage"
+            exact={true}>
+            <TeacherNavigation />
+              <TeacherClassAttendanceViewPage />
+          </PrivateRoute>
+
+          <PrivateRoute
+              path="/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceEditPage"
+              exact={true}>
+              <TeacherNavigation />
+              <TeacherClassAttendanceEditPage />
+          </PrivateRoute>
 
       <Route path="/upload" exact>
         <TeacherNavigation />

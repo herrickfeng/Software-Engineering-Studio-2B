@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // project components
 import { AuthContext } from "../../context/auth";
@@ -22,7 +23,11 @@ export default class TeacherApplicationsViewPage extends React.Component {
 				<TeacherApplicationsView />
 
 				<Box textAlign="center" my={5}>
-					<Button variant={"outlined"} color={"primary"}>
+					<Button
+						variant={"outlined"}
+						color={"primary"}
+						component={Link}
+						to={"/teacher/subjectList/classList"}>
 						Back
 					</Button>
 				</Box>
