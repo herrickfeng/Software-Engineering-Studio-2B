@@ -6,7 +6,7 @@ import subjectRouter from "./routes/subject-router";
 import authRouter from "./routes/auth-router";
 import userRouter from "./routes/user-router";
 import adminUserRouter from "./routes/admin-user-router";
-import uploadRouter from "./routes/upload-router";
+import imageRouter from "./routes/image-router";
 
 import cors from "cors";
 import env from "./helpers/env";
@@ -35,7 +35,7 @@ app.use("/user", userRouter);
 app.use("/subject", subjectRouter)
 app.use("/admin/subject", adminSubjectRouter)
 app.use("/admin/user", adminUserRouter)
-app.use("/image", uploadRouter)
+app.use("/image", imageRouter)
 
 // Default route
 app.get("/", (req, res) => {

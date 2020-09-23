@@ -23,10 +23,11 @@ const PrivateRoute = ({
 	return (
 		<Route
 			{...routeProps}
-			render={(props) =>
-				isAuthenticated() ? props : <Redirect to="/login" />
+		>
+			{
+				isAuthenticated() ? routeProps.children : <Redirect to="/login" />
 			}
-		/>
+		</Route>
 	);
 };
 

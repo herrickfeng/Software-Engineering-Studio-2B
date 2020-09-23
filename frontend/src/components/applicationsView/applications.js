@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import api from "../../helpers/api";
 import { Link } from "react-router-dom";
@@ -26,6 +27,7 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
     },
   },
 }));
+
 
 export default function TeacherApplicationsView(props) {
 	const gridStyles = useGridStyles();
@@ -108,7 +110,5 @@ export default function TeacherApplicationsView(props) {
                 </Grid>
             </Grid>
         </Grid>
-
 	)
-
 }

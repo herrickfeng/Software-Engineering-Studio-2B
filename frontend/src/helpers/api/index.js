@@ -4,9 +4,13 @@ import {
   getUserById,
   updateUser,
   deleteUser,
-  resetPassword
+  resetPassword,
+  uploadProfilePicture
 } from "./user";
-import { uploadImage } from "./upload";
+import {
+  uploadImage,
+  downloadImage
+} from "./image";
 import {
   getSubjectStudent,
   getAllSubjectStudent,
@@ -17,6 +21,15 @@ import {
   updateSubjectAdmin,
   deleteSubjectAdmin
 } from "./subject";
+import {
+  getClassStudent,
+  getAllClassStudent,
+  createClassAdmin,
+  getClassAdmin,
+  getAllClassAdmin,
+  updateClassAdmin,
+  deleteClassAdmin,
+} from "./class";
 
 export const API_HOST = "localhost:4000";
 
@@ -30,12 +43,17 @@ export default {
     getById: getUserById,
     update: updateUser,
     delete: deleteUser,
-    upload: uploadImage,
+    upload: uploadProfilePicture,
+    download: downloadImage
   },
   subject: {
     get: getSubjectStudent,
     getAll: getAllSubjectStudent,
     join: joinSubject,
+    class: {
+      get: getClassStudent,
+      getAll: getAllClassStudent,
+    }
   },
   admin: {
     subject: {
@@ -43,7 +61,14 @@ export default {
       getAll: getAllSubjectAdmin,
       get: getSubjectAdmin,
       update: updateSubjectAdmin,
-      delete: deleteSubjectAdmin
+      delete: deleteSubjectAdmin,
+      class: {
+        create: createClassAdmin,
+        get: getClassAdmin,
+        getAll: getAllClassAdmin,
+        update: updateClassAdmin,
+        delete: deleteClassAdmin,
+      }
     }
   }
 }
