@@ -22,6 +22,7 @@ import Navigation from "./components/navigation";
 import StudentNavigation from "./components/studentNavigation";
 import TeacherNavigation from "./components/teacherNavigation";
 import Footer from "./components/footer";
+import GeoFence from "./pages/geofence/index.js";
 
 
 //Context
@@ -96,6 +97,13 @@ function AppRouter(props) {
         exact={true}>
         <TeacherNavigation />
         <TeacherClassListPage />
+      </PrivateRoute>
+
+      <PrivateRoute
+        path="/teacher/geofence"
+        exact={true}>
+        <TeacherNavigation />
+        <GeoFence />
       </PrivateRoute>
 
       <PrivateRoute
