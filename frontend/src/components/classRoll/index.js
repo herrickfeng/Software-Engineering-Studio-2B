@@ -9,20 +9,19 @@ import React from "react"
 import { createRef, useEffect, useState } from "react"
 
 export default function ClassAttendanceList(props) {
-  let classListData = [props.classListState]
-  console.log("I SAW YTOU")
-  console.log(props.classList)
-  console.log(props)
+  let classListData = props.classList
 
+  /*
   useEffect(() => {
-    classListData = props.classListState;
+    classListData = props.classList;
+    setClassListState(classListData)
     console.log("wHOOP")
-    console.log(props.classListState)
+    console.log(classListData)
   },[props]);
+  */
 
   return (
     <div>
-      <h1>  This the class attendance list </h1>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -32,10 +31,12 @@ export default function ClassAttendanceList(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell> Bitch </TableCell>
-              <TableCell> Lasagna </TableCell>
-            </TableRow>
+            {classListData.map(student => (
+              <TableRow>
+                <TableCell> {student._label.split("/")[0]} </TableCell>
+                <TableCell> {student._label.split("/")[1]} </TableCell>
+              </TableRow>
+             ))}
           </TableBody>
         </Table>
       </TableContainer>
