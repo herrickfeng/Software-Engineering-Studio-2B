@@ -9,16 +9,15 @@ import React from "react"
 import { createRef, useEffect, useState } from "react"
 
 export default function ClassAttendanceList(props) {
-  let classListData = props.classList
-  let test;
+  let classListData = [props.classListState]
   console.log("I SAW YTOU")
   console.log(props.classList)
+  console.log(props)
 
   useEffect(() => {
-    classListData = props.classList;
+    classListData = props.classListState;
     console.log("wHOOP")
-    console.log(props.test);
-    console.log(classListData)
+    console.log(props.classListState)
   },[props]);
 
   return (
@@ -28,11 +27,15 @@ export default function ClassAttendanceList(props) {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell> Attendance </TableCell>
+              <TableCell> Id </TableCell>
+              <TableCell> Name </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableCell> YEET </TableCell>
+            <TableRow>
+              <TableCell> Bitch </TableCell>
+              <TableCell> Lasagna </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
