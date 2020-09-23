@@ -3,6 +3,8 @@ import { Button, TableHead, TableRow, TableCell, TableBody, Box } from "@materia
 import LinedTable from "../../components/linedTable/index";
 import { Link } from "react-router-dom";
 import UploadImageForm from "../../components/upload"; 
+import { Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 /**
  * An example for what can be passed in via props
@@ -30,6 +32,20 @@ export default function StudentProfile(props) {
 
   return (
     <>
+    <Grid
+    container
+    direction="column"
+    justify="center"
+    alignItems="center"
+>
+      <Typography variant="h4" gutterBottom>
+          Profile
+      </Typography>
+      <img src={sampleData[0].image} height="200vh" objectFit="contain" />
+      <Typography variant="subtitle1" gutterBottom>
+          Profile picture
+      </Typography>
+    </Grid>
       <LinedTable>
         <TableBody>
           {sampleData.map(entry => (
@@ -60,7 +76,7 @@ export default function StudentProfile(props) {
             <TableRow>
               <TableCell>Password</TableCell>
               <TableCell>
-                <Button variant="contained" color="primary" onClick={props.handleResetPassword} >Email Reset Link</Button>
+                **********
               </TableCell>
             </TableRow>
           ))}
@@ -68,7 +84,7 @@ export default function StudentProfile(props) {
         <TableBody>
             <TableRow>
             <TableCell align="left">
-              <img src={sampleData[0].image} height="200vh" objectFit="contain" />
+              Profile Picture
             </TableCell>
             <TableCell>
               <UploadImageForm setState={props.setState}/>
