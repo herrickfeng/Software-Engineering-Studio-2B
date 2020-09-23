@@ -42,6 +42,7 @@ export class SignUpPage extends React.Component {
         password: "",
         firstName: "",
         lastName: "",
+        studentId: "",
       },
     };
 
@@ -69,7 +70,8 @@ export class SignUpPage extends React.Component {
       this.setState({ ...this.state, isLoading: true });
       await api.user.create({
        	displayName: `${this.state.form.firstName} ${this.state.form.lastName}`,
-       	email: this.state.form.email,
+        email: this.state.form.email,
+        studentId: this.state.form.studentId, 
        	password: this.state.form.password,
        });
 
@@ -156,9 +158,20 @@ export class SignUpPage extends React.Component {
                 />
               </Grid>
               <Grid item xs={12}>
+                {/* Studend Id */}
+                <TextField
+                  label="Student ID"
+                  variant="outlined"
+                  name="studentId"
+                  required
+                  fullWidth
+                  onChange={this.handleFormChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 {/* password */}
                 <TextField
-                  label="Password (More than 6 characters)"
+                  label="Password (More than 5 characters)"
                   variant="outlined"
                   name="password"
                   required
