@@ -65,11 +65,6 @@ function AppRouter(props) {
         <Signout />
       </Route>
 
-      <Route path="/video" exact={true}>
-        <Navigation />
-        <VideoPage />
-      </Route>
-
       <PrivateRoute path="/student/dashboard" exact={true}>
         <StudentNavigation />
         <StudentDashboardPage />
@@ -85,6 +80,8 @@ function AppRouter(props) {
         <StudentNavigation />
         <StudentAttendancePage />
       </PrivateRoute>
+
+      <Route path="/teacher/subject/:subjectId/class/:classId/attendance" exact={true} component={TeacherClassAttendanceViewPage} />
 
       <PrivateRoute path="/student/profile" exact={true}>
         <StudentNavigation />
@@ -131,6 +128,9 @@ function AppRouter(props) {
         <UploadPage />
         <HomePage />
       </Route>
+
+      <Route path="/teacher/subject/:subjectId/class/:classId/video" exact={true} component={VideoPage} />
+
     </Switch>
   );
 }

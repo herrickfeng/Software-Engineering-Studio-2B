@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import api from "../../helpers/api";
 
@@ -78,10 +79,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 // Custom card for each Active Card application
-const CustomCard = ({ classes, image, title, subtitle }) => {
+const CustomCard = ({ classes, image, title, subtitle, history, url }) => {
   return (
     <CardActionArea className={classes.actionArea}>
-      <Card className={classes.card}>
+      <Card className={classes.card} onClick={() => history.push(url)}>
         <CardMedia className={classes.media} image={image} />
         <CardContent className={classes.content}>
           <Typography className={classes.title} variant={'h2'}>
@@ -111,8 +112,9 @@ const CustomCardInactive = ({ classes, image, title, subtitle }) => {
 
 export default function TeacherApplicationsView(props) {
 	const gridStyles = useGridStyles();
-    const styles = useStyles({ color: '#0f4beb' });
-    const stylesInactive = useStyles({ color: '#b2b2b2' });
+  const styles = useStyles({ color: '#0f4beb' });
+  const stylesInactive = useStyles({ color: '#b2b2b2' });
+  const history = useHistory();
 
     // Grid with container grid for each row (2x2 grid)
 	return (
@@ -120,13 +122,15 @@ export default function TeacherApplicationsView(props) {
 		    <Grid container classes={gridStyles} my={5} spacing={4} direction="row" wrap={'nowrap'}>
 			    <Grid item >
 				    <CustomCard
-                        classes={styles}
-                        title={'Verify Facial Authentication'}
-                        subtitle={'Click here to get started!'}
-                        image={
-                            "https://security-img.scdn6.secure.raxcdn.com/news/920/digital-barriers-facial-recognition-technology.jpg"
-                        }
-                    />
+            classes={styles}
+            title={'Verify Facial Authentication'}
+            subtitle={'Click here to get started!'}
+            image={
+              "https://security-img.scdn6.secure.raxcdn.com/news/920/digital-barriers-facial-recognition-technology.jpg"
+            }
+            history={history}
+            url={`${props.classId}/video`}
+          />
 			    </Grid>
                 <Grid item >
 				    <CustomCard
@@ -136,6 +140,8 @@ export default function TeacherApplicationsView(props) {
                         image={
                             'https://media.istockphoto.com/photos/rear-view-of-large-group-of-students-on-a-class-at-lecture-hall-picture-id1069239598?k=6&m=1069239598&s=612x612&w=0&h=GkYYkDmTqqBYAW3ju6l29eqpIS1e5426oZmVig35Jgc='
                         }
+                        history={history}
+                        url={`${props.classId}/attendance`}
                     />
 			    </Grid>
 		    </Grid>
