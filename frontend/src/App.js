@@ -15,6 +15,8 @@ import TeacherClassListPage from "./pages/teacherClassList/index.js";
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js";
 import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js";
 import TeacherClassAttendanceEditPage from "./pages/teacherClassAttendanceEdit/index.js";
+import TeacherQuestionsViewPage from "./pages/teacherQuestionsView/index.js";
+import TeacherQuestionsEditPage from "./pages/teacherQuestionsEdit/index.js";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
@@ -127,18 +129,33 @@ function AppRouter(props) {
       <Route path="/teacher/subject/:subjectId/class/:classId/TeacherClassAttendanceViewPage" exact={true} component={TeacherClassAttendanceViewPage} />
       {/*
         <PrivateRoute
-          path="/teacher/subject/:subjectId/class/:classId/TeacherClassAttendanceViewPage"
-          exact={true}>
-          <TeacherNavigation />
-          <TeacherClassAttendanceViewPage />
-        </PrivateRoute>
-      */}
+
+            path="/teacher/subjectList/classList/applicationsView/teacherClassAttendanceView"
+            exact={true}>
+            <TeacherNavigation />
+              <TeacherClassAttendanceViewPage />
+          </PrivateRoute>
 
           <PrivateRoute
-              path="/teacher/subject/:subjectId/class/:classId/TeacherClassAttendanceEditPage"
+              path="/teacher/subjectList/classList/applicationsView/teacherClassAttendanceEdit"
+
               exact={true}>
               <TeacherNavigation />
               <TeacherClassAttendanceEditPage />
+          </PrivateRoute>
+
+          <PrivateRoute
+              path="/teacher/subjectList/classList/applicationsView/teacherQuestionsView"
+              exact={true}>
+              <TeacherNavigation />
+              <TeacherQuestionsViewPage />
+          </PrivateRoute>
+
+          <PrivateRoute
+              path="/teacher/subjectList/classList/applicationsView/teacherQuestionsEdit"
+              exact={true}>
+              <TeacherNavigation />
+              <TeacherQuestionsEditPage />
           </PrivateRoute>
 
       <Route path="/upload" exact>

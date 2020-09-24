@@ -56,7 +56,7 @@ export default class TeacherClassAttendanceView extends React.Component {
 						<Button variant="outlined"
 							color="secondary"
 							component={Link}
-							to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceEditPage"}>
+							to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceEdit"}>
 							Edit
 						</Button>
 					</Box>

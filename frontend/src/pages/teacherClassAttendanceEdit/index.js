@@ -60,7 +60,7 @@ export default class TeacherClassAttendanceEdit extends React.Component {
 							variant="outlined"
 							color="primary"
 							component={Link}
-							to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceViewPage"}>
+							to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceView"}>
 							Back
 						</Button>
 					</Box>
@@ -70,7 +70,7 @@ export default class TeacherClassAttendanceEdit extends React.Component {
 							variant="outlined"
 							color="secondary"
 							component={Link}
-							to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceViewPage"}>
+							to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceView"}>
 							Save
 						</Button>
 					</Box>
