@@ -51,7 +51,7 @@ export const createAttendance = async (req, res) => {
 };
 
 export const updateAttendance = async (req, res) => {
-    try {
+  try {
         const attendanceBody = req.body;
         const { question, location, facial } = attendanceBody;
 

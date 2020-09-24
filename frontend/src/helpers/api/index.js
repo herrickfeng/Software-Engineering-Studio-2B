@@ -5,7 +5,8 @@ import {
   updateUser,
   deleteUser,
   resetPassword,
-  uploadProfilePicture
+  uploadProfilePicture,
+  getStuAttendance,
 } from "./user";
 import {
   uploadImage,
@@ -49,7 +50,8 @@ export default {
     update: updateUser,
     delete: deleteUser,
     upload: uploadProfilePicture,
-    download: downloadImage
+    download: downloadImage,
+    attend: getStuAttendance,
   },
   subject: {
     get: getSubjectStudent,

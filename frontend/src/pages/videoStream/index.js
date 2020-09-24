@@ -23,14 +23,12 @@ export default function VideoStream(props) {
     const subject = await api.subject.get(authState.user.idToken, props.match.params.subjectId)
     const studentList = subject.data.data.students;
     //await console.log(api.subject.attend.getBySub(authState.user.idToken, props.match.params.subjectId, authState.user.uid))
-    console.log(authState.user.uid)
-    console.log(authState)
+    await console.log(api.subject.attend.getByCl(authState.user.idToken, props.match.params.subjectId, props.match.params.classId))
     return Promise.all(
       studentList.map(async label => {
         const descriptions = []
         const studentData = await api.user.getById(authState.user.idToken, label)
         const studentName = studentData.data.data.displayName
-        await console.log(api.subject.attend.getBySub(authState.user.idToken, props.match.params.subjectId, label))
         label = label.concat(`/${studentName}`)
         if (studentData.data.data.descriptor) {
           const descriptor = new Float32Array(Object.values(studentData.data.data.descriptor))
@@ -60,10 +58,20 @@ export default function VideoStream(props) {
         if (detection) {
           bestMatch = faceMatcher.findBestMatch(detection.descriptor)
           // Send detection to subject attendance
-          classListState.forEach((item) => {
+          classListState.forEach(async (item) => {
             const matchInfo = item._label.split("/")
             if (item._label == bestMatch.label) {
               console.log(matchInfo[1])
+              const attendance = await api.subject.attend.get(authState.user.idToken, props.match.params.subjectId, props.match.params.classId, matchInfo[0])
+              console.log(attendance)
+              if (!attendance.data.data.facial) {
+                console.log("updating")
+                console.log(attendance.data.data.facial)
+                await api.subject.attend.update(authState.user.idToken, props.match.params.subjectId, props.match.params.classId, matchInfo[0])
+              }
+              else {
+                console.log(attendance.data.data.facial)
+              }
             }
           })
         }
