@@ -124,15 +124,18 @@ function AppRouter(props) {
         <TeacherApplicationsViewPage />
       </PrivateRoute> */}
 
+      <Route path="/teacher/subject/:subjectId/class/:classId/TeacherClassAttendanceViewPage" exact={true} component={TeacherClassAttendanceViewPage} />
+      {/*
         <PrivateRoute
-            path="/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceViewPage"
-            exact={true}>
-            <TeacherNavigation />
-              <TeacherClassAttendanceViewPage />
-          </PrivateRoute>
+          path="/teacher/subject/:subjectId/class/:classId/TeacherClassAttendanceViewPage"
+          exact={true}>
+          <TeacherNavigation />
+          <TeacherClassAttendanceViewPage />
+        </PrivateRoute>
+      */}
 
           <PrivateRoute
-              path="/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceEditPage"
+              path="/teacher/subject/:subjectId/class/:classId/TeacherClassAttendanceEditPage"
               exact={true}>
               <TeacherNavigation />
               <TeacherClassAttendanceEditPage />

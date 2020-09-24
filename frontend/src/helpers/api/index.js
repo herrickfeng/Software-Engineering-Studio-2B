@@ -19,7 +19,11 @@ import {
   getAllSubjectAdmin,
   getSubjectAdmin,
   updateSubjectAdmin,
-  deleteSubjectAdmin
+  deleteSubjectAdmin,
+  createAttendance,
+  getAttendance,
+  getAttendanceBySubClass,
+  getAttendanceBySubStu,
 } from "./subject";
 import {
   getClassStudent,
@@ -53,6 +57,12 @@ export default {
     class: {
       get: getClassStudent,
       getAll: getAllClassStudent,
+    },
+    attend: {
+      create: createAttendance,
+      get: getAttendance,
+      getByCl: getAttendanceBySubClass,
+      getBySub: getAttendanceBySubStu,
     }
   },
   admin: {
