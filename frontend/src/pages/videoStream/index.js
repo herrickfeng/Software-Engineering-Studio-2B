@@ -65,15 +65,12 @@ export default function VideoStream(props) {
               const attendance = await api.subject.attend.get(authState.user.idToken, props.match.params.subjectId, props.match.params.classId, matchInfo[0])
               console.log(attendance)
               if (!attendance.data.data.facial) {
-                console.log("updating")
-                console.log(attendance.data.data.facial)
-                console.log(authState.user.idToken)
-                const toSend = {
+                /*const toSend = {
                   question: attendance.data.data.question,
                   location: attendance.data.data.location,
                   facial: true,
-                }
-                await api.subject.attend.update(authState.user.idToken, props.match.params.subjectId, props.match.params.classId, matchInfo[0], toSend)
+                }*/
+                await api.subject.attend.updateSpec(authState.user.idToken, props.match.params.subjectId, props.match.params.classId, matchInfo[0], "facial")
               }
               else {
                 console.log(attendance.data.data.facial)

@@ -234,7 +234,7 @@ export const getStuAttendance = async (req, res) => {
 
 export const updateSpecific = async (req, res) => {
     try {
-        const attendanceBody = req.body;
+        const body = req.body;
 
         const attendanceType = req.params.attendanceType;
         const subjectId = req.params.subjectId;
@@ -245,7 +245,7 @@ export const updateSpecific = async (req, res) => {
         if (allAttendanceDoc.size > 0) {
             const attendanceDoc = allAttendanceDoc.docs[0];
             const attendanceBody = attendanceDoc.data();
-            attendanceBody[attendanceType] = attendanceBody[attendanceType] === undefined ? true : attendanceBody[attendanceType];
+            attendanceBody[attendanceType] = body[attendanceType] == undefined ? true : attendanceBody[attendanceType];
             await firestore.subject.update(attendanceDoc, attendanceBody);
             return res.status(200).json(
                 successResponse({msg: "Attendance successfully updated"})

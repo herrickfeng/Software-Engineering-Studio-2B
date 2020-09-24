@@ -76,11 +76,20 @@ export const getAttendanceBySubStu = async (idToken, subjectId, userId) => {
 }
 
 export const updateAttendance = async (idToken, subjectId, classId, userId, toSend) => {
-  console.log("IDEEEE")
-  console.log(idToken)
   const res = await axios.put(
     `http://${API_HOST}/subject/${subjectId}/class/${classId}/user/${userId}/attendance`,
     toSend,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+  return res;
+}
+
+export const updateAttendanceSpecific = async (idToken, subjectId, classId, userId, attendanceType) => {
+  const res = await axios.put(
+    `http://${API_HOST}/subject/${subjectId}/class/${classId}/user/${userId}/attendance/${attendanceType}`,
+    {},
     {
       headers: { Authorization: `Bearer ${idToken}` },
     }
