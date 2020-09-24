@@ -1,6 +1,6 @@
 import React from "react";
-import api from "../../helpers/api";
 import { Link } from "react-router-dom";
+import api from "../../helpers/api"
 
 // project components
 import { AuthContext } from "../../context/auth";
@@ -40,7 +40,12 @@ export default class TeacherApplicationsViewPage extends React.Component {
         <TeacherApplicationsView subjectId={this.props.match.params.subjectId} classId={this.props.match.params.classId}/>
 
 				<Box textAlign="center" my={5}>
-					<Button variant={"outlined"} color={"primary"} component={Link} to={`/teacher/subject/${this.state.subject.subjectId}`}>
+					<Button
+						variant={"outlined"}
+						color={"primary"}
+						component={Link}
+						to={"/teacher/subjectList/classList"}>
+
 						Back
 					</Button>
 				</Box>

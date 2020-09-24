@@ -7,6 +7,11 @@ function rnd(max) {
   return Math.floor(Math.random() * max)
 }
 
+function suffice(rate) {
+  return Math.random() < rate;
+}
+
+
 describe("seed", () => {
   var server;
   var teacherId;
@@ -53,22 +58,25 @@ describe("seed", () => {
     var teacherBody = teachers[teacherId]
     for (var i = 0; i < subjects.length; i++) {
       var subjectBody = subjects[i];
-      const n = 2 + rnd(10)
-      for (var j = 0; j < n; j++) {
-        const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/class/create`)
-          .set("Authorization", `Bearer ${teacherBody.idToken}`)
-          .send({
-            className: `Week ${j+1}`,
-            classCode: `${j}`,
-            date: "2020-01-01",
-            startTime: "10:00",
-            endTime: "12:00"
-          });
-      }
+      const response = await request(server).post(`/admin/subject/${subjectBody.subjectId}/class/generate`)
+        .set("Authorization", `Bearer ${teacherBody.idToken}`)
+        .send(subjectBody.seedInfo.classGenerate);
     }
   });
 
-  it("create and enroll students subject", async function () {
+  it("get class ids", async function () {
+    this.timeout(10000)
+    var teacherBody = teachers[teacherId]
+    for (var i = 0; i < subjects.length; i++) {
+      var subjectBody = subjects[i];
+      const response = await request(server).get(`/admin/subject/${subjectBody.subjectId}/`)
+        .set("Authorization", `Bearer ${teacherBody.idToken}`)
+        .send();
+      subjects[i] = { ...subjectBody, classes: response.body.data.classes }
+    }
+  });
+
+  it("create and enroll students subject with attendances", async function () {
     this.timeout(600000)
     for (var i = 0; i < students.length; i++) {
       var studentBody = students[i];
@@ -79,9 +87,28 @@ describe("seed", () => {
       studentBody = { ...studentBody, ...response.body.data }
       response = await request(server).put(`/user/${studentBody.userId}/image`).set("Authorization", `Bearer ${studentBody.idToken}`).attach("image", `./src/seed/images/${studentBody.displayName}.png`);
 
+
       for (var j = 0; j < subjects.length; j++) {
-        var subjectBody = subjects[j]
-        await request(server).post("/subject/join").set("Authorization", `Bearer ${studentBody.idToken}`).send(subjectBody);
+        if (suffice(studentBody.seedInfo.enrollmentRate)) {
+          var subjectBody = subjects[j]
+          await request(server).post("/subject/join").set("Authorization", `Bearer ${studentBody.idToken}`).send(subjectBody);
+
+          var classes = subjects[j].classes;
+          for (var k = 0; k < classes.length; k++) {
+            const classId = classes[k]
+            if (suffice(studentBody.seedInfo.attendanceRate)) {
+              await request(server)
+              .post(`/subject/${subjectBody.subjectId}/class/${classId}/user/${studentBody.userId}/attendance`)
+              .set("Authorization", `Bearer ${studentBody.idToken}`)
+              .send({
+                "facial": suffice(studentBody.seedInfo.attendanceRate),
+                "location": suffice(studentBody.seedInfo.attendanceRate),
+                "question": suffice(studentBody.seedInfo.attendanceRate)
+              });
+            }
+          }
+
+        }
       }
     }
   });
