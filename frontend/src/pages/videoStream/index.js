@@ -22,11 +22,15 @@ export default function VideoStream(props) {
   async function getImages() {
     const subject = await api.subject.get(authState.user.idToken, props.match.params.subjectId)
     const studentList = subject.data.data.students;
+    //await console.log(api.subject.attend.getBySub(authState.user.idToken, props.match.params.subjectId, authState.user.uid))
+    console.log(authState.user.uid)
+    console.log(authState)
     return Promise.all(
       studentList.map(async label => {
         const descriptions = []
         const studentData = await api.user.getById(authState.user.idToken, label)
         const studentName = studentData.data.data.displayName
+        await console.log(api.subject.attend.getBySub(authState.user.idToken, props.match.params.subjectId, label))
         label = label.concat(`/${studentName}`)
         if (studentData.data.data.descriptor) {
           const descriptor = new Float32Array(Object.values(studentData.data.data.descriptor))

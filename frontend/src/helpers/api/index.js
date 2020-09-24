@@ -24,6 +24,7 @@ import {
   getAttendance,
   getAttendanceBySubClass,
   getAttendanceBySubStu,
+  updateAttendance,
 } from "./subject";
 import {
   getClassStudent,
@@ -63,6 +64,7 @@ export default {
       get: getAttendance,
       getByCl: getAttendanceBySubClass,
       getBySub: getAttendanceBySubStu,
+      update: updateAttendance,
     }
   },
   admin: {
