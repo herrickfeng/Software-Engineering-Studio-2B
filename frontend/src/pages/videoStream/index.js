@@ -6,7 +6,6 @@ import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
 import ClassRoll from "../../components/classRoll" 
-import ClassList from "../../components/classList";
 
 export default function VideoStream(props) {
   const { authState } = React.useContext(AuthContext);

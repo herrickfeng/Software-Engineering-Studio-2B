@@ -31,7 +31,6 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
 
 export default function TeacherApplicationsView(props) {
   const gridStyles = useGridStyles();
-  console.log(props)
 
     // Grid with container grid for each row (2x2 grid)
 	return (
@@ -62,7 +61,7 @@ export default function TeacherApplicationsView(props) {
                                 style={{ height: 0, paddingTop: '64%' }}
                                 image={require("../../images/attendance.jpg")}
                                 component={Link}
-                                to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceViewPage"}
+                                to={`${props.classId}/TeacherClassAttendanceViewPage`}
                             />
                             <CardContent>
                                 <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Location } from "react-router-dom";
 import api from "../../helpers/api"
 
 // project components
@@ -16,7 +16,8 @@ export default class TeacherClassAttendanceView extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = undefined;
+    this.state = undefined;
+    console.log(this.props.location)
 	}
 
 	async componentDidMount() {
