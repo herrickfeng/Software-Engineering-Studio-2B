@@ -15,6 +15,8 @@ import TeacherClassListPage from "./pages/teacherClassList/index.js";
 import TeacherApplicationsViewPage from "./pages/teacherApplicationsView/index.js";
 import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/index.js";
 import TeacherClassAttendanceEditPage from "./pages/teacherClassAttendanceEdit/index.js";
+import TeacherQuestionsViewPage from "./pages/teacherQuestionsView/index.js";
+import TeacherQuestionsEditPage from "./pages/teacherQuestionsEdit/index.js";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentClassListPage from "./pages/studentClassList/index";
 import StudentAttendancePage from "./pages/studentAttendance";
@@ -107,17 +109,31 @@ function AppRouter(props) {
       </PrivateRoute>
 
         <PrivateRoute
-            path="/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceViewPage"
+            path="/teacher/subjectList/classList/applicationsView/teacherClassAttendanceView"
             exact={true}>
             <TeacherNavigation />
               <TeacherClassAttendanceViewPage />
           </PrivateRoute>
 
           <PrivateRoute
-              path="/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceEditPage"
+              path="/teacher/subjectList/classList/applicationsView/teacherClassAttendanceEdit"
               exact={true}>
               <TeacherNavigation />
               <TeacherClassAttendanceEditPage />
+          </PrivateRoute>
+
+          <PrivateRoute
+              path="/teacher/subjectList/classList/applicationsView/teacherQuestionsView"
+              exact={true}>
+              <TeacherNavigation />
+              <TeacherQuestionsViewPage />
+          </PrivateRoute>
+
+          <PrivateRoute
+              path="/teacher/subjectList/classList/applicationsView/teacherQuestionsEdit"
+              exact={true}>
+              <TeacherNavigation />
+              <TeacherQuestionsEditPage />
           </PrivateRoute>
 
       <Route path="/upload" exact>

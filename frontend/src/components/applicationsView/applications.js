@@ -58,7 +58,7 @@ export default function TeacherApplicationsView(props) {
                                 style={{ height: 0, paddingTop: '64%' }}
                                 image={require("../../images/attendance.jpg")}
                                 component={Link}
-                                to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceViewPage"}
+                                to={"/teacher/subjectList/classList/applicationsView/teacherClassAttendanceView"}
                             />
                             <CardContent>
                                 <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">
@@ -78,7 +78,7 @@ export default function TeacherApplicationsView(props) {
                                 style={{ height: 0, paddingTop: '64%' }}
                                 image={require("../../images/questions.jpg")}
                                 component={Link}
-                                
+                                to={"/teacher/subjectList/classList/applicationsView/teacherQuestionsView"}
                             />
                             <CardContent>
                                 <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">
