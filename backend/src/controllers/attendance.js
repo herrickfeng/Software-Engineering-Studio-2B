@@ -231,3 +231,29 @@ export const getStuAttendance = async (req, res) => {
         handleApiError(res, error);
     }
 };
+
+export const updateSpecific = async (req, res) => {
+    try {
+        const attendanceBody = req.body;
+
+        const attendanceType = req.params.attendanceType;
+        const subjectId = req.params.subjectId;
+        const classId = req.params.classId;
+        const userId = req.params.userId;
+
+        const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
+        if (allAttendanceDoc.size > 0) {
+            const attendanceDoc = allAttendanceDoc.docs[0];
+            const attendanceBody = attendanceDoc.data();
+            attendanceBody[attendanceType] = attendanceBody[attendanceType] === undefined ? true : attendanceBody[attendanceType];
+            await firestore.subject.update(attendanceDoc, attendanceBody);
+            return res.status(200).json(
+                successResponse({msg: "Attendance successfully updated"})
+            );
+        } else {
+            throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
+        }
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
