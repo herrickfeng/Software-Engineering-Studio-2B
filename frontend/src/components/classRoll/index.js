@@ -22,7 +22,8 @@ const useStyles = makeStyles({
 export default function ClassAttendanceList(props) {
   const classes = useStyles();
   let classListData = props.classList
-
+  console.log("leave meeee")
+  console.log(props)
   /*
   useEffect(() => {
     classListData = props.classList;

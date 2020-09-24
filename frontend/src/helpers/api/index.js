@@ -5,7 +5,8 @@ import {
   updateUser,
   deleteUser,
   resetPassword,
-  uploadProfilePicture
+  uploadProfilePicture,
+  getStuAttendance,
 } from "./user";
 import {
   uploadImage,
@@ -25,6 +26,7 @@ import {
   getAttendanceBySubClass,
   getAttendanceBySubStu,
   updateAttendance,
+  updateAttendanceSpecific,
 } from "./subject";
 import {
   getClassStudent,
@@ -49,7 +51,8 @@ export default {
     update: updateUser,
     delete: deleteUser,
     upload: uploadProfilePicture,
-    download: downloadImage
+    download: downloadImage,
+    attend: getStuAttendance,
   },
   subject: {
     get: getSubjectStudent,
@@ -65,6 +68,7 @@ export default {
       getByCl: getAttendanceBySubClass,
       getBySub: getAttendanceBySubStu,
       update: updateAttendance,
+      updateSpec: updateAttendanceSpecific
     }
   },
   admin: {
