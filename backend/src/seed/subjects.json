@@ -1,22 +1,72 @@
 [
   {
     "subjectName": "Software Engineering Studio 2B",
-    "subjectCode": "41096"
+    "subjectCode": "41096",
+    "seedInfo": {
+      "THIS IS INFORMATION": "FOR THE SEEDER",
+      "classGenerate": {
+        "firstDate": "2020-08-17",
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "repeat": "Weekly",
+        "occurrence": 13
+      }
+    }
   },
   {
     "subjectName": "Applications Programming",
-    "subjectCode": "48024"
+    "subjectCode": "48024",
+    "seedInfo": {
+      "THIS IS INFORMATION": "FOR THE SEEDER",
+      "classGenerate": {
+        "firstDate": "2020-08-15",
+        "startTime": "15:30",
+        "endTime": "16:30",
+        "repeat": "Weekly",
+        "occurrence": 13
+      }
+    }
   },
   {
-    "subjectName": "Programming Fundamentals",
-    "subjectCode": "48023"
+    "subjectName": "Researching Design Histories",
+    "subjectCode": "85502",
+    "seedInfo": {
+      "THIS IS INFORMATION": "FOR THE SEEDER",
+      "classGenerate": {
+        "firstDate": "2020-08-01",
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "repeat": "Monthly",
+        "occurrence": 15
+      }
+    }
   },
   {
-    "subjectName": "Foundations of Law",
-    "subjectCode": "70102"
+    "subjectName": "Citizenship and Communication",
+    "subjectCode": "54000",
+    "seedInfo": {
+      "THIS IS INFORMATION": "FOR THE SEEDER",
+      "classGenerate": {
+        "firstDate": "2020-09-17",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "repeat": "Daily",
+        "occurrence": 10
+      }
+    }
   },
   {
     "subjectName": "Ethics Law and Justice",
-    "subjectCode": "70103"
+    "subjectCode": "70103",
+    "seedInfo": {
+      "THIS IS INFORMATION": "FOR THE SEEDER",
+      "classGenerate": {
+        "firstDate": "2020-08-17",
+        "startTime": "09:00",
+        "endTime": "17:00",
+        "repeat": "Daily",
+        "occurrence": 13
+      }
+    }
   }
 ]

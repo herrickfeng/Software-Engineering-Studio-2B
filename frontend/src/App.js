@@ -126,7 +126,10 @@ function AppRouter(props) {
         <TeacherApplicationsViewPage />
       </PrivateRoute> */}
 
+      <Route path="/teacher/subject/:subjectId/class/:classId/TeacherClassAttendanceViewPage" exact={true} component={TeacherClassAttendanceViewPage} />
+      {/*
         <PrivateRoute
+
             path="/teacher/subjectList/classList/applicationsView/teacherClassAttendanceView"
             exact={true}>
             <TeacherNavigation />
@@ -135,6 +138,7 @@ function AppRouter(props) {
 
           <PrivateRoute
               path="/teacher/subjectList/classList/applicationsView/teacherClassAttendanceEdit"
+
               exact={true}>
               <TeacherNavigation />
               <TeacherClassAttendanceEditPage />
@@ -177,7 +181,7 @@ function App() {
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
             {/* <Footer /> */}
           </div>
-          <Footer />
+          <Footer align="bottom"/>
         </BrowserRouter>
       </AppProvider>
     </div>

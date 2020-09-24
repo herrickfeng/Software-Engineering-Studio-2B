@@ -30,7 +30,7 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
 
 
 export default function TeacherApplicationsView(props) {
-	const gridStyles = useGridStyles();
+  const gridStyles = useGridStyles();
 
     // Grid with container grid for each row (2x2 grid)
 	return (
@@ -40,9 +40,10 @@ export default function TeacherApplicationsView(props) {
                     <Card style={{ height: '350px', width: '450px', backgroundColor: '#2964BA'}}>
                         <CardActionArea>
                             <CardMedia
-                                style={{ height: 0, paddingTop: '64%' }}
-                                image={require("../../images/authentication.jpg")}
-                                component={Link}
+                              style={{ height: 0, paddingTop: '64%' }}
+                              image={require("../../images/authentication.jpg")}
+                              component={Link}
+                              to={`${props.classId}/video`}
                                 
                             />
                             <CardContent>
@@ -60,7 +61,9 @@ export default function TeacherApplicationsView(props) {
                                 style={{ height: 0, paddingTop: '64%' }}
                                 image={require("../../images/attendance.jpg")}
                                 component={Link}
+
                                 to={"/teacher/subjectList/classList/applicationsView/teacherClassAttendanceView"}
+
                             />
                             <CardContent>
                                 <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">
