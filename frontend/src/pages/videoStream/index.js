@@ -90,14 +90,14 @@ export default function VideoStream(props) {
     buildLoad()
     return (
       <div>
-        <h1> LOADING... </h1>
+        <h1> Loading </h1>
       </div>
     )
   }
   else {
     return (
       <Grid container>
-        <Grid item>
+        <Grid item component={Paper}>
           <video ref={videoTag} width="1440vh" height="1120vh" muted></video>
         </Grid>
         <Grid item component={Paper}>
