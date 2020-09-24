@@ -14,8 +14,6 @@ export default function StudentProfilePage(props) {
   const fetchData = async () => {
     const userData = await api.user.get(authState.user.idToken)
     setProfileState(userData.data.data);
-    console.log(userData)
-    console.log(authState.user.idToken)
   };
 
   useEffect(() => {
