@@ -22,8 +22,6 @@ export default function VideoStream(props) {
   async function getImages() {
     const subject = await api.subject.get(authState.user.idToken, props.match.params.subjectId)
     const studentList = subject.data.data.students;
-    //await console.log(api.subject.attend.getBySub(authState.user.idToken, props.match.params.subjectId, authState.user.uid))
-    await console.log(api.subject.attend.getByCl(authState.user.idToken, props.match.params.subjectId, props.match.params.classId))
     return Promise.all(
       studentList.map(async label => {
         const descriptions = []
@@ -38,7 +36,6 @@ export default function VideoStream(props) {
           console.log(`Descriptor for ${studentData.data.data.studentId} does not exist`);
           label = label.concat("/null")
           const descriptor = new Float32Array(128).fill(0)
-          console.log(descriptor)
           descriptions.push(descriptor)
           return new faceapi.LabeledFaceDescriptors(label, descriptions)
         }
@@ -50,29 +47,23 @@ export default function VideoStream(props) {
     videoTag.current.play().then(console.log("playing"))
     labeledDescriptors = classListState
     const filteredLabeledDescriptors = labeledDescriptors.filter(ld => ld != undefined) // Remove any undefined elements
-    console.log(classListState)
     const faceMatcher = new faceapi.FaceMatcher(filteredLabeledDescriptors, .4)
     setInterval(async () => {
       if (videoTag.current != null) {
         const detection = await faceapi.detectSingleFace(videoTag.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
         if (detection) {
           bestMatch = faceMatcher.findBestMatch(detection.descriptor)
-          // Send detection to subject attendance
           classListState.forEach(async (item) => {
             const matchInfo = item._label.split("/")
             if (item._label == bestMatch.label) {
               console.log(matchInfo[1])
               const attendance = await api.subject.attend.get(authState.user.idToken, props.match.params.subjectId, props.match.params.classId, matchInfo[0])
-              console.log(attendance)
               if (!attendance.data.data.facial) {
-                /*const toSend = {
-                  question: attendance.data.data.question,
-                  location: attendance.data.data.location,
-                  facial: true,
-                }*/
-                await api.subject.attend.updateSpec(authState.user.idToken, props.match.params.subjectId, props.match.params.classId, matchInfo[0], "facial")
+                await api.subject.attend.updateSpec(authState.user.idToken, props.match.params.subjectId, props.match.params.classId, matchInfo[0], "facial") // Send detection to subject attendance
+                console.log("updated attendance")
               }
               else {
+                console.log("detected person is already marked")
                 console.log(attendance.data.data.facial)
               }
             }
@@ -107,15 +98,14 @@ export default function VideoStream(props) {
         <h1> Loading </h1>
       </div>
     )
-  }
-  else {
+  } else {
     return (
       <Grid container>
         <Grid item component={Paper}>
           <video ref={videoTag} width="1440vh" height="1120vh" muted></video>
         </Grid>
         <Grid item component={Paper}>
-          <ClassRoll classList={classListState} updateClassList={setClassListState} />
+          <ClassRoll subjectId={props.match.params.subjectId} classId={props.match.params.classId} idToken={authState.user.idToken}/>
         </Grid>
       </Grid>
       )

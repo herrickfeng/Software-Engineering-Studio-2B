@@ -7,6 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles }from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from "react"
+import api from "../../helpers/api/index"
 import { createRef, useEffect, useState } from "react"
 
 const useStyles = makeStyles({
@@ -21,9 +22,24 @@ const useStyles = makeStyles({
 
 export default function ClassAttendanceList(props) {
   const classes = useStyles();
-  let classListData = props.classList
-  console.log("leave meeee")
-  console.log(props)
+  const [attendanceList, setAttendanceList] = useState(undefined)
+  let attendanceData;
+
+  async function getAttendance() {
+    attendanceData = await api.subject.attend.getByCl(props.idToken, props.subjectId, props.classId)
+    attendanceData = attendanceData.data.data
+    Promise.all(
+      attendanceData.map(async student => {
+        const name = await api.user.getById(props.idToken, student.uid)
+        student.displayName = name.data.data.displayName
+        return student
+      })
+    ).then((students) => {
+      setAttendanceList(students)
+    })
+  }
+
+
   /*
   useEffect(() => {
     classListData = props.classList;
@@ -33,26 +49,62 @@ export default function ClassAttendanceList(props) {
   },[props]);
   */
 
-  return (
-    <div>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell> Id </TableCell>
-              <TableCell> Name </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {classListData.map(student => (
-              <TableRow className={classes.attending}>
-                <TableCell> {student._label.split("/")[0]} </TableCell>
-                <TableCell> {student._label.split("/")[1]} </TableCell>
+  function RenderRows(props) {
+    const facial = props.student.facial
+    if (facial) {
+      return (
+        <TableRow className={classes.attending}>
+          <TableCell> {props.student.uid} </TableCell>
+          <TableCell> {props.student.displayName} </TableCell>
+        </TableRow>
+      )
+    } else {
+      return (
+        <TableRow>
+          <TableCell> {props.student.uid} </TableCell>
+          <TableCell> {props.student.displayName} </TableCell>
+        </TableRow>
+      )
+    }
+  }
+
+  if (!attendanceList) {
+    getAttendance()
+    return (
+      <div>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell> Id </TableCell>
+                <TableCell> Name </TableCell>
               </TableRow>
-             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+            </TableHead>
+            <TableBody>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div >
     );
+  } else {
+    return (
+      <div>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell> Id </TableCell>
+                <TableCell> Name </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {attendanceList.map(student => (
+                <RenderRows student={student}/>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    );
+  }
 }
