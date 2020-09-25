@@ -56,6 +56,9 @@ export const newClass = async (req, res) => {
 
             const classDoc = await firestore.class.get(classBody.classId);
 
+            for (const studentId of subjectBody.students) {
+                await firestore.attendance.createAuto(subjectBody.subjectId, classBody.classId, studentId)
+            }
             await firestore.class.create(classDoc, classBody);
         }
         else {
@@ -264,6 +267,10 @@ export const generateClasses = async (req, res) => {
                 const classDoc = await firestore.class.get(classBody.classId);
                 await firestore.class.create(classDoc, classBody);
                 subjectBody.classes.push(classBody.classId);
+
+                for (const student of subjectBody.students) {
+                    await firestore.attendance.createAuto(subjectBody.subjectId, classBody.classId, student)
+                }
 
                 date = moment(date).add(1, addValue).format("YYYY-MM-DD");
             }
