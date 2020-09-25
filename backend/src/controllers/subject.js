@@ -98,6 +98,15 @@ export const joinSubject = async (req, res) => {
 
             subjectBody.students.push(userId);
             await firestore.subject.update(subjectDoc, subjectBody);
+
+            // Create attendance records for the classes
+            const classes = subjectBody.classes;
+            console.log(classes);
+            for (const classId of classes){
+                console.log(subjectBody.subjectId, classId, userId)
+                await firestore.attendance.createAuto(subjectBody.subjectId, classId, userId)
+            }
+
             return res.status(200).json(successResponse({ msg: "Student successfully enrolled" }));
         } else {
             return res.status(400).json(errorResponse(`No such subject with code ${subjectCode}`, "subject-missing", "FirestoreError"));

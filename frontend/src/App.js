@@ -135,6 +135,7 @@ function AppRouter(props) {
             <TeacherNavigation />
               <TeacherClassAttendanceViewPage />
           </PrivateRoute>
+      */}
 
           <PrivateRoute
               path="/teacher/subjectList/classList/applicationsView/teacherClassAttendanceEdit"
