@@ -7,35 +7,64 @@ import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
-import ClassRoll from "../../components/classRoll" 
 import FacialRec from "../../components/facialRec"
 
 
 export default function VideoStream(props) {
   const videoTag = createRef();
   console.log("video")
+  let streamActive = false
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         if (videoTag.current != null) {
           videoTag.current.srcObject = stream
-          console.log(stream)
+          streamActive = true
         }
       })
       .catch(err => console.error(err))
 
     return () => {
-      if (videoTag.current != null) {
-        videoTag.current.srcObject.getTracks().forEach(track => track.stop()) //change to use stream
+      if (streamActive) {
+        videoTag.current.srcObject.getTracks().forEach(track => track.stop()) 
       }
     }
   })
 
   return (
-    <div>
-      <video ref={videoTag} width="1440vh" height="1120vh" muted autoPlay></video>
-      <FacialRec subjectId={props.match.params.subjectId} classId={props.match.params.classId} videoTag={videoTag}/>
-    </div>
+    <Grid container>
+      <Grid component={Paper}>
+        <video ref={videoTag} width="1440vh" height="1120vh" muted autoPlay></video>
+        <Grid item direction="row" container>
+          <Grid item>
+            <Box textAlign="center" my={5}>
+              <Button
+                variant={"outlined"}
+                color={"primary"}
+                component={Link}
+                to={`/teacher/subject/${props.match.params.subjectId}/class/${props.match.params.classId}`}>
+
+                Back
+				    </Button>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Box textAlign="center" my={5}>
+              <Button
+                variant={"outlined"}
+                color={"primary"}
+                href={"https://www.youtube.com/watch?v=qkQg9GGitow"}>
+
+                Forwards
+				      </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid component={Paper}>
+        <FacialRec subjectId={props.match.params.subjectId} classId={props.match.params.classId} videoTag={videoTag} />
+      </Grid>
+    </Grid>
   )
 }

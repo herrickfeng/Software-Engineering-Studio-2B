@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
-import ClassRoll from "../../components/classRoll" 
+import ClassRoll from "../../components/facialRec/classRoll" 
 
 
 export default function VideoStream(props) {

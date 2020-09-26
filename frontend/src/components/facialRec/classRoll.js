@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { makeStyles }from '@material-ui/core/styles';
+import { makeStyles, withStyles }from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from "react"
 import api from "../../helpers/api/index"
@@ -23,11 +23,14 @@ const useStyles = makeStyles({
 export default function ClassAttendanceList(props) {
   const classes = useStyles();
   const [attendanceList, setAttendanceList] = useState(props.classList)
+  let counter = 0;
 
+  /*
   useEffect(() => {
     setAttendanceList(props.classList)
-  },[props]);
-  
+    console.log("oh my god")
+  },[props]);*/
+
 
   function RenderRows(props) {
     const student = props.student._label.split("/")
