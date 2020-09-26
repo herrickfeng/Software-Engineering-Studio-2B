@@ -37,7 +37,7 @@ export const createAttendance = async (req, res) => {
 
         const attendanceDoc = await firestore.attendance.get(attendanceId);
 
-        await firestore.subject.create(attendanceDoc, attendanceBody);
+        await firestore.attendance.create(attendanceDoc, attendanceBody);
 
         return res.status(200).json(
             successResponse({

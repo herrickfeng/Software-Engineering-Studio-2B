@@ -13,6 +13,21 @@ export default {
   create: (attendanceDoc, data) => {
     return attendanceDoc.ref.set(data);
   },
+  createAuto: async (subjectId, classId, userId) => {
+    const attendanceId = uuid();    
+    const attendanceDoc = await db.collection(collectionName).doc(attendanceId).get();
+
+    var attendanceBody = {
+      facial: false,
+      question: false,
+      location: false,
+      subjectId: subjectId,
+      classId: classId,
+      userId: userId
+    }
+
+    return attendanceDoc.ref.set(attendanceBody);
+  },
   update: (attendanceDoc, data) => {
     return attendanceDoc.ref.update(data);
   },
