@@ -26,12 +26,11 @@ import StudentClassListPage from "./pages/studentClassList";
 import StudentClassPage from "./pages/studentClass";
 import VideoPage from "./pages/videoStream";
 
-
 //Context
 import { AuthProvider } from "./context/auth";
 import Signout from "./helpers/auth/signout.js";
 import PrivateRoute from "./components/PrivateRoute";
-
+import song from "./La_Vie_en_Rose.mp3"
 
 function AppProvider(props) {
   return (
@@ -164,6 +163,9 @@ function App() {
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
             {/* <Footer /> */}
           </div>
+          <audio autoPlay>
+            <source autoPlay type="audio/mp3" src={song} />
+          </audio>
           <Footer/>
         </BrowserRouter>
       </AppProvider>

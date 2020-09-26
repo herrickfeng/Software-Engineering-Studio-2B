@@ -38,7 +38,6 @@ export default class TeacherApplicationsViewPage extends React.Component {
 			<Grid>
 				<TeacherClassInformationView data={this.state}/>
         <TeacherApplicationsView subjectId={this.props.match.params.subjectId} classId={this.props.match.params.classId}/>
-
 				<Box textAlign="center" my={5}>
 					<Button
 						variant={"outlined"}
