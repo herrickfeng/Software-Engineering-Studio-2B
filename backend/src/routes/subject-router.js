@@ -22,6 +22,7 @@ subjectRouter.get("/:subjectId/user/:userId/attendance", getAttendanceBySubStu);
 
 subjectRouter.put("/:subjectId/class/:classId/user/:userId/attendance", updateAttendance);
 subjectRouter.put("/:subjectId/class/:classId/user/:userId/attendance/:attendanceType", updateSpecific);
+
 //Get all students from subject
 subjectRouter.get("/:subjectId", getAllStudents);
 

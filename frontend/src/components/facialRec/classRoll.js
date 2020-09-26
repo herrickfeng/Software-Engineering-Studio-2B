@@ -4,9 +4,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { makeStyles }from '@material-ui/core/styles';
+import { makeStyles, withStyles }from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import React from "react"
+import api from "../../helpers/api/index"
 import { createRef, useEffect, useState } from "react"
 
 const useStyles = makeStyles({
@@ -21,17 +22,35 @@ const useStyles = makeStyles({
 
 export default function ClassAttendanceList(props) {
   const classes = useStyles();
-  let classListData = props.classList
-  console.log("leave meeee")
-  console.log(props)
+  const [attendanceList, setAttendanceList] = useState(props.classList)
+  let counter = 0;
+
   /*
   useEffect(() => {
-    classListData = props.classList;
-    setClassListState(classListData)
-    console.log("wHOOP")
-    console.log(classListData)
-  },[props]);
-  */
+    setAttendanceList(props.classList)
+    console.log("oh my god")
+  },[props]);*/
+
+
+  function RenderRows(props) {
+    const student = props.student._label.split("/")
+    const attendance = (student[2] === 'true')
+    if (attendance) {
+      return (
+        <TableRow className={classes.attending}>
+          <TableCell> {student[0]} </TableCell>
+          <TableCell> {student[1]} </TableCell>
+        </TableRow>
+      )
+    } else {
+      return (
+        <TableRow>
+          <TableCell> {student[0]} </TableCell>
+          <TableCell> {student[1]} </TableCell>
+        </TableRow>
+      )
+    }
+  }
 
   return (
     <div>
@@ -44,15 +63,12 @@ export default function ClassAttendanceList(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {classListData.map(student => (
-              <TableRow className={classes.attending}>
-                <TableCell> {student._label.split("/")[0]} </TableCell>
-                <TableCell> {student._label.split("/")[1]} </TableCell>
-              </TableRow>
-             ))}
+            {attendanceList.map(student => (
+              <RenderRows student={student}/>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
     </div>
-    );
+  );
 }
