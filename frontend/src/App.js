@@ -182,7 +182,6 @@ function App() {
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
             {/* <Footer /> */}
           </div>
-          <Footer align="bottom"/>
         </BrowserRouter>
       </AppProvider>
     </div>

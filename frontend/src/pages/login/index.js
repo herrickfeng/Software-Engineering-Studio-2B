@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    height: "90vh",
+    height: "100vh",
   },
   card: {
     justify: "center",
