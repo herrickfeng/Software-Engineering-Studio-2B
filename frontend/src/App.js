@@ -20,16 +20,19 @@ import StudentProfilePage from "./pages/studentProfile";
 import Navigation from "./components/navigation";
 import StudentNavigation from "./components/studentNavigation";
 import TeacherNavigation from "./components/teacherNavigation";
+import TeacherProfilePage from './pages/teacherProfile';
 import Footer from "./components/footer";
 import StudentClassListPage from "./pages/studentClassList";
 import StudentClassPage from "./pages/studentClass";
 import VideoPage from "./pages/videoStream";
 
 
+
 //Context
 import { AuthProvider } from "./context/auth";
 import Signout from "./helpers/auth/signout.js";
 import PrivateRoute from "./components/PrivateRoute";
+
 
 
 function AppProvider(props) {
@@ -94,6 +97,11 @@ function AppRouter(props) {
         <StudentNavigation />
         <StudentClassListPage />
       </Route> */}
+
+      <PrivateRoute path="/teacher/profile" exact={true}>
+        <TeacherNavigation />
+        <TeacherProfilePage />
+      </PrivateRoute>
 
       <PrivateRoute
         path="/teacher/subjectList"
