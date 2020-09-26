@@ -125,3 +125,7 @@ key.json
 .vscode
 .vs
 /docs/swagger/common/test.json
+/backend/.env_new
+/backend/.env_orig
+/backend/service-account-key_old.json
+/backend/service-account-key_new.json

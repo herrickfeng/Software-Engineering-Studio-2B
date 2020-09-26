@@ -26,6 +26,25 @@ export default function ClassAttendanceList(props) {
   let attendanceData;
 
   async function getAttendance() {
+
+    /*
+    setInterval(async () => {
+      attendanceData = await api.subject.attend.getByCl(props.idToken, props.subjectId, props.classId)
+      attendanceData = attendanceData.data.data
+      Promise.all(
+        attendanceData.map(async student => {
+          const name = await api.user.getById(props.idToken, student.uid)
+          student.displayName = name.data.data.displayName
+          return student
+        })
+      ).then((students) => {
+        setAttendanceList(students)
+      })
+    }, 2000)
+
+    */
+
+    /*
     attendanceData = await api.subject.attend.getByCl(props.idToken, props.subjectId, props.classId)
     attendanceData = attendanceData.data.data
     Promise.all(
@@ -36,7 +55,8 @@ export default function ClassAttendanceList(props) {
       })
     ).then((students) => {
       setAttendanceList(students)
-    })
+    })*/
+
   }
 
 
