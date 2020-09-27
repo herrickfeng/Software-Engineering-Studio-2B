@@ -144,8 +144,8 @@ function App() {
             {/* TODO: Fix this so it actually goes to the bottom of the page */}
             {/* <Footer /> */}
           </div>
-          <audio autoPlay loop>
-            <source autoPlay type="audio/mp3" src={song} loop/>
+          <audio autoPlay="autoplay" loop>
+            <source autoPlay={true} type="audio/mp3" src={song} loop />
           </audio>
         </BrowserRouter>
       </AppProvider>
