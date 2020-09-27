@@ -69,7 +69,7 @@ export default function GeoFence() {
     return (
       <Container>
         <h1>UTS Geofence</h1>
-        <div className="App">
+        <div>
           <LoadScript
             id="script-loader"
             googleMapsApiKey="AIzaSyCbvf26xF96Lx1RIG6hpCP5-JFjJUkobQg"
