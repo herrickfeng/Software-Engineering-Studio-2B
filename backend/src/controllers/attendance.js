@@ -10,6 +10,31 @@ import {
 import subject from "../helpers/firestore/subject";
 import attendance from "../helpers/firestore/attendance";
 
+const mapStudentInSubject = async (subjectId) => {
+    const subjectDoc = await firestore.subject.get(subjectId);
+    if (subjectDoc.exists) {
+        var subjectBody = subjectDoc.data();
+        var studentsArr = subjectBody.students;
+        var allUserDoc = await firestore.user.getAllInArray(studentsArr);
+
+        var studentBodys = allUserDoc.docs.map((doc) => {
+            return doc.data();
+        });
+
+        var studentBodys = allUserDoc.docs.reduce((result, doc, index, array) => {
+            const uid = doc.data().uid;
+            result[uid] = doc.data();
+            return result;
+        }, {});
+
+        return studentBodys;
+
+    } else {
+        throw new FirestoreError("missing", subjectDoc.ref, "subject");
+    }
+}
+
+
 export const createAttendance = async (req, res) => {
     try {
         const userId = req.authId;
@@ -51,7 +76,7 @@ export const createAttendance = async (req, res) => {
 };
 
 export const updateAttendance = async (req, res) => {
-  try {
+    try {
         const attendanceBody = req.body;
         const { question, location, facial } = attendanceBody;
 
@@ -93,7 +118,7 @@ export const updateAttendance = async (req, res) => {
             const attendanceDoc = allAttendanceDoc.docs[0];
             await firestore.subject.update(attendanceDoc, attendanceBody);
             return res.status(200).json(
-                successResponse({msg: "Attendance successfully updated"})
+                successResponse({ msg: "Attendance successfully updated" })
             );
         } else {
             throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
@@ -159,10 +184,12 @@ export const getAttendanceBySubClass = async (req, res) => {
             },
         });
 
+        const studentMap = await mapStudentInSubject(subjectId)
+
         const allAttendanceDoc = await firestore.attendance.getBySubClass(subjectId, classId);
 
-        var attendances = allAttendanceDoc.docs.map((doc)=>{
-            return doc.data();
+        var attendances = allAttendanceDoc.docs.map((doc) => {
+            return { ...doc.data(), student: studentMap[doc.data().uid] };
         })
 
         return res.status(200).json(
@@ -194,7 +221,7 @@ export const getAttendanceBySubStu = async (req, res) => {
 
         const allAttendanceDoc = await firestore.attendance.getBySubStu(subjectId, userId);
 
-        var attendances = allAttendanceDoc.docs.map((doc)=>{
+        var attendances = allAttendanceDoc.docs.map((doc) => {
             return doc.data();
         })
 
@@ -220,7 +247,7 @@ export const getStuAttendance = async (req, res) => {
 
         const allAttendanceDoc = await firestore.attendance.getByStu(userId);
 
-        var attendances = allAttendanceDoc.docs.map((doc)=>{
+        var attendances = allAttendanceDoc.docs.map((doc) => {
             return doc.data();
         })
 
@@ -248,7 +275,7 @@ export const updateSpecific = async (req, res) => {
             attendanceBody[attendanceType] = body[attendanceType] == undefined ? true : attendanceBody[attendanceType];
             await firestore.subject.update(attendanceDoc, attendanceBody);
             return res.status(200).json(
-                successResponse({msg: "Attendance successfully updated"})
+                successResponse({ msg: "Attendance successfully updated" })
             );
         } else {
             throw new FirestoreError("missing", attendanceDoc.ref, "attendance");

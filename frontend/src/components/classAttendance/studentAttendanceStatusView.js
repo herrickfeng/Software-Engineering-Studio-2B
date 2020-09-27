@@ -20,25 +20,24 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, id, facial, questions, location, signOff, status) {
-  return { name, id, facial, questions, location, signOff, status };
-}
-
-const rows = [
-  createData('Steve', 1, 'Incomplete', 'Complete', 'Complete', 'Incomplete', 'Incomplete'),
-  createData('Jimmy', 2, 'Incomplete', 'Complete', 'Complete', 'Incomplete', 'Incomplete'),
-  createData('Sarah', 3, 'Incomplete', 'Complete', 'Complete', 'Incomplete', 'Incomplete'),
-];
-
 function deleteItem(i) {
     const { items } = this.state;
     items.splice(i, 1);
     this.setState({ items });
 }
 
-export default function SimpleTable() {
-  const classes = useStyles();
+function sumAttendance(data) {
+  switch (data.facial + data.question + data.location){
+    case 0: return "Red"
+    case 1: return "Amber"
+    case 2: return "Amber-Green"
+    case 3: return "Green"
+  }
+}
 
+export default function SimpleTable(props) {
+  const classes = useStyles();
+  const rows = props.attendances.attendances;
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
@@ -56,15 +55,59 @@ export default function SimpleTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {rows && rows.map((row) => (
                     <TableRow key={row.name}>
-                        <TableCell align="center">{row.name}</TableCell>
-                        <TableCell align="center">{row.id}</TableCell>
-                        <TableCell align="center">{row.facial}</TableCell>
-                        <TableCell align="center">{row.questions}</TableCell>
-                        <TableCell align="center">{row.location}</TableCell>
+                        <TableCell align="center">{row.student.displayName}</TableCell>
+                        <TableCell align="center">{row.student.studentId}</TableCell>
+                        <TableCell align="center">
+                          <input
+                            name="facial"
+                            type="checkbox"
+                            checked={row.facial}
+                            disabled={props.disabled}
+                            onChange={(e) => {
+                              props.handleAttendanceChange(e, row);
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="center">
+                          <input
+                            name="question"
+                            type="checkbox"
+                            checked={row.question}
+                            disabled={props.disabled}
+                            onChange={(e) => {
+                              props.handleAttendanceChange(e, row);
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="center">
+                          <input
+                            name="location"
+                            type="checkbox"
+                            checked={row.location}
+                            disabled={props.disabled}
+                            onChange={(e) => {
+                              props.handleAttendanceChange(e, row);
+                            }}
+                          />
+                        </TableCell>
                         <TableCell align="center">{row.signOff}</TableCell>
-                        <TableCell align="center">{row.status}</TableCell>
+                        <TableCell align="center">
+                          {props.disabled ? 
+                            sumAttendance(row)
+                          :
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                style={{height: '20px'}}
+                                onClick={(e) => {
+                                  props.handleDelete(row.uid);
+                                }}
+                                >
+                            Delete
+                          </Button>}
+                        </TableCell>
                     </TableRow>
                     ))}
                 </TableBody>

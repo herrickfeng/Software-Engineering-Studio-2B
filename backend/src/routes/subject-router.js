@@ -14,6 +14,7 @@ subjectRouter.post("/join", joinSubject);
 subjectRouter.get("/:subjectId/class/:classId", getClass);
 subjectRouter.get("/:subjectId/class", getAllClass);
  
+// This is duplicate in admin-subject-router
 //For Attendance
 subjectRouter.post("/:subjectId/class/:classId/user/:userId/attendance", createAttendance);
 subjectRouter.get("/:subjectId/class/:classId/user/:userId/attendance", getAttendance);

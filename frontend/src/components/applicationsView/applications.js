@@ -43,7 +43,7 @@ export default function TeacherApplicationsView(props) {
                               style={{ height: 0, paddingTop: '64%' }}
                               image={require("../../images/authentication.jpg")}
                               component={Link}
-                              to={`${props.classId}/video`}
+                              to={`/teacher/subject/${props.subjectId}/class/${props.classId}/video`}
                                 
                             />
                             <CardContent>
@@ -62,7 +62,7 @@ export default function TeacherApplicationsView(props) {
                                 image={require("../../images/attendance.jpg")}
                                 component={Link}
 
-                                to={"/teacher/subjectList/classList/applicationsView/teacherClassAttendanceView"}
+                                to={`/teacher/subject/${props.subjectId}/class/${props.classId}/attendance`}
 
                             />
                             <CardContent>
@@ -83,7 +83,7 @@ export default function TeacherApplicationsView(props) {
                                 style={{ height: 0, paddingTop: '64%' }}
                                 image={require("../../images/questions.jpg")}
                                 component={Link}
-                                to={"/teacher/subjectList/classList/applicationsView/teacherQuestionsView"}
+                                to={`/teacher/subject/${props.subjectId}/class/${props.classId}/questions`}
                             />
                             <CardContent>
                                 <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">
@@ -101,7 +101,7 @@ export default function TeacherApplicationsView(props) {
                                 style={{ height: 0, paddingTop: '64%' }}
                                 image={require("../../images/location.png")}
                                 component={Link}
-                                
+                                to={`/teacher/subject/${props.subjectId}/class/${props.classId}/location`}
                             />
                             <CardContent>
                                 <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">

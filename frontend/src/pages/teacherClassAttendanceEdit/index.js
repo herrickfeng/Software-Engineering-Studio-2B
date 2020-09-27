@@ -45,7 +45,7 @@ export default class TeacherClassAttendanceEdit extends React.Component {
 	render() {
 		return (
 			<Grid container direction="column">
-				<TeacherClassInformationView />
+				<TeacherClassInformationView props={this.props} />
 
 				<Box my={2} display="flex" justifyContent="center" alignItems="center">
 					
@@ -60,7 +60,7 @@ export default class TeacherClassAttendanceEdit extends React.Component {
 							variant="outlined"
 							color="primary"
 							component={Link}
-							to={"/teacher/subjectList/classList/applicationsView/TeacherClassAttendanceView"}>
+							to={`/teacher/subject/${this.props.match.params.subjectId}/class/${this.props.match.params.classId}`}>
 							Back
 						</Button>
 					</Box>
