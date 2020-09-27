@@ -36,6 +36,7 @@ import {
   getAllClassAdmin,
   updateClassAdmin,
   deleteClassAdmin,
+  generateClassAdmin,
 } from "./class";
 
 export const API_HOST = "localhost:4000";
@@ -84,6 +85,7 @@ export default {
         getAll: getAllClassAdmin,
         update: updateClassAdmin,
         delete: deleteClassAdmin,
+        generate: generateClassAdmin,
       }
     }
   }

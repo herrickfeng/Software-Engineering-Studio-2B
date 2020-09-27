@@ -1,9 +1,9 @@
 import React from 'react';
+import moment from 'moment';
 
 //general material-ui components
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import moment from 'moment';
 
 // icon material-ui components
 import AddIcon from '@material-ui/icons/Add';
@@ -16,15 +16,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 export default function TeacherAddClassPopup(props) {
+  const nextHour = moment().add(1, "hours").startOf('hour');
   const [state, setState] = React.useState({
     className: "", 
     classCode: "",
     date: moment().format('YYYY-MM-DD'),
-    startTime: moment().add(0.5, "hours").format('h:mm'),
-    endTime: moment().add(1.5, "hours").format('h:mm')
+    startTime: moment(nextHour).format('HH:mm'),
+    endTime: moment(nextHour).add(1, "hours").format('HH:mm')
   });
-
-
+  
   const handleChange = (event) => {
     const { id, value } = event.target;
     state[id] = value;
@@ -32,7 +32,6 @@ export default function TeacherAddClassPopup(props) {
   }
 
   const handleAddSubject = () => {
-    console.log("state", state)
     props.onAdd(state);
     props.onClose();
   }

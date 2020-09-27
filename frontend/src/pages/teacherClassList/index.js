@@ -43,6 +43,14 @@ export default function TeacherClassListPage(props) {
 		setState(undefined);
 	}
 
+  const handleGenerate = async (data) => {
+    // TODO: Error toast
+    data.occurrence = parseInt(data.occurrence);
+		const { idToken } = authState.user;
+    await api.admin.subject.class.generate(authState.user.idToken, subjectId, data);
+		setState(undefined);
+  }
+
   return (
     (state ? 
     <Container maxWidth={"md"}>
@@ -55,7 +63,7 @@ export default function TeacherClassListPage(props) {
       </Box>
 
       <Box>
-         <GenerateClass />
+         <GenerateClass handleGenerate={handleGenerate} />
       </Box>
 
       <Box>

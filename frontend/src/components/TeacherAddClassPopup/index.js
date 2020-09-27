@@ -13,14 +13,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
 } from '@material-ui/pickers';
+import moment from 'moment';
+// import MomentUtils from "@date-io/moment";
 
 // icon material-ui components
 import EditIcon from '@material-ui/icons/Edit';
-import UploadImageForm from "../../components/upload"; 
+import UploadImageForm from "../../components/upload";
 
 // dialog material-ui components
 import Dialog from '@material-ui/core/Dialog';
@@ -34,18 +36,23 @@ import { Grid } from '@material-ui/core';
 
 export default function TeacherSignUpPopup(props) {
     const [open, setOpen] = React.useState(false);
-    const [formState, setFormState] = React.useState(props.profileState);
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
-
-    const [age, setAge] = React.useState('');
+    const nextHour = moment().add(1, "hours").startOf('hour');
+    const [formState, setFormState] = React.useState({
+        firstDate: moment().format('YYYY-MM-DD'),
+        startTime: moment(nextHour).format('HH:mm'),
+        endTime: moment(nextHour).add(1, "hours").format('HH:mm'),
+        repeat: "Daily",
+        occurrence: 1
+    });
 
     const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+        var { id, value } = event.target;
+        if (id === undefined && value == "Daily" || value == "Weekly" || value == "Monthly" ) id = "repeat"
+        formState[id] = value;
+        console.log(id, value, formState)
+        setFormState(formState);
+    }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -55,12 +62,9 @@ export default function TeacherSignUpPopup(props) {
         setOpen(false);
     };
 
-
-
     const handleSave = () => {
         handleClose();
-        props.updateProfile({...formState});
-        setFormState({...formState});
+        props.handleGenerate(formState);
     }
     return (
         <Container maxWidth="md" alignItems="center" justifyContent="center">
@@ -75,97 +79,112 @@ export default function TeacherSignUpPopup(props) {
                 </DialogTitle>
 
                 <DialogContent>
-
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justify="space-around" direction="column">
-                        <KeyboardDatePicker
-                        disableToolbar
-                        variant="inline"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        label="Lesson Date"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
-                        />
-                        <KeyboardTimePicker
-                        margin="normal"
-                        id="start-time-picker"
-                        label="Start Time"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change time',
-                        }}
-                        />
-                        <KeyboardTimePicker
-                        margin="normal"
-                        id="end-time-picker"
-                        label="End Time"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change time',
-                        }}
-                        />
-                    </Grid>
-                    </MuiPickersUtilsProvider>
-                    <InputLabel id="demo-simple-select-label">Repeat</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
-                        value={age}
-                        fullWidth
-                        onChange={handleChange}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Daily</MenuItem>
-                        <MenuItem value={20}>Weekly</MenuItem>
-                        <MenuItem value={30}>Monthly</MenuItem>
-                    </Select>
-                    
+                    {/* TODO : Use @material-ui/pickers */}
+                    {/* <MuiPickersUtilsProvider utils={MomentUtils}>
+                        <Grid container justify="space-around" direction="column">
+                            <KeyboardDatePicker
+                                disableToolbar
+                                variant="inline"
+                                margin="normal"
+                                id="firstDate"
+                                label="Lesson Start Date"
+                                inputValue={formState.firstDate}
+                                onChange={(value) => {
+                                    handleChange(value.format('YYYY-MM-DD'), "firstDate")
+                                }}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                            <KeyboardTimePicker
+                                margin="normal"
+                                id="startTime"
+                                label="Start Time"
+                                value={formState.startTime}
+                                onChange={(value) => {
+                                    handleChange(value.format('HH:mm'), "startTime")
+                                }}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change time',
+                                }}
+                            />
+                            <KeyboardTimePicker
+                                margin="normal"
+                                id="endTime"
+                                label="End Time"
+                                value={formState.endTime}
+                                onChange={(value) => {
+                                    handleChange(value.format('HH:mm'), "endTime")
+                                }}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change time',
+                                }}
+                            />
+                        </Grid>
+                    </MuiPickersUtilsProvider> */}
                     <TextField
                         autoFocus
                         variant="outlined"
                         margin="normal"
-                        id="occurence"
-                        label="Occurence"
+                        id="firstDate"
+                        type="date"
+                        label="Date"
                         fullWidth
                         required
+                        defaultValue={formState.firstDate}
+                        onChange={handleChange}
                     />
-                {/* <Grid 
-                    container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center"
-                  >
-                        <Typography variant="subtitle1" gutterBottom>
-                            Password
-                        </Typography>
-                        <Button 
-                            variant="contained" 
-                            color="primary" 
-                            margin="normal"
-                            
-                            onClick={props.handleResetPassword}
-                            >Email Reset Link
-                        </Button>
-                        /Grid> */} 
 
-                    {/* <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="password"
-                            label="Password"
-                            fullWidth
-                            required
-                        /> */}
+                    <TextField
+                        autoFocus
+                        variant="outlined"
+                        margin="normal"
+                        id="startTime"
+                        type="time"
+                        label="Start Time"
+                        fullWidth
+                        required
+                        defaultValue={formState.startTime}
+                        onChange={handleChange}
+                    />
+
+                    <TextField
+                        autoFocus
+                        variant="outlined"
+                        margin="normal"
+                        id="endTime"
+                        type="time"
+                        label="End Time"
+                        fullWidth
+                        required
+                        defaultValue={formState.endTime}
+                        onChange={handleChange}
+                    />
+                    <InputLabel id="demo-simple-select-label">Repeat</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-helper-label"
+                        id="repeat"
+                        defaultValue={formState.repeat}
+                        fullWidth
+                        onChange={handleChange}
+                    >
+                        <MenuItem id="repeat" value={"Daily"}>Daily</MenuItem>
+                        <MenuItem id="repeat" value={"Weekly"}>Weekly</MenuItem>
+                        <MenuItem id="repeat" value={"Monthly"}>Monthly</MenuItem>
+                    </Select>
+
+                    <TextField
+                        autoFocus
+                        variant="outlined"
+                        margin="normal"
+                        id="occurrence"
+                        label="Occurrence"
+                        fullWidth
+                        required
+                        type="number"
+                        defaultValue={formState.occurrence}
+                        onChange={handleChange}
+                    />
                 </DialogContent>
 
                 <DialogActions>
