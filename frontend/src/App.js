@@ -112,16 +112,16 @@ function AppRouter(props) {
       />
 
       <PrivateRoute
-        path="/teacher/subjectList/classList/applicationsView/teacherQuestionsView"
-        exact={true}>
-        <TeacherQuestionsViewPage />
-      </PrivateRoute>
+        path="/teacher/subject/:subjectId/class/:classId/questions"
+        exact={true}
+        component={TeacherQuestionsViewPage}
+      />
 
       <PrivateRoute
-        path="/teacher/subjectList/classList/applicationsView/teacherQuestionsEdit"
-        exact={true}>
-        <TeacherQuestionsEditPage />
-      </PrivateRoute>
+        path="/teacher/subject/:subjectId/class/:classId/questions/edit"
+        exact={true}
+        component={TeacherQuestionsEditPage}
+      />
 
       <Route path="/upload" exact>
         <UploadPage />
