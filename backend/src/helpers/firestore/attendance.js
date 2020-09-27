@@ -23,7 +23,7 @@ export default {
       location: false,
       subjectId: subjectId,
       classId: classId,
-      userId: userId
+      uid: userId
     }
 
     return attendanceDoc.ref.set(attendanceBody);

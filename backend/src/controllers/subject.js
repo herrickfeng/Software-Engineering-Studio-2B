@@ -101,9 +101,7 @@ export const joinSubject = async (req, res) => {
 
             // Create attendance records for the classes
             const classes = subjectBody.classes;
-            console.log(classes);
             for (const classId of classes){
-                console.log(subjectBody.subjectId, classId, userId)
                 await firestore.attendance.createAuto(subjectBody.subjectId, classId, userId)
             }
 
