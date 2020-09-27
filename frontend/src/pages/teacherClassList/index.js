@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 
 // project components
 import TeacherAddClassPopup from "../../components/classList/TeacherAddClassPopup.js";
+import GenerateClass from "../../components/TeacherAddClassPopup/index.js"
+
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";
@@ -50,6 +52,10 @@ export default function TeacherClassListPage(props) {
 
       <Box>
         <TeacherAddClassPopup />
+      </Box>
+
+      <Box>
+         <GenerateClass />
       </Box>
 
       <Box>
