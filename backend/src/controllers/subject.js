@@ -168,7 +168,7 @@ export const updateSubject = async (req, res) => {
 
             classes: {
                 data: classes,
-                expectedType: "array"
+                expectedType: "object"
             }
 
         });

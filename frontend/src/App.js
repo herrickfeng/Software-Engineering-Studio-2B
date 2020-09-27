@@ -128,7 +128,9 @@ function AppRouter(props) {
         <HomePage />
       </Route>
 
-      <Route path="/teacher/subject/:subjectId/class/:classId/video" exact={true} component={VideoPage} />
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/video" exact={true} component={VideoPage} />
+
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/location" exact={true} component={GeoFence} />
 
     </Switch>
   );
