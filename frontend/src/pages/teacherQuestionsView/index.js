@@ -15,7 +15,7 @@ export default class TeacherQuestionsView extends React.Component {
 	render() {
 		return (
 			<Grid container direction="column">
-				<TeacherClassInformationView />
+				{/* <TeacherClassInformationView /> */}
 
 				<QuestionsList />
 

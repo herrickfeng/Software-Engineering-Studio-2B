@@ -72,7 +72,6 @@ function AppRouter(props) {
         <StudentAttendancePage />
       </PrivateRoute>
 
-      <Route path="/teacher/subject/:subjectId/class/:classId/attendance" exact={true} component={TeacherClassAttendanceViewPage} />
 
       <PrivateRoute path="/student/profile" exact={true}>
         <StudentProfilePage />
@@ -87,19 +86,28 @@ function AppRouter(props) {
         <TeacherSubjectListPage />
       </PrivateRoute>
 
-      <Route path="/teacher/subject/:subjectId" exact={true} component={TeacherClassListPage} />
-
-      <Route path="/teacher/subject/:subjectId/class/:classId" exact={true} component={TeacherApplicationsViewPage} />
-
-      <Route path="/teacher/subject/:subjectId/class/:classId/TeacherClassAttendanceViewPage" exact={true} component={TeacherClassAttendanceViewPage} />
-
+      <PrivateRoute path="/teacher/subject/:subjectId"
+        exact={true}
+        adminRoute={true}
+        component={TeacherClassListPage}
+      />
 
       <PrivateRoute
-        path="/teacher/subjectList/classList/applicationsView/teacherClassAttendanceEdit"
+        path="/teacher/subject/:subjectId/class/:classId"
+        exact={true}
+        adminRoute={true}
+        component={TeacherApplicationsViewPage} />
 
-        exact={true}>
-        <TeacherClassAttendanceEditPage />
-      </PrivateRoute>
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/attendance"
+        exact={true}
+        adminRoute={true}
+        component={TeacherClassAttendanceViewPage}
+      />
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/attendance/edit"
+        exact={true}
+        adminRoute={true}
+        component={TeacherClassAttendanceEditPage}
+      />
 
       <PrivateRoute
         path="/teacher/subjectList/classList/applicationsView/teacherQuestionsView"
