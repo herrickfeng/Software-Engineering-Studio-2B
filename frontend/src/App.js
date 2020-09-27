@@ -22,6 +22,7 @@ import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
 import ManageNavigation from "./components/manageNavigation";
 import Footer from "./components/footer";
+import GeoFence from "./pages/geofence/index.js";
 import StudentClassListPage from "./pages/studentClassList";
 import StudentClassPage from "./pages/studentClass";
 import VideoPage from "./pages/videoStream";
@@ -127,7 +128,9 @@ function AppRouter(props) {
         <HomePage />
       </Route>
 
-      <Route path="/teacher/subject/:subjectId/class/:classId/video" exact={true} component={VideoPage} />
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/video" exact={true} component={VideoPage} />
+
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/location" exact={true} component={GeoFence} />
 
     </Switch>
   );
