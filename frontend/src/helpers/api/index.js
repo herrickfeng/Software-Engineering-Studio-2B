@@ -4,16 +4,40 @@ import {
   getUserById,
   updateUser,
   deleteUser,
-  resetPassword
+  resetPassword,
+  uploadProfilePicture,
+  getStuAttendance,
 } from "./user";
-import { uploadImage } from "./upload";
 import {
+  uploadImage,
+  downloadImage
+} from "./image";
+import {
+  getSubjectStudent,
+  getAllSubjectStudent,
+  joinSubject,
   createSubjectAdmin,
   getAllSubjectAdmin,
   getSubjectAdmin,
   updateSubjectAdmin,
-  deleteSubjectAdmin
+  deleteSubjectAdmin,
+  createAttendance,
+  getAttendance,
+  getAttendanceBySubClass,
+  getAttendanceBySubStu,
+  updateAttendance,
+  updateAttendanceSpecific,
 } from "./subject";
+import {
+  getClassStudent,
+  getAllClassStudent,
+  createClassAdmin,
+  getClassAdmin,
+  getAllClassAdmin,
+  updateClassAdmin,
+  deleteClassAdmin,
+  generateClassAdmin,
+} from "./class";
 
 export const API_HOST = "localhost:4000";
 
@@ -27,7 +51,26 @@ export default {
     getById: getUserById,
     update: updateUser,
     delete: deleteUser,
-    upload: uploadImage,
+    upload: uploadProfilePicture,
+    download: downloadImage,
+    attend: getStuAttendance,
+  },
+  subject: {
+    get: getSubjectStudent,
+    getAll: getAllSubjectStudent,
+    join: joinSubject,
+    class: {
+      get: getClassStudent,
+      getAll: getAllClassStudent,
+    },
+    attend: {
+      create: createAttendance,
+      get: getAttendance,
+      getByCl: getAttendanceBySubClass,
+      getBySub: getAttendanceBySubStu,
+      update: updateAttendance,
+      updateSpec: updateAttendanceSpecific
+    }
   },
   admin: {
     subject: {
@@ -35,7 +78,15 @@ export default {
       getAll: getAllSubjectAdmin,
       get: getSubjectAdmin,
       update: updateSubjectAdmin,
-      delete: deleteSubjectAdmin
+      delete: deleteSubjectAdmin,
+      class: {
+        create: createClassAdmin,
+        get: getClassAdmin,
+        getAll: getAllClassAdmin,
+        update: updateClassAdmin,
+        delete: deleteClassAdmin,
+        generate: generateClassAdmin,
+      }
     }
   }
 }

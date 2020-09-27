@@ -1,42 +1,52 @@
 import React from "react";
 import Input from '@material-ui/core/Input';
-import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button"
 import LinearProgress from "@material-ui/core/LinearProgress"
+import CircularProgress from "@material-ui/core/CircularProgress"
 import api from "../../helpers/api/index";
 import FormData from 'form-data';
+import { AuthContext } from "../../context/auth";
 
-export default function UploadImageForm() {
+export default function UploadImageForm(props) {
   const [showResult, setShowResult] = React.useState(false);
   const [showProgress, setShowProgress] = React.useState(false);
   const [message, setMessage] = React.useState("");
+  const { authState } = React.useContext(AuthContext);
 
   const handleUpload = async (event) => {
     try {
       setShowResult(false)
       setShowProgress(true)
-      var file = event.target.files[0]
-      var fileSend = new FormData() 
-      fileSend.append('image', file)
-      await api.user.upload(fileSend)
+      let file = event.target.files[0]
+      let fileSend = new FormData()
+      const fileName = authState.user.uid
+      fileSend.append('image', file, fileName)
+      await api.user.upload(authState.user.idToken, authState.user.uid, fileSend);
       setMessage("Success!")
       setShowResult(true)
       setShowProgress(false)
+      props.setState(undefined)
     }
     catch (error) {
-      setMessage("Upload Failed. Please try again.")
+      setMessage(error.response.data.msg)
       setShowResult(true)
       setShowProgress(false)
-      console.log("did an oopsie")
+      console.log("did an oopsie", error.response)
     }
   }
 
+  const uploadButton = () => {
+    return (<Button variant="contained" component="label" color='primary'>
+      Upload File
+      <Input type="file" style={{ display: "none" }} onChange={handleUpload} disableUnderline />
+    </Button>
+    )
+  }
+
   return (
-    <Grid container>
-      <Grid item>
-        <Input type="file" onChange={handleUpload} disableUnderline />
-        {showProgress ? <LinearProgress />: null}
-        {showResult ? <p> {message} </p>: null}
-      </Grid>
-    </Grid>
+    <div>
+      {showProgress ? <CircularProgress color="primary" /> : uploadButton()}
+      {showResult ? <p> {message} </p> : null}
+    </div>
   );
 };

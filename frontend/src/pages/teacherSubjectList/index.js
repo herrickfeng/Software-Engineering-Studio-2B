@@ -48,9 +48,9 @@ export default class TeacherSubjectListPage extends React.Component {
 				</Box>
 
 				<Popup addSubject={this.addSubject} />
-				<SubjectList subjectState={this.state} deleteSubject={this.deleteSubject} />
+        <SubjectList subjectState={this.state} deleteSubject={this.deleteSubject} />
+      </Box>
 
-			</Box>
 		);
 	}
 }

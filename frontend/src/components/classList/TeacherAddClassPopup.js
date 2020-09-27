@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 //general material-ui components
 import Button from '@material-ui/core/Button';
@@ -15,6 +16,25 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 export default function TeacherAddClassPopup(props) {
+  const nextHour = moment().add(1, "hours").startOf('hour');
+  const [state, setState] = React.useState({
+    className: "", 
+    classCode: "",
+    date: moment().format('YYYY-MM-DD'),
+    startTime: moment(nextHour).format('HH:mm'),
+    endTime: moment(nextHour).add(1, "hours").format('HH:mm')
+  });
+  
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    state[id] = value;
+    setState(state);
+  }
+
+  const handleAddSubject = () => {
+    props.onAdd(state);
+    props.onClose();
+  }
 
   return (
     <>
@@ -28,20 +48,35 @@ export default function TeacherAddClassPopup(props) {
             autoFocus
             variant="outlined"
             margin="normal"
-            id="subjectName"
-            label="Subject Name"
+            id="className"
+            label="Class Name"
             fullWidth
             required
+            onChange={handleChange}
           />
 
           <TextField
             autoFocus
             variant="outlined"
             margin="normal"
-            id="date"
+            id="classCode"
+            label="Class Code"
+            fullWidth
+            required
+            onChange={handleChange}
+          />
+
+          <TextField
+            autoFocus
+            variant="outlined"
+            margin="normal"
+            id="data"
+            type="date"
             label="Date"
             fullWidth
             required
+            defaultValue={state.date}
+            onChange={handleChange}
           />
 
           <TextField
@@ -49,9 +84,12 @@ export default function TeacherAddClassPopup(props) {
             variant="outlined"
             margin="normal"
             id="startTime"
+            type="time"
             label="Start Time"
             fullWidth
             required
+            defaultValue={state.startTime}
+            onChange={handleChange}
           />
 
           <TextField
@@ -59,19 +97,12 @@ export default function TeacherAddClassPopup(props) {
             variant="outlined"
             margin="normal"
             id="endTime"
+            type="time"
             label="End Time"
             fullWidth
             required
-          />
-
-          <TextField
-            autoFocus
-            variant="outlined"
-            margin="normal"
-            id="subjectCode"
-            label="Subject Code"
-            fullWidth
-            required
+            defaultValue={state.endTime}
+            onChange={handleChange}
           />
         </DialogContent>
 
@@ -79,7 +110,7 @@ export default function TeacherAddClassPopup(props) {
           <Button onClick={props.onClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={props.onClose} color="primary">
+          <Button onClick={handleAddSubject} color="primary">
             Add Class
           </Button>
         </DialogActions>

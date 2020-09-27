@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import api from "../../helpers/api"
 
 // project components
 import { AuthContext } from "../../context/auth";
@@ -14,15 +16,24 @@ const Subject = () => {
 }
 
 export default class TeacherApplicationsViewPage extends React.Component {
+	static contextType = AuthContext;
+
+	constructor(props) {
+		super(props);
+		this.state = undefined;
+	}
 
 	render() {
 		return (
 			<Grid>
-				<TeacherClassInformationView />
-				<TeacherApplicationsView />
-
+				<TeacherClassInformationView props={this.props}/>
+        <TeacherApplicationsView subjectId={this.props.match.params.subjectId} classId={this.props.match.params.classId}/>
 				<Box textAlign="center" my={5}>
-					<Button variant={"outlined"} color={"primary"}>
+					<Button
+						variant={"outlined"}
+						color={"primary"}
+						component={Link}
+						to={`/teacher/subject/${this.props.match.params.subjectId}`}>
 						Back
 					</Button>
 				</Box>

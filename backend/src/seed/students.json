@@ -1,0 +1,112 @@
+[
+    {
+        "displayName": "Herrick",
+        "email": "Herrick@student.com",
+        "password": "abc123",
+        "studentId": "12559934",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 1.0,
+            "enrollmentRate": 0.5
+        }
+    },
+    {
+        "displayName": "Agid",
+        "email": "Agid@student.com",
+        "password": "abc123",
+        "studentId": "13068061",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.9,
+            "enrollmentRate": 1.0
+        }
+    },
+    {
+        "displayName": "Andrew",
+        "email": "Andrew@student.com",
+        "password": "abc123",
+        "studentId": "12876520",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.8,
+            "enrollmentRate": 0.7
+        }
+    },
+    {
+        "displayName": "Andy",
+        "email": "Andy@student.com",
+        "password": "abc123",
+        "studentId": "13247895",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.75,
+            "enrollmentRate": 0.65
+        }
+    },
+    {
+        "displayName": "Brendon",
+        "email": "Brendon@student.com",
+        "password": "abc123",
+        "studentId": "13204767",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.7,
+            "enrollmentRate": 1.0
+        }
+    },
+    {
+        "displayName": "Bryan",
+        "email": "Bryan@student.com",
+        "password": "abc123",
+        "studentId": "13227626",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.65,
+            "enrollmentRate": 0.65
+        }
+    },
+    {
+        "displayName": "Calvin",
+        "email": "Calvin@student.com",
+        "password": "abc123",
+        "studentId": "13227638",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.6,
+            "enrollmentRate": 0.9
+        }
+    },
+    {
+        "displayName": "David",
+        "email": "David@student.com",
+        "password": "abc123",
+        "studentId": "12889453",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.55,
+            "enrollmentRate": 1.0
+        }
+    },
+    {
+        "displayName": "Mitchell",
+        "email": "Mitchell@student.com",
+        "password": "abc123",
+        "studentId": "13255120",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.5,
+            "enrollmentRate": 1.0
+        }
+    },
+    {
+        "displayName": "Vanisha",
+        "email": "Vanisha@student.com",
+        "password": "abc123",
+        "studentId": "13225053",
+        "seedInfo": {
+            "THIS IS INFORMATION": "FOR THE SEEDER",
+            "attendanceRate": 0.45,
+            "enrollmentRate": 0.8
+        }
+    }
+]

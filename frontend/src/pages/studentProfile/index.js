@@ -33,15 +33,15 @@ export default function StudentProfilePage(props) {
     await api.auth.reset(profileState.email);
   }
 
-
   return (
     <Container maxWidth={"md"}>
       {/* TODO: LOADING  */}
       {profileState ? [
-        < StudentProfile profileState={profileState} handleResetPassword={handleResetPassword}/>,
+        < StudentProfile profileState={profileState} setState={setProfileState} handleResetPassword={handleResetPassword}/>,
         <Box>
           <Popup profileState={profileState} updateProfile={updateProfile} />
-        </Box>]
+        </Box>
+      ]
         :
         <h1>Loading</h1>
       }

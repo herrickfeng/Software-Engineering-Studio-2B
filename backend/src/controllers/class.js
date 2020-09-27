@@ -6,13 +6,14 @@ import {
     successResponse,
     handleApiError
 } from "../helpers/apiResponse";
+import moment from "moment"
 
 export const newClass = async (req, res) => {
     try {
         const userId = req.authId;
         const subjectId = req.params.subjectId;
         const classBody = req.body;
-        const { className, classCode, classTime, classId } = classBody;
+        const { className, classCode, date, startTime, endTime } = classBody;
 
         // Generate a new uuid if no id was provided
         if (classBody.classId === undefined) {
@@ -22,15 +23,23 @@ export const newClass = async (req, res) => {
         checkParams({
             className: {
                 data: className,
-                expectedType: "number"
+                expectedType: "string"
             },
             classCode: {
                 data: classCode,
-                expectedType: "number"
+                expectedType: "string"
             },
-            classTime: {
-                data: classTime,
-                expectedType: "object"
+            date: {
+                data: date,
+                expectedType: "string"
+            },
+            startTime: {
+                data: startTime,
+                expectedType: "string"
+            },
+            endTime: {
+                data: endTime,
+                expectedType: "string"
             },
             subjectId: {
                 data: subjectId,
@@ -47,6 +56,9 @@ export const newClass = async (req, res) => {
 
             const classDoc = await firestore.class.get(classBody.classId);
 
+            for (const studentId of subjectBody.students) {
+                await firestore.attendance.createAuto(subjectBody.subjectId, classBody.classId, studentId)
+            }
             await firestore.class.create(classDoc, classBody);
         }
         else {
@@ -91,21 +103,29 @@ export const getClass = async (req, res) => {
 export const updateClass = async (req, res) => {
     try {
         const classBody = req.body;
-        const { className, classCode, classTime, classId } = classBody;
+        const { className, classCode, date, startTime, endTime } = classBody;
         const id = req.params.classId;
 
         checkParams({
             className: {
                 data: className,
-                expectedType: "int"
+                expectedType: "string"
             },
             classCode: {
                 data: classCode,
-                expectedType: "int"
+                expectedType: "string"
             },
-            classTime: {
-                data: classTime,
-                expectedType: "object"
+            date: {
+                data: date,
+                expectedType: "string"
+            },
+            startTime: {
+                data: startTime,
+                expectedType: "string"
+            },
+            endTime: {
+                data: endTime,
+                expectedType: "string"
             }
         });
 
@@ -192,3 +212,79 @@ export const getAllClass = async (req, res) => {
     }
 };
 
+export const generateClasses = async (req, res) => {
+    try {
+        const userId = req.authId;
+        const subjectId = req.params.subjectId;
+        const { firstDate, startTime, endTime, repeat, occurrence } = req.body;
+        const repeatMap = {
+            "Daily": ["days", "Day"],
+            "Weekly": ["weeks", "Week"],
+            "Monthly": ["months", "Month"]
+        }
+        const addValue = repeatMap[repeat][0];
+
+        checkParams({
+            firstDate: {
+                data: firstDate,
+                expectedType: "string"
+            },
+            startTime: {
+                data: startTime,
+                expectedType: "string"
+            },
+            endTime: {
+                data: endTime,
+                expectedType: "string"
+            },
+            repeat: {
+                data: repeat,
+                expectedType: "string"
+            },
+            occurrence: {
+                data: occurrence,
+                expectedType: "number"
+            },
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            }
+        });
+
+        const subjectDoc = await firestore.subject.get(subjectId);
+        if (subjectDoc.exists === true) {
+            var subjectBody = subjectDoc.data();
+            var date = firstDate;
+            for (var i = 0; i < occurrence; i++) {
+                const classBody = {
+                    classId: uuidv4(),
+                    className: `${repeatMap[repeat][1]} ${i + 1}`,
+                    classCode: `${i}`,
+                    date: date,
+                    startTime: startTime,
+                    endTime: endTime
+                }
+                const classDoc = await firestore.class.get(classBody.classId);
+                await firestore.class.create(classDoc, classBody);
+                subjectBody.classes.push(classBody.classId);
+
+                for (const student of subjectBody.students) {
+                    await firestore.attendance.createAuto(subjectBody.subjectId, classBody.classId, student)
+                }
+
+                date = moment(date).add(1, addValue).format("YYYY-MM-DD");
+            }
+            await firestore.subject.update(subjectDoc, subjectBody);
+        }
+        else {
+            throw new FirestoreError("missing", subjectDoc.ref, "subject");
+        }
+        return res.status(200).json(
+            successResponse({
+                msg: "Classes created successfully"
+            })
+        );
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
