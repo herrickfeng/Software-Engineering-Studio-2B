@@ -12,7 +12,6 @@ import FacialRec from "../../components/facialRec"
 
 export default function VideoStream(props) {
   const videoTag = createRef();
-  console.log("video")
   let streamActive = false
 
   useEffect(() => {
