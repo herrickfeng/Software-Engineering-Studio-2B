@@ -24,6 +24,7 @@ adminSubjectRouter.delete("/:subjectId/class/:classId", deleteClass);
 adminSubjectRouter.get("/:subjectId/class", getAllClass);
 
 // This is duplicate in admin-subject-router
+// FRONTEND IS USING SUBJECT-ROUTER for these endpoints
 //For Attendance
 adminSubjectRouter.post("/:subjectId/class/:classId/user/:userId/attendance", createAttendance);
 adminSubjectRouter.get("/:subjectId/class/:classId/user/:userId/attendance", getAttendance);
