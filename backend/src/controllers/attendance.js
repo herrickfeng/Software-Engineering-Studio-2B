@@ -34,6 +34,29 @@ const mapStudentInSubject = async (subjectId) => {
     }
 }
 
+const mapSubjects = async () => {
+    const allSubjectDoc = await firestore.subject.getAll();
+
+    var subjectBodys = allSubjectDoc.docs.reduce((result, doc, index, array) => {
+        const subjectId = doc.data().subjectId;
+        result[subjectId] = doc.data();
+        return result;
+    }, {});
+
+    return subjectBodys;
+}
+
+const mapClasses = async () => {
+    const allClassDoc = await firestore.class.getAll();
+
+    var classBodys = allClassDoc.docs.reduce((result, doc, index, array) => {
+        const classId = doc.data().classId;
+        result[classId] = doc.data();
+        return result;
+    }, {});
+
+    return classBodys;
+}
 
 export const createAttendance = async (req, res) => {
     try {
@@ -247,8 +270,20 @@ export const getStuAttendance = async (req, res) => {
 
         const allAttendanceDoc = await firestore.attendance.getByStu(userId);
 
+        const subjectMap = await mapSubjects();
+        const classMap = await mapClasses();
         var attendances = allAttendanceDoc.docs.map((doc) => {
-            return doc.data();
+            return {
+                ...doc.data(),
+                subject: subjectMap[doc.data().subjectId],
+                class: classMap[doc.data().classId]
+            };
+        })
+        
+        attendances.sort((a, b) => {
+            if (a.class.date == b.class.date) 
+                return a.class.startTime > b.class.startTime ? 1 : -1 
+            return a.class.date > b.class.date ? 1 : -1 
         })
 
         return res.status(200).json(

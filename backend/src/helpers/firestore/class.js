@@ -9,6 +9,11 @@ export default {
       .doc(id)
       .get();
   },
+  getAll: (id) => {
+    return db
+      .collection(collectionName)
+      .get();
+  },
   create: (classDoc, data) => {
     return classDoc.ref.set(data);
   },
