@@ -13,12 +13,12 @@ export default function HomePage() {
     return (
       <Container>
         <Box display="flex" flexDirection="row-reverse">
-            <Box mx={3}>
+            <Box mx={3} mt={3}>
               <Button variant="outlined"color="primary" to="/login" component={Link}>
               Login
               </Button>
             </Box>
-            <Box>
+            <Box mt={3}>
               <Button variant="outlined" color="primary" to="/signup" component={Link}>
               Sign Up
               </Button>
