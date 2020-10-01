@@ -15,6 +15,7 @@ import {
 import {
   getSubjectStudent,
   getAllSubjectStudent,
+  getStudentsFromSubject,
   joinSubject,
   createSubjectAdmin,
   getAllSubjectAdmin,
@@ -58,6 +59,7 @@ export default {
   subject: {
     get: getSubjectStudent,
     getAll: getAllSubjectStudent,
+    getStudents: getStudentsFromSubject,
     join: joinSubject,
     class: {
       get: getClassStudent,

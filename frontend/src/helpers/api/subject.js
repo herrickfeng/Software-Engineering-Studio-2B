@@ -21,6 +21,15 @@ export const getAllSubjectStudent = async (idToken) => {
 	return res;
 };
 
+export const getStudentsFromSubject = async (idToken, subjectId) => {
+	return await axios.get(
+		`http://${API_HOST}/subject/${subjectId}/students`,
+		{
+			headers: { Authorization: `Bearer ${idToken}` },
+		}
+	);
+};
+
 export const joinSubject = async (idToken, subjectCode) => {
 	const res = await axios.post(
 		`http://${API_HOST}/subject/join`,

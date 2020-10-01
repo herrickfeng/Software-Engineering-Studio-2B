@@ -25,6 +25,6 @@ subjectRouter.put("/:subjectId/class/:classId/user/:userId/attendance", updateAt
 subjectRouter.put("/:subjectId/class/:classId/user/:userId/attendance/:attendanceType", updateSpecific);
 
 //Get all students from subject
-subjectRouter.get("/:subjectId", getAllStudents);
+subjectRouter.get("/:subjectId/students", getAllStudents);
 
 export default subjectRouter;
