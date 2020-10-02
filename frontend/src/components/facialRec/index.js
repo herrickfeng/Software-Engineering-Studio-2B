@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
-import ClassRoll from "./classRoll"
+import ClassAttendanceList from "./ClassAttendanceList"
 
 
 export default function FacialRec(props) {
@@ -113,8 +113,8 @@ export default function FacialRec(props) {
   } else {
     HandleDetections();
     return (
-      <ClassRoll attendanceList={classListState} subjectId={props.subjectId} classId={props.classId}
-                 idToken={authState.user.idToken} />
+      <ClassAttendanceList attendanceList={classListState} subjectId={props.subjectId} classId={props.classId}
+                           idToken={authState.user.idToken} />
     );
   }
 }
