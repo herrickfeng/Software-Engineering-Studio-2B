@@ -1,74 +1,33 @@
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import { makeStyles, withStyles }from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import React from "react"
-import api from "../../helpers/api/index"
-import { createRef, useEffect, useState } from "react"
+import { Divider, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
+import TimerIcon from '@material-ui/icons/Timer';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 
-const useStyles = makeStyles({
-  attending: {
-    backgroundColor: '#90FF9A',
-    //opacity: '0.3'
-    //Yellow: FDFF90
-    //Red: FF9790
-  },
-
-})
 
 export default function ClassAttendanceList(props) {
-  const classes = useStyles();
-  const [attendanceList, setAttendanceList] = useState(props.classList)
-  let counter = 0;
 
-  /*
-  useEffect(() => {
-    setAttendanceList(props.classList)
-    console.log("oh my god")
-  },[props]);*/
+  function studentItem(student) {
+    const [uid, name, attendanceString] = student._label.split("/");
+    const hasAttendance = (attendanceString === 'true');
 
-
-  function RenderRows(props) {
-    const student = props.student._label.split("/")
-    const attendance = (student[2] === 'true')
-    if (attendance) {
-      return (
-        <TableRow className={classes.attending}>
-          <TableCell> {student[0]} </TableCell>
-          <TableCell> {student[1]} </TableCell>
-        </TableRow>
-      )
-    } else {
-      return (
-        <TableRow>
-          <TableCell> {student[0]} </TableCell>
-          <TableCell> {student[1]} </TableCell>
-        </TableRow>
-      )
-    }
+    return (
+      <>
+        <ListItem>
+          <ListItemText primary={name} />
+          <ListItemIcon>{hasAttendance ? <DoneOutlineIcon /> : <TimerIcon />}</ListItemIcon>
+        </ListItem>
+        <Divider />
+      </>
+    );
   }
 
   return (
-    <div>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell> Id </TableCell>
-              <TableCell> Name </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {attendanceList.map(student => (
-              <RenderRows student={student}/>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+    <List>
+      <ListSubheader>
+        Student Attendance
+      </ListSubheader>
+      <Divider />
+      {props.attendanceList.map(student => studentItem(student))}
+    </List>
   );
 }

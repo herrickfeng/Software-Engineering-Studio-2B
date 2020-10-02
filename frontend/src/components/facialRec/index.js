@@ -7,10 +7,10 @@ import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
-import ClassRoll from "./classRoll" 
+import ClassRoll from "./classRoll"
 
 
-export default function VideoStream(props) {
+export default function FacialRec(props) {
   const { authState } = React.useContext(AuthContext);
   const [classListState, setClassListState] = useState(undefined);
   let bestMatch = {}
@@ -89,7 +89,7 @@ export default function VideoStream(props) {
   useEffect(() => {// Clean up on unmount
 
     return () => {
-      reRender = false 
+      reRender = false
       if (intervalRunning) {
         clearInterval(interval)
         intervalRunning = false
@@ -104,7 +104,7 @@ export default function VideoStream(props) {
   }
 
   if (!classListState) {
-    console.log("load")
+    console.log("load");
     buildLoad()
     return (
       <div>
@@ -114,7 +114,7 @@ export default function VideoStream(props) {
   } else {
     HandleDetections()
     return (
-      <ClassRoll classList={classListState} subjectId={props.subjectId} classId={props.classId} idToken={authState.user.idToken}/>
-      )
-    }
+      <ClassRoll attendanceList={classListState} subjectId={props.subjectId} classId={props.claszsId} idToken={authState.user.idToken}/>
+    )
+  }
 }
