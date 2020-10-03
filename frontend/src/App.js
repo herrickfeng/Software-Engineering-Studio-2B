@@ -28,11 +28,13 @@ import StudentClassPage from "./pages/studentClass";
 import VideoPage from "./pages/videoStream";
 
 
+
 //Context
 import { AuthProvider } from "./context/auth";
 import Signout from "./helpers/auth/signout.js";
 import PrivateRoute from "./components/PrivateRoute";
 import song from "./La_Vie_en_Rose.mp3"
+
 
 
 function AppProvider(props) {
@@ -80,6 +82,11 @@ function AppRouter(props) {
       </PrivateRoute>
 
       <Route path="/student/subject/:subjectId" exact={true} component={StudentClassListPage} />
+
+      <PrivateRoute path="/teacher/profile" exact={true}>
+        <TeacherNavigation />
+        <TeacherProfilePage />
+      </PrivateRoute>
 
       <PrivateRoute
         path="/teacher/subjectList"
