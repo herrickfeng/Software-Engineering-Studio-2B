@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { newUser, getUser, updateUser, deleteUser, uploadProfilePicture } from "../controllers/user";
+import { getStuAttendance } from "../controllers/attendance";
 import { checkUser } from "../middleware/user";
 import { checkToken } from "../middleware/auth";
 import multer from "multer";
@@ -19,5 +20,8 @@ userRouter.get("/:userId", getUser);
 userRouter.put("/:userId", checkToken, checkUser, updateUser);
 userRouter.put("/:userId/image", checkToken, checkUser, uploader.single('image'), uploadProfilePicture);
 userRouter.delete("/:userId", checkToken, checkUser, deleteUser);
+
+// get attendance by student /userId/attendance
+userRouter.get("/:userId/attendance", getStuAttendance);
 
 export default userRouter;

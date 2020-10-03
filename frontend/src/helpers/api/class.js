@@ -72,3 +72,14 @@ export const deleteClassAdmin = async (idToken, subjectId, classId) => {
 	);
 	return res;
 };
+
+export const generateClassAdmin = async (idToken, subjectId, data) => {
+	const res = await axios.post(
+		`http://${API_HOST}/admin/subject/${subjectId}/class/generate`,
+		data,
+		{
+			headers: { Authorization: `Bearer ${idToken}` },
+		}
+	);
+	return res;
+};

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth";
 import api from "../../helpers/api";
 
@@ -22,15 +22,38 @@ const useStyles = makeStyles(() => ({
 
 
 export default function TeacherApplicationsView(props) {
+    props = props.props;
     const styles = useStyles();
+    const { authState } = React.useContext(AuthContext);
+    const [state, setState] = useState(undefined);
+
+
+    const fetchData = async () => {
+        const subjectId = props.match.params.subjectId;
+        const classId = props.match.params.classId;
+        const { idToken } = authState.user;
+        const subject = (await api.admin.subject.get(idToken, subjectId)).data.data;
+        const subjectClass = (await api.admin.subject.class.get(idToken, subjectId, classId)).data.data;
+        setState({ subject: subject, class: subjectClass });
+    };
+
+    useEffect(() => {
+        if (state === undefined) {
+            fetchData();
+        }
+    });
 
     return (
-        <Box textAlign="center" my={5}>
-            <Typography className={styles.title}>{props.data.subject.subjectName}</Typography>
-            <Typography className={styles.subtitle}>{props.data.class.className}</Typography>
-            <Typography className={styles.subtext}>Date: {moment(props.data.class.date, "YYYY-MM-DD").format("DD/MM/YYYY")}</Typography>
-            <Typography className={styles.subtext}>Time {props.data.class.startTime} - {props.data.class.endTime}</Typography>
-            <Typography className={styles.subtext}>Code: {props.data.class.classCode}</Typography>
-        </Box>
+        (state ?
+            <Box textAlign="center" my={5}>
+                <Typography className={styles.title}>{state.subject.subjectName}</Typography>
+                <Typography className={styles.subtitle}>{state.class.className}</Typography>
+                <Typography className={styles.subtext}>Date: {moment(state.class.date, "YYYY-MM-DD").format("DD/MM/YYYY")}</Typography>
+                <Typography className={styles.subtext}>Time {state.class.startTime} - {state.class.endTime}</Typography>
+                <Typography className={styles.subtext}>Code: {state.class.classCode}</Typography>
+            </Box>
+            :
+            <h1>Loading</h1>
+        )
     )
 }

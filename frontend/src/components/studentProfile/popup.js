@@ -5,9 +5,11 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 // icon material-ui components
 import EditIcon from '@material-ui/icons/Edit';
+import UploadImageForm from "../../components/upload"; 
 
 // dialog material-ui components
 import Dialog from '@material-ui/core/Dialog';
@@ -15,6 +17,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { Grid } from '@material-ui/core';
 
 
 
@@ -42,7 +45,7 @@ export default function TeacherSignUpPopup(props) {
     }
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="md" alignItems="center" justifyContent="center">
             <Box style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <Button variant="contained" color="primary" onClick={handleClickOpen} startIcon={<EditIcon />} >
                     Edit
@@ -87,6 +90,24 @@ export default function TeacherSignUpPopup(props) {
                         onChange={handleChange}
                         value={formState.email}
                     />
+                    <Grid 
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                  >
+                        <Typography variant="subtitle1" gutterBottom>
+                            Password
+                        </Typography>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            margin="normal"
+                            
+                            onClick={props.handleResetPassword}
+                            >Email Reset Link
+                        </Button>
+                    </Grid>
 
                     {/* <TextField
                             autoFocus

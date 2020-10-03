@@ -30,8 +30,15 @@ const rows = [
   createData('Sarah', 3, 'Incomplete', 'Complete', 'Complete', 'Incomplete', 'Incomplete'),
 ];
 
+function deleteItem(i) {
+    const { items } = this.state;
+    items.splice(i, 1);
+    this.setState({ items });
+}
+
 export default function SimpleTable() {
   const classes = useStyles();
+
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
@@ -40,12 +47,13 @@ export default function SimpleTable() {
                 <TableHead>
                     <TableRow>
                     <TableCell style={{width: '10%'}}>Name</TableCell>
-                    <TableCell style={{width: '15%'}} align="center">ID</TableCell>
+                    <TableCell style={{width: '10%'}} align="center">ID</TableCell>
                     <TableCell style={{width: '15%'}} align="center">Facial</TableCell>
                     <TableCell style={{width: '15%'}} align="center">Questions</TableCell>
                     <TableCell style={{width: '15%'}} align="center">Location</TableCell>
                     <TableCell style={{width: '15%'}} align="center">Sign Off</TableCell>
-                    <TableCell style={{width: '15%'}} align="center">Status</TableCell>
+                    <TableCell style={{ width: '15%' }} align="center">Status</TableCell>
+                    <TableCell style={{ width: '5%' }} align="center">Action</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -58,6 +66,13 @@ export default function SimpleTable() {
                         <TableCell align="center">{row.location}</TableCell>
                         <TableCell align="center">{row.signOff}</TableCell>
                         <TableCell align="center">{row.status}</TableCell>
+                        <TableCell align="center">
+                            <Button
+                                variant="contained"
+                                color="secondary">
+                            Delete
+                            </Button>
+                        </TableCell>
                     </TableRow>
                     ))}
                 </TableBody>

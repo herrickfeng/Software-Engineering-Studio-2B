@@ -1,7 +1,10 @@
-import React from "react"
-import {Container, TableBody, TableCell, TableHead, TableRow, Typography} from "@material-ui/core";
+import React, { useEffect, useState } from "react"
+import { Container, TableBody, TableCell, TableHead, TableRow, Typography } from "@material-ui/core";
 import LinedTable from "../../components/linedTable/index";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import api from "../../helpers/api"
+import { AuthContext } from "../../context/auth";
+import moment from "moment"
 
 const useStyles = makeStyles((theme) => ({
   pass: {
@@ -18,6 +21,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StudentAttendancePage(props) {
   const classes = useStyles();
+  const { authState } = React.useContext(AuthContext);
+  const [state, setState] = useState(undefined);
+
+  const fetchData = async () => {
+    const attendances = (await api.user.attend(authState.user.idToken, authState.user.uid)).data.data;
+    setState(attendances);
+  };
+
+  useEffect(() => {
+    if (state === undefined) {
+      fetchData();
+    }
+  });
 
   return (
     <Container maxWidth={"md"}>
@@ -25,6 +41,7 @@ export default function StudentAttendancePage(props) {
         <TableHead>
           <TableRow>
             <TableCell>Subject</TableCell>
+            <TableCell>Class</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Time</TableCell>
             <TableCell>Attendance Mark</TableCell>
@@ -32,19 +49,22 @@ export default function StudentAttendancePage(props) {
         </TableHead>
 
         <TableBody>
-          {new Array(10).fill(
-            <TableRow>
-              <TableCell>Software Engineering Studio 2B</TableCell>
-              <TableCell>2020/10/11</TableCell>
-              <TableCell>16:00</TableCell>
+          {state && state.map((attendance) => (
+            < TableRow >
+              <TableCell>{attendance.subject.subjectName}</TableCell>
+              <TableCell>{attendance.class.className}</TableCell>
+              <TableCell>{moment(attendance.class.date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</TableCell>
+              <TableCell>{moment(attendance.class.startTime, "hh:mm").format('LT')} - {moment(attendance.class.endTime, "hh:mm").format('LT')}</TableCell>
               <TableCell>
                 <Typography className={classes.pass}>
-                  pass
+                  {(attendance.facial + attendance.location + attendance.question)/0.03}
                 </Typography>
               </TableCell>
-            </TableRow>)}
+            </TableRow>
+          ))}
+
         </TableBody>
       </LinedTable>
-    </Container>
+    </Container >
   );
 }

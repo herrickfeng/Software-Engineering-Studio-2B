@@ -58,8 +58,21 @@ export const resetPassword = async (email) => {
 };
 
 export const uploadProfilePicture = async (idToken, userId, fileData) => {
-	const res = await axios.put(`http://${API_HOST}/user/${userId}/image`, fileData, {
-		headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${idToken}` },
-	});
+  const res = await axios.put(
+    `http://${API_HOST}/user/${userId}/image`, fileData,
+    {
+	  	headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${idToken}` },
+    }
+  );
 	return res;
 };
+
+export const getStuAttendance = async (idToken, userId) => {
+  const res = await axios.get(
+    `http://${API_HOST}/user/${userId}/attendance`,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+  return res;
+}

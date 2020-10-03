@@ -98,6 +98,13 @@ export const joinSubject = async (req, res) => {
 
             subjectBody.students.push(userId);
             await firestore.subject.update(subjectDoc, subjectBody);
+
+            // Create attendance records for the classes
+            const classes = subjectBody.classes;
+            for (const classId of classes){
+                await firestore.attendance.createAuto(subjectBody.subjectId, classId, userId)
+            }
+
             return res.status(200).json(successResponse({ msg: "Student successfully enrolled" }));
         } else {
             return res.status(400).json(errorResponse(`No such subject with code ${subjectCode}`, "subject-missing", "FirestoreError"));
@@ -161,7 +168,7 @@ export const updateSubject = async (req, res) => {
 
             classes: {
                 data: classes,
-                expectedType: "array"
+                expectedType: "object"
             }
 
         });
@@ -211,23 +218,12 @@ export const getAllStudents = async (req, res) => {
         const subjectDoc = await firestore.subject.get(subjectId);
         if (subjectDoc.exists) {
             var subjectBody = subjectDoc.data();
-            //iterate through students array within subject
-            var studentBodys = [];
+            var studentsArr = subjectBody.students;
+            var allUserDoc = await firestore.user.getAllInArray(studentsArr);
 
-            for (var i = 0; i < subjectBody.students.length; i++) {
-                var studentId = subjectBody.students[i];
-                var user = await admin.auth().getUser(studentId);
-                var image = undefined;
-                let file = store.file(studentId)
-                if ((await file.exists())) {
-                    const config = {
-                        action: 'read',
-                        expires: '01-01-2025'
-                    };
-                    image = await file.getSignedUrl(config);
-                }
-                studentBodys.push({...user, image: image[0]});
-            }
+            var studentBodys = allUserDoc.docs.map((doc) => {
+                return doc.data();
+            });
 
             return res.status(200).json(successResponse(studentBodys));
         } else {

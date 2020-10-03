@@ -1,82 +1,69 @@
 import React from "react";
-import {createRef, useEffect, useState} from "react"
+import { createRef, useEffect, useState } from "react"
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { Box, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
+import FacialRec from "../../components/facialRec"
+
 
 export default function VideoStream(props) {
-
-  const { authState } = React.useContext(AuthContext);
-  const [showDetection, setShowDetection] = useState(" ")
   const videoTag = createRef();
-  let bestMatch = {}
-  Promise.all([
-    faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-    faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-    faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  ])
-
-  async function getImages() {
-    const subject = await api.subject.get(authState.user.idToken, props.match.params.subjectId)
-    const studentList = subject.data.data.students;
-    return Promise.all(
-      studentList.map(async label => {
-        const descriptions = []
-        const userData = await api.user.getById(authState.user.idToken, label)
-        if (userData.data.data.descriptor) {
-          const descriptor = new Float32Array(Object.values(userData.data.data.descriptor))
-          descriptions.push(descriptor)
-          return new faceapi.LabeledFaceDescriptors(label, descriptions)
-        } else {
-          console.log(`Descriptor for ${userData.data.data.studentId} does not exist`);
-        }
-      })
-    )
-  }
-
-
-  async function HandleDetections() {
-    videoTag.current.play().then(console.log("playing"))
-    const labeledDescriptors = await getImages()
-    const filteredLabeledDescriptors = labeledDescriptors.filter(ld => ld != undefined) // Remove any undefined elements
-    console.log(labeledDescriptors)
-    const faceMatcher = new faceapi.FaceMatcher(filteredLabeledDescriptors, .6)
-    setInterval(async () => {
-      if (videoTag.current != null){
-        const detection = await faceapi.detectSingleFace(videoTag.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor()
-        if (detection) {
-          bestMatch = faceMatcher.findBestMatch(detection.descriptor)
-          console.log(bestMatch.label)
-          // Send detection to subject attendance
-          const bestMatchInfo = await api.user.getById(authState.user.idToken, bestMatch.label)
-          console.log(bestMatchInfo.data.data.displayName)
-          setShowDetection(bestMatchInfo.data.data.displayName)
-        }
-      }
-    }, 2000)
-  }
+  let streamActive = false
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
-        videoTag.current.srcObject = stream
-        console.log(stream)
-        HandleDetections()
+        if (videoTag.current != null) {
+          videoTag.current.srcObject = stream
+          streamActive = true
+        }
       })
       .catch(err => console.error(err))
+
+    return () => {
+      if (streamActive) {
+        videoTag.current.srcObject.getTracks().forEach(track => track.stop()) 
+      }
+    }
   })
 
-
-  //setShowDetection(Math.floor((Math.random() * 100) + 1))
-
   return (
-    <div>
-      <video ref={videoTag} width="1440" height="1120" muted></video>
-      <div>
-        <p>hello are you {showDetection}?</p>
-        <button> yes </button>
-        <button> no </button>
-      </div>
-    </div>
-  );
+    <Grid container>
+      <Grid component={Paper}>
+        <video ref={videoTag} width="1440vh" height="1120vh" muted autoPlay></video>
+        <Grid item direction="row" container>
+          <Grid item>
+            <Box textAlign="center" my={5}>
+              <Button
+                variant={"outlined"}
+                color={"primary"}
+                component={Link}
+                to={`/teacher/subject/${props.match.params.subjectId}/class/${props.match.params.classId}`}>
+
+                Back
+				    </Button>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Box textAlign="center" my={5}>
+              <Button
+                variant={"outlined"}
+                color={"primary"}
+                href={"https://www.youtube.com/watch?v=qkQg9GGitow"}>
+
+                Forwards
+				      </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid component={Paper}>
+        <FacialRec subjectId={props.match.params.subjectId} classId={props.match.params.classId} videoTag={videoTag} />
+      </Grid>
+    </Grid>
+  )
 }
