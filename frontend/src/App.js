@@ -17,6 +17,8 @@ import TeacherClassAttendanceViewPage from "./pages/teacherClassAttendanceView/i
 import TeacherClassAttendanceEditPage from "./pages/teacherClassAttendanceEdit/index.js";
 import TeacherQuestionsViewPage from "./pages/teacherQuestionsView/index.js";
 import TeacherQuestionsEditPage from "./pages/teacherQuestionsEdit/index.js";
+import TeacherProfilePage from "./pages/teacherProfile/index.js";
+import TeacherNavigation from "./components/teacherNavigation";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
