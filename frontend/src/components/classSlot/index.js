@@ -1,9 +1,14 @@
 import React from "react";
-import { Box } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import ClassSlotOption from "./ClassSlotOption";
 import moment from "moment"
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ClassSlot(props) {
   const classes = useStyles();
 
+  const [value, setValue] = React.useState('female');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   return (
     <Box>
       <Box mt={5}>
@@ -61,6 +72,27 @@ export default function ClassSlot(props) {
             {moment(props.data.class.startTime, "hh:mm").format('LT')} - {moment(props.data.class.endTime, "hh:mm").format('LT')}
             </Typography>
           </Box>
+          <br/>
+          <Grid >
+          <FormLabel component="legend">Teacher Attendance Verification</FormLabel>
+          <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+            <FormControlLabel
+              value="yes"
+              control={<Radio color="primary" />}
+              label="Yes"
+              labelPlacement="end"
+            />
+            <FormControlLabel
+              value="no"
+              control={<Radio color="primary" />}
+              label="No"
+              labelPlacement="end"
+            />
+          </RadioGroup>
+          </Grid>
+          <Button color="primary" variant="outlined">
+            Submit
+          </Button>
         </Box>
 
         <Box m={2}>
