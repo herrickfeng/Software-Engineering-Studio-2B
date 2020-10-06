@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Container, Button, TableHead, TableRow, TableCell, TableBody, Box } from "@material-ui/core";
+import { Container, Button, TableHead, TableRow, TableCell, TableBody, Box, Grid, Typography} from "@material-ui/core";
 //DO I NEED TO CHANGE BELOW IMPORT TO BE FROM TEACHER PROFILE if it's doing the same thing as in student profile?
 // import Popup from "../../components/studentProfile/popup";
 import api from "../../helpers/api";
@@ -9,6 +9,7 @@ import LinedTable from "../../components/linedTable/index";
 import { Link } from "react-router-dom";
 import UploadImageForm from "../../components/upload"; 
 import {makeStyles} from "@material-ui/core/styles";
+import Popup from "../../pages/teacherProfile/popup";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -25,9 +26,9 @@ export default function TeacherProfilePage(props) {
   useEffect(() => {
     setProfileState (
       {
-        name: "Peter Pan",
+        name: "Jane Doe",
         id: "12345678",
-        email: "hsu.myat.win@uts.edu.au",
+        email: "jane.doe@uts.edu.au",
         password: "*********",
       }
     )
@@ -47,11 +48,11 @@ export default function TeacherProfilePage(props) {
   //   }
   // });
 
-  // const updateProfile = async (userData) => {
-  //   // TODO: Error toast 
-  //   setProfileState(userData);
-  //   api.user.update(authState.user.idToken, authState.user.uid, userData)
-  // }
+  const updateProfile = async (userData) => {
+    // TODO: Error toast 
+    setProfileState(userData);
+    // api.user.update(authState.user.idToken, authState.user.uid, userData)
+  }
 
   const handleResetPassword = async () => {
     // TODO: Error toast 
@@ -63,8 +64,20 @@ export default function TeacherProfilePage(props) {
       {/* TODO: LOADING  */}
       {profileState ? (
       <>
-       {/* < TeacherProfile profileState={profileState} setState={setProfileState} handleResetPassword={handleResetPassword}/> */}
-
+       <Grid
+    container
+    direction="column"
+    justify="center"
+    alignItems="center"
+>
+      <Typography variant="h4" gutterBottom>
+          Profile
+      </Typography>
+      <img className={classes.image} src={profileState.image} height="200vh" />
+      <Typography variant="subtitle1" gutterBottom>
+          Profile picture
+      </Typography>
+    </Grid>
         <LinedTable>
           <TableBody>
             <TableRow>
@@ -88,32 +101,131 @@ export default function TeacherProfilePage(props) {
             <TableRow>
               <TableCell>Password</TableCell>
               <TableCell>
-                <Button variant="contained" color="primary" onClick={handleResetPassword} >Email Reset Link</Button>
+              {profileState.password}
+              {/* ********** */}
               </TableCell>
             </TableRow>
           </TableBody>
           <TableBody>
+          </TableBody>
+          <TableBody>
             <TableRow>
             <TableCell align="left">
-              <img className={classes.image} src={profileState.image} height="200vh" />
+              Profile Picture
             </TableCell>
             <TableCell>
               <UploadImageForm setState={setProfileState}/>
               </TableCell>
             </TableRow>
-          </TableBody>
+        </TableBody>
         </LinedTable>
-
+        
+        {/* < TeacherProfilePage profileState={profileState} setState={setProfileState} handleResetPassword={handleResetPassword}/>, */}
         <Box>
-          {/* <Popup profileState={profileState} updateProfile={updateProfile} /> */}
+          <Popup profileState={profileState} updateProfile={updateProfile} />
         </Box>
       </>)
         :
         <h1>Loading</h1>
       }
-    </Container>
 
-      
+      {/* TODO: LOADING  */}
+      {/* {profileState ? [
+        < TeacherProfilePage profileState={profileState} setState={setProfileState} handleResetPassword={handleResetPassword}/>,
+        <Box>
+          <Popup profileState={profileState} setState={setProfileState} />
+        </Box>
+      ]
+        :
+        <h1>Loading</h1>
+      } */}
+
+
+      {/* <Box style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Button variant="contained" color="primary" onClick={handleClickOpen} startIcon={<EditIcon />} >
+                    Edit
+                </Button>
+            </Box>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+                <DialogTitle id="form-dialog-title">
+                    Edit Profile
+                </DialogTitle>
+
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        variant="outlined"
+                        margin="normal"
+                        id="displayName"
+                        label="Name"
+                        fullWidth
+                        required
+                        onChange={handleChange}
+                        value={formState.displayName}
+                    /> */}
+
+                    {/* <TextField
+                            autoFocus
+                            variant="outlined"
+                            margin="normal"
+                            id="studentid"
+                            label="Student ID"
+                            fullWidth
+                            required
+                        /> */}
+
+                    {/* <TextField
+                        autoFocus
+                        variant="outlined"
+                        margin="normal"
+                        id="email"
+                        label="Email Address"
+                        fullWidth
+                        required
+                        onChange={handleChange}
+                        value={formState.email}
+                    />
+                    <Grid 
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                  >
+                        <Typography variant="subtitle1" gutterBottom>
+                            Password
+                        </Typography>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            margin="normal"
+                            
+                            onClick={props.handleResetPassword}
+                            >Email Reset Link
+                        </Button>
+                    </Grid> */}
+
+                    {/* <TextField
+                            autoFocus
+                            variant="outlined"
+                            margin="normal"
+                            id="password"
+                            label="Password"
+                            fullWidth
+                            required
+                        /> */}
+                {/* </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleSave} color="primary">
+                        Save
+                    </Button>
+                </DialogActions>
+
+            </Dialog> */}
+    </Container>
 
   );
 }
