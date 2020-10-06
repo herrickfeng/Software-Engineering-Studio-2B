@@ -61,24 +61,15 @@ export default function TeacherSignUpPopup(props) {
                         autoFocus
                         variant="outlined"
                         margin="normal"
-                        id="displayName"
+                        // id="displayName"
+                        id="name"
                         label="Name"
                         fullWidth
                         required
                         onChange={handleChange}
-                        value={formState.displayName}
+                        // value={formState.displayName}
+                        value={formState.name}
                     />
-
-                    {/* <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="studentid"
-                            label="Student ID"
-                            fullWidth
-                            required
-                        /> */}
-
                     <TextField
                         autoFocus
                         variant="outlined"
@@ -108,16 +99,6 @@ export default function TeacherSignUpPopup(props) {
                             >Email Reset Link
                         </Button>
                     </Grid>
-
-                    {/* <TextField
-                            autoFocus
-                            variant="outlined"
-                            margin="normal"
-                            id="password"
-                            label="Password"
-                            fullWidth
-                            required
-                        /> */}
                 </DialogContent>
 
                 <DialogActions>
