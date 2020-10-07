@@ -19,42 +19,30 @@ export default function TeacherProfilePage(props) {
 
   const { authState } = React.useContext(AuthContext);
   const [profileState, setProfileState] = useState(undefined);
-  const classes = useStyles();
+  const classes = useStyles();  
   
-  useEffect(() => {
-    setProfileState (
-      {
-        name: "Jane Doe",
-        id: "12345678",
-        email: "jane.doe@uts.edu.au",
-        password: "*********",
-      }
-    )
-  },[])
-  
-  
-  // const fetchData = async () => {
-  //   const userData = await api.user.get(authState.user.idToken)
-  //   setProfileState(userData.data.data);
-  //   console.log(userData)
-  //   console.log(authState.user.idToken)
-  // };
+  const fetchData = async () => {
+    const userData = await api.user.get(authState.user.idToken)
+    setProfileState(userData.data.data);
+    console.log(userData)
+    console.log(authState.user.idToken)
+  };
 
-  // useEffect(() => {
-  //   if (profileState === undefined) {
-  //     fetchData();
-  //   }
-  // });
+  useEffect(() => {
+    if (profileState === undefined) {
+      fetchData();
+    }
+  });
 
   const updateProfile = async (userData) => {
     // TODO: Error toast 
     setProfileState(userData);
-    // api.user.update(authState.user.idToken, authState.user.uid, userData)
+    api.user.update(authState.user.idToken, authState.user.uid, userData)
   }
 
   const handleResetPassword = async () => {
     // TODO: Error toast 
-    // await api.auth.reset(profileState.email);
+    await api.auth.reset(profileState.email);
   }
 
   return (
@@ -80,13 +68,13 @@ export default function TeacherProfilePage(props) {
           <TableBody>
             <TableRow>
               <TableCell>Name:</TableCell>
-              <TableCell>{profileState.name}</TableCell>
+              <TableCell>{profileState.displayName}</TableCell>
             </TableRow>
           </TableBody>
           <TableBody>
             <TableRow>
               <TableCell>Staff ID:</TableCell>
-              <TableCell>{profileState.id}</TableCell>
+              <TableCell>{profileState.uid}</TableCell>
             </TableRow>
           </TableBody>
           <TableBody>
@@ -99,7 +87,7 @@ export default function TeacherProfilePage(props) {
             <TableRow>
               <TableCell>Password</TableCell>
               <TableCell>
-              {profileState.password}
+              *********
               </TableCell>
             </TableRow>
           </TableBody>
@@ -117,9 +105,8 @@ export default function TeacherProfilePage(props) {
         </TableBody>
         </LinedTable>
         
-        {/* < TeacherProfilePage profileState={profileState} setState={setProfileState} handleResetPassword={handleResetPassword}/>, */}
         <Box>
-          <Popup profileState={profileState} updateProfile={updateProfile} />
+          <Popup profileState={profileState} updateProfile={updateProfile} handleResetPassword={handleResetPassword} />
         </Box>
       </>)
         :

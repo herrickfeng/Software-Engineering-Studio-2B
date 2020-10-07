@@ -61,14 +61,12 @@ export default function TeacherSignUpPopup(props) {
                         autoFocus
                         variant="outlined"
                         margin="normal"
-                        // id="displayName"
-                        id="name"
+                        id="displayName"
                         label="Name"
                         fullWidth
                         required
                         onChange={handleChange}
-                        // value={formState.displayName}
-                        value={formState.name}
+                        defaultValue={formState.displayName}
                     />
                     <TextField
                         autoFocus
@@ -79,7 +77,7 @@ export default function TeacherSignUpPopup(props) {
                         fullWidth
                         required
                         onChange={handleChange}
-                        value={formState.email}
+                        defaultValue={formState.email}
                     />
                     <Grid 
                     container
