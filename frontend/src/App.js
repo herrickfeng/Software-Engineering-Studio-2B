@@ -78,9 +78,10 @@ function AppRouter(props) {
         <StudentAttendancePage />
       </PrivateRoute>
 
-      <PrivateRoute path="/student/question" exact={true}>
-       <StudentQuestion/>
-      </PrivateRoute>
+      <PrivateRoute path="/student/subject/:subjectId/class/:classId/question"
+        exact={true}
+        component={StudentQuestion}
+      />
 
       <PrivateRoute path="/student/profile" exact={true}>
         <StudentProfilePage />
