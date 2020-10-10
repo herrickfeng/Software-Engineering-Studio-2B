@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import SubjectCompletion from "../../components/chart/subjectCompletion"
 
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
@@ -33,17 +34,13 @@ export default function TeacherSubjectList(props) {
 							<Typography gutterBottom variant="h5" component="h2">
 								{`${subject.subjectCode} ${subject.subjectName}`}
 							</Typography>
-							{/* <Typography variant="body2" color="textSecondary" component="p">
-								This is a safe space. {subject.subjectId}
-							</Typography> */}
 						</CardContent>
+						{subjectState.subjectAnalytics && subjectState.subjectAnalytics[subject.subjectId] &&
+							(
+								<SubjectCompletion data={subjectState.subjectAnalytics[subject.subjectId]} />
+							)
+						}
 					</CardActionArea>
-							{/* TODO: Delete button */}
-					{/* <CardActions>
-						<Button size="small" color="primary" onClick={() => deleteSubject(subject.subjectId)}>
-							Delete
-					</Button>
-					</CardActions> */}
 				</Card>
 			</Box>
 		)
