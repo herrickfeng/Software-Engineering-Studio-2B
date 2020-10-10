@@ -33,17 +33,17 @@ export default function TeacherSubjectList(props) {
 							<Typography gutterBottom variant="h5" component="h2">
 								{`${subject.subjectCode} ${subject.subjectName}`}
 							</Typography>
-							<Typography variant="body2" color="textSecondary" component="p">
+							{/* <Typography variant="body2" color="textSecondary" component="p">
 								This is a safe space. {subject.subjectId}
-							</Typography>
+							</Typography> */}
 						</CardContent>
 					</CardActionArea>
-
-					<CardActions>
+							{/* TODO: Delete button */}
+					{/* <CardActions>
 						<Button size="small" color="primary" onClick={() => deleteSubject(subject.subjectId)}>
 							Delete
 					</Button>
-					</CardActions>
+					</CardActions> */}
 				</Card>
 			</Box>
 		)
