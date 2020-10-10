@@ -28,6 +28,7 @@ import GeoFence from "./pages/geofence/index.js";
 import StudentClassListPage from "./pages/studentClassList";
 import StudentClassPage from "./pages/studentClass";
 import VideoPage from "./pages/videoStream";
+import TeacherViewStudentsPage from "./pages/teacherViewStudents/index";
 
 
 
@@ -101,6 +102,12 @@ function AppRouter(props) {
         exact={true}
         adminRoute={true}
         component={TeacherClassListPage}
+      />
+
+      <PrivateRoute path="/teacher/subject/:subjectId/students"
+        exact={true}
+        adminRoute={true}
+        component={TeacherViewStudentsPage}
       />
 
       <PrivateRoute

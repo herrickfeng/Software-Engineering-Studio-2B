@@ -55,11 +55,17 @@ export default function TeacherClassListPage(props) {
     (state ? 
     <Container maxWidth={"md"}>
       <Box textAlign="center" my={5}>
-        <Typography variant="h4">{state.subjectName} Class List</Typography>
+        <Typography variant="h4">{state.subjectName} - Class List</Typography>
       </Box>
 
       <Box>
         <TeacherAddClassPopup />
+      </Box>
+
+      <Box my={2} display="flex" justifyContent="center">
+        <Button variant="contained" color="primary" component={Link} to={`/teacher/subject/${subjectId}/students`}>
+          View Students
+        </Button>
       </Box>
 
       <Box>
