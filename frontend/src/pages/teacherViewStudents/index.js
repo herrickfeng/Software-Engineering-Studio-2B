@@ -48,7 +48,7 @@ export default function TeacherViewStudentsPage(props) {
 
               <TableBody>
                 {data.students.map(student => (
-                  <>
+                  <TableRow key={student.studentId}>
                     <TableCell>
                       {student.studentId}
                     </TableCell>
@@ -58,7 +58,7 @@ export default function TeacherViewStudentsPage(props) {
                     <TableCell>
                       {student.email}
                     </TableCell>
-                  </>
+                  </TableRow>
                 ))}
               </TableBody>
             </LinedTable>
