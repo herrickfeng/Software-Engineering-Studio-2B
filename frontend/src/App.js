@@ -69,34 +69,44 @@ function AppRouter(props) {
         <Signout />
       </Route>
 
-      <PrivateRoute path="/student/dashboard" exact={true}>
-        <StudentDashboardPage />
-      </PrivateRoute>
-
-      <Route path="/student/subject/:subjectId/class/:classId" exact={true} component={StudentClassPage} />
-
-      <PrivateRoute path="/student/attendance" exact={true}>
-        <StudentAttendancePage />
-      </PrivateRoute>
-
-
-      <PrivateRoute path="/student/profile" exact={true}>
-        <StudentProfilePage />
-      </PrivateRoute>
-
-      <Route path="/student/subject/:subjectId" exact={true} component={StudentClassListPage} />
-
-      <PrivateRoute path="/teacher/profile" exact={true}>
-        <TeacherNavigation />
-        <TeacherProfilePage />
-      </PrivateRoute>
-
-      <PrivateRoute
-        path="/teacher/subjectList"
+      <PrivateRoute path="/student/dashboard" 
         exact={true}
-        adminRoute={true}>
-        <TeacherSubjectListPage />
-      </PrivateRoute>
+        component={StudentDashboardPage}
+      />
+
+      <PrivateRoute path="/student/attendance" 
+        exact={true}
+        component={StudentAttendancePage} 
+      />
+
+      <PrivateRoute 
+        path="/student/profile" 
+        exact={true}
+        component={StudentProfilePage}
+      />
+
+      <PrivateRoute 
+        path="/student/subject/:subjectId"
+        exact={true}
+        component={StudentClassListPage}
+      />
+
+      <PrivateRoute path="/student/subject/:subjectId/class/:classId"
+       exact={true} 
+       component={StudentClassPage} 
+      />
+
+      <PrivateRoute path="/teacher/profile" 
+        exact={true}
+        adminRoute={true}
+        component={TeacherProfilePage}
+      />
+
+      <PrivateRoute path="/teacher/subjectList"
+        exact={true}
+        adminRoute={true}
+        component={TeacherSubjectListPage}
+      />
 
       <PrivateRoute path="/teacher/subject/:subjectId"
         exact={true}
@@ -110,43 +120,52 @@ function AppRouter(props) {
         component={TeacherViewStudentsPage}
       />
 
-      <PrivateRoute
-        path="/teacher/subject/:subjectId/class/:classId"
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId"
         exact={true}
         adminRoute={true}
-        component={TeacherApplicationsViewPage} />
+        component={TeacherApplicationsViewPage}
+      />
 
       <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/attendance"
         exact={true}
         adminRoute={true}
         component={TeacherClassAttendanceViewPage}
       />
+
       <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/attendance/edit"
         exact={true}
         adminRoute={true}
         component={TeacherClassAttendanceEditPage}
       />
 
-      <PrivateRoute
-        path="/teacher/subject/:subjectId/class/:classId/questions"
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/questions"
         exact={true}
+        adminRoute={true}
         component={TeacherQuestionsViewPage}
       />
 
-      <PrivateRoute
-        path="/teacher/subject/:subjectId/class/:classId/questions/edit"
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/questions/edit"
         exact={true}
+        adminRoute={true}
         component={TeacherQuestionsEditPage}
+      />
+
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/video" 
+        exact={true}
+        adminRoute={true}
+        component={VideoPage}
+      />
+
+      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/location"
+        exact={true}
+        adminRoute={true}
+        component={GeoFence}
       />
 
       <Route path="/upload" exact>
         <UploadPage />
         <HomePage />
       </Route>
-
-      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/video" exact={true} component={VideoPage} />
-
-      <PrivateRoute path="/teacher/subject/:subjectId/class/:classId/location" exact={true} component={GeoFence} />
 
     </Switch>
   );
