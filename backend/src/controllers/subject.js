@@ -8,6 +8,7 @@ import {
     errorResponse,
     handleApiError
 } from "../helpers/apiResponse";
+import moment from "moment"
 import subject from "../helpers/firestore/subject";
 import { store } from "../helpers/firebase-admin";
 
@@ -101,7 +102,7 @@ export const joinSubject = async (req, res) => {
 
             // Create attendance records for the classes
             const classes = subjectBody.classes;
-            for (const classId of classes){
+            for (const classId of classes) {
                 await firestore.attendance.createAuto(subjectBody.subjectId, classId, userId)
             }
 
@@ -229,6 +230,49 @@ export const getAllStudents = async (req, res) => {
         } else {
             throw new FirestoreError("missing", subjectDoc.ref, "subject");
         }
+    } catch (error) {
+        handleApiError(res, error);
+    }
+};
+
+export const getAllTeacherSubjectAnalytics = async (req, res) => {
+    try {
+        const userId = req.authId;
+
+        const allSubjectDoc = await firestore.subject.getAllWhere("teacher", userId);
+
+        var subjectsDataList = await Promise.all(allSubjectDoc.docs.map(async (doc) => {
+            var completed = 0;
+            var awaiting = 0;
+
+            const subjectBody = doc.data();
+
+            for (var i = 0; i < subjectBody.classes.length; i++) {
+                var classId = subjectBody.classes[i];
+                const classDoc = await firestore.class.get(classId);
+                if (classDoc.exists) {
+                    const classData = classDoc.data();
+                    const date = classData.date;
+                    if (moment(date).isBefore(moment()))
+                        completed++;
+                    else
+                        awaiting++;
+                }
+                else {
+                    throw new FirestoreError("missing", classDoc.ref, "class");
+                }
+            }
+
+            return { subjectId: subjectBody.subjectId, completed, awaiting }
+        }));
+
+        var subjectAttendanceCountMap = subjectsDataList.reduce((result, data, index, array) => {
+            const subjectId = data.subjectId;
+            result[subjectId] = data
+            return result;
+        }, {});
+
+        return res.status(200).json(successResponse(subjectAttendanceCountMap));
     } catch (error) {
         handleApiError(res, error);
     }

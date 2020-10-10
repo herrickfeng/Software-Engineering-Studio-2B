@@ -152,3 +152,10 @@ export const deleteSubjectAdmin = async (idToken, subjectId) => {
 	);
 	return res;
 };
+
+export const getSubjectAnalyticsAdmin = async (idToken) => {
+	const res = await axios.get(`http://${API_HOST}/admin/subject/analytics`, {
+		headers: { Authorization: `Bearer ${idToken}` },
+	});
+	return res;
+};

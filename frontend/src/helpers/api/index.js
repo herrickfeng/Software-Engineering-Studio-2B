@@ -28,6 +28,7 @@ import {
   getAttendanceBySubStu,
   updateAttendance,
   updateAttendanceSpecific,
+  getSubjectAnalyticsAdmin,
 } from "./subject";
 import {
   getClassStudent,
@@ -81,6 +82,7 @@ export default {
       get: getSubjectAdmin,
       update: updateSubjectAdmin,
       delete: deleteSubjectAdmin,
+      analytics: getSubjectAnalyticsAdmin,
       class: {
         create: createClassAdmin,
         get: getClassAdmin,
