@@ -22,6 +22,7 @@ import TeacherNavigation from "./components/teacherNavigation";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
 import StudentProfilePage from "./pages/studentProfile";
+import StudentLocationPage from "./pages/studentLocation";
 import ManageNavigation from "./components/manageNavigation";
 import Footer from "./components/footer";
 import GeoFence from "./pages/geofence/index.js";
@@ -94,6 +95,11 @@ function AppRouter(props) {
       <PrivateRoute path="/student/subject/:subjectId/class/:classId"
        exact={true} 
        component={StudentClassPage} 
+      />
+
+      <PrivateRoute path="/student/subject/:subjectId/class/:classId/location"
+       exact={true} 
+       component={StudentLocationPage} 
       />
 
       <PrivateRoute path="/teacher/profile" 
