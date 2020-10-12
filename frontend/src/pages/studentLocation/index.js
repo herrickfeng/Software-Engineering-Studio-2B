@@ -11,6 +11,7 @@ import { geolocated } from "react-geolocated";
 function StudentLocation(props) {
   const { authState, setAuthState } = React.useContext(AuthContext);
   const subjectId = props.match.params.subjectId;
+  const classId = props.match.params.classId;
   const [path, setPath] = useState(undefined);
   const [state, setState] = useState(undefined);
   const [message, setMessage] = React.useState(undefined);
@@ -55,8 +56,12 @@ function StudentLocation(props) {
   }, []);
 
   async function verifyLocation() {
-    console.log(props.coords);
-    setMessage("Failed")
+    const coords = {
+      latitude: props.coords.latitude,
+      longitude: props.coords.longitude
+    }
+    const res = await api.subject.attend.location(authState.user.idToken, subjectId, classId, authState.user.uid, coords)
+    setMessage(res.data.data.msg)
   }
 
   return (

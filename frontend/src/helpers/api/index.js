@@ -26,6 +26,7 @@ import {
   getAttendance,
   getAttendanceBySubClass,
   getAttendanceBySubStu,
+  verifyLocation,
   updateAttendance,
   updateAttendanceSpecific,
   getSubjectAnalyticsAdmin,
@@ -69,6 +70,7 @@ export default {
     attend: {
       create: createAttendance,
       get: getAttendance,
+      location: verifyLocation,
       getByCl: getAttendanceBySubClass,
       getBySub: getAttendanceBySubStu,
       update: updateAttendance,
