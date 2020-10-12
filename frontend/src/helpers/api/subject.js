@@ -159,3 +159,14 @@ export const getSubjectAnalyticsAdmin = async (idToken) => {
 	});
 	return res;
 };
+
+export const verifyLocation = async (idToken, subjectId, classId, userId, data) => {
+  const res = await axios.post(
+		`http://${API_HOST}/subject/${subjectId}/class/${classId}/user/${userId}/location`,
+		data,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+  return res;
+}
