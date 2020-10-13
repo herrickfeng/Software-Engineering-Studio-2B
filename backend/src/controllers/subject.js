@@ -297,16 +297,8 @@ export const getAllTeacherClassAnalytics = async (req, res) => {
             const classIds = subjectBody.classes;
             var outp = []
             for (const classId of classIds) {
-                const allAttendanceDoc = await firestore.attendance.getBySubClass(subjectId, classId);
                 const classDoc = await firestore.class.get(classId);
                 if (classDoc.exists === true) {
-                    const classBody = classDoc.data();
-
-                    var attendances = allAttendanceDoc.docs.map((doc) => {
-                        var attendance = doc.data();
-                        return attendance.facial + attendance.location + attendance.question + (attendance.signOff ? 1 : 0)
-                    })
-
                     var occurrences = {
                         "0": 0,
                         "1": 0,
@@ -314,10 +306,23 @@ export const getAllTeacherClassAnalytics = async (req, res) => {
                         "3": 0,
                         "4": 0,
                     };
-                    for (var i = 0, j = attendances.length; i < j; i++) {
-                        occurrences[attendances[i]] = (occurrences[attendances[i]] || 0) + 1;
+                    const classBody = classDoc.data();
+
+                    if (!moment(classBody.date).isAfter(moment(), 'day')) {
+
+                        const allAttendanceDoc = await firestore.attendance.getBySubClass(subjectId, classId);
+                        var attendances = allAttendanceDoc.docs.map((doc) => {
+                            var attendance = doc.data();
+                            return attendance.facial + attendance.location + attendance.question + (attendance.signOff ? 1 : 0)
+                        })
+
+                        for (var i = 0, j = attendances.length; i < j; i++) {
+                            occurrences[attendances[i]] = (occurrences[attendances[i]] || 0) + 1;
+                        }
+                        outp.push({ ...classBody, ...occurrences });
+                    } else {
+                        outp.push({ ...classBody, ...occurrences });
                     }
-                    outp.push({...classBody, ...occurrences});
                 } else {
                     throw new FirestoreError("missing", classDoc.ref, "class");
                 }
