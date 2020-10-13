@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 // project components
 import TeacherAddClassPopup from "../../components/classList/TeacherAddClassPopup.js";
@@ -19,14 +19,16 @@ export default function TeacherClassListPage(props) {
   const subjectId = props.match.params.subjectId;
   const { authState } = React.useContext(AuthContext);
   const [state, setState] = useState(undefined);
+  const [occuranceState, setOccuranceState] = useState(undefined);
   const [openAddPopup, setOpenAddPopup] = React.useState(false);
   const history = useHistory();
 
   const fetchData = async () => {
     const subject = (await api.subject.get(authState.user.idToken, subjectId)).data.data;
     subject.classes = (await api.subject.class.getAll(authState.user.idToken, subjectId)).data.data;
-    subject.occurrences = (await api.admin.subject.class.analytics(authState.user.idToken, subjectId)).data.data;
     setState(subject);
+    const occurrences = (await api.admin.subject.class.analytics(authState.user.idToken, subjectId)).data.data;
+    setOccuranceState(occurrences);
   };
 
   useEffect(() => {
@@ -59,10 +61,10 @@ export default function TeacherClassListPage(props) {
         <Box textAlign="center" my={5}>
           <Typography variant="h4">{state.subjectName} - Class List</Typography>
         </Box>
-        
+
         <Box>
           {/* <TeacherAddClassPopup /> */}
-          <ClassAttendance data={state.occurrences}/>
+          {occuranceState && <ClassAttendance data={occuranceState} />} 
         </Box>
 
         <Box my={2} display="flex" justifyContent="center">
@@ -76,7 +78,7 @@ export default function TeacherClassListPage(props) {
         </Box>
 
         <Box>
-          <ClassList backTo="/student/dashboard" onRowClick={onRowClick} data={state.classes}/>
+          <ClassList backTo="/student/dashboard" onRowClick={onRowClick} data={state.classes} />
 
           <Box my={3} display="flex" justifyContent="space-between">
             <Button variant="outlined" color="primary" component={Link} to="/teacher/subjectList">
@@ -88,7 +90,7 @@ export default function TeacherClassListPage(props) {
           </Box>
         </Box>
 
-        <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)} onAdd={addClass}/>
+        <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)} onAdd={addClass} />
       </Container>
       // TODO: Loading spinner icon thingy
       : <h1>Loading</h1>
