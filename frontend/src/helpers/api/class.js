@@ -83,3 +83,13 @@ export const generateClassAdmin = async (idToken, subjectId, data) => {
 	);
 	return res;
 };
+
+export const getClassAnalyticsAdmin = async (idToken, subjectId) => {
+	const res = await axios.get(
+		`http://${API_HOST}/admin/subject/${subjectId}/analytics`,
+		{
+			headers: { Authorization: `Bearer ${idToken}` },
+		}
+	);
+	return res;
+};

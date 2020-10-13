@@ -202,6 +202,12 @@ export const getAllClass = async (req, res) => {
                 }
             }
 
+            classBodys.sort((a, b) => {
+                if (a.date == b.date)
+                    return a.startTime > b.startTime ? 1 : -1
+                return a.date > b.date ? 1 : -1
+            })
+
             return res.status(200).json(successResponse(classBodys));
         }
         else {

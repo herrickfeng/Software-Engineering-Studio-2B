@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 // project components
 import TeacherAddClassPopup from "../../components/classList/TeacherAddClassPopup.js";
 import GenerateClass from "../../components/TeacherAddClassPopup/index.js"
+import ClassAttendance from "../../components/chart/classAttendance"
 
 
 // material-ui components
@@ -18,6 +19,7 @@ export default function TeacherClassListPage(props) {
   const subjectId = props.match.params.subjectId;
   const { authState } = React.useContext(AuthContext);
   const [state, setState] = useState(undefined);
+  const [occuranceState, setOccuranceState] = useState(undefined);
   const [openAddPopup, setOpenAddPopup] = React.useState(false);
   const history = useHistory();
 
@@ -25,6 +27,8 @@ export default function TeacherClassListPage(props) {
     const subject = (await api.subject.get(authState.user.idToken, subjectId)).data.data;
     subject.classes = (await api.subject.class.getAll(authState.user.idToken, subjectId)).data.data;
     setState(subject);
+    const occurrences = (await api.admin.subject.class.analytics(authState.user.idToken, subjectId)).data.data;
+    setOccuranceState(occurrences);
   };
 
   useEffect(() => {
@@ -37,58 +41,59 @@ export default function TeacherClassListPage(props) {
     history.push(`/teacher/subject/${subjectId}/class/${entry.classId}`);
   }
 
-	const addClass = async (classData) => {
-		const { idToken } = authState.user;
+  const addClass = async (classData) => {
+    const { idToken } = authState.user;
     const subjectClass = (await api.admin.subject.class.create(idToken, subjectId, classData)).data.data.data;
-		setState(undefined);
-	}
+    setState(undefined);
+  }
 
   const handleGenerate = async (data) => {
     // TODO: Error toast
     data.occurrence = parseInt(data.occurrence);
-		const { idToken } = authState.user;
+    const { idToken } = authState.user;
     await api.admin.subject.class.generate(authState.user.idToken, subjectId, data);
-		setState(undefined);
+    setState(undefined);
   }
 
   return (
-    (state ? 
-    <Container maxWidth={"md"}>
-      <Box textAlign="center" my={5}>
-        <Typography variant="h4">{state.subjectName} - Class List</Typography>
-      </Box>
-
-      <Box>
-        <TeacherAddClassPopup />
-      </Box>
-
-      <Box my={2} display="flex" justifyContent="center">
-        <Button variant="contained" color="primary" component={Link} to={`/teacher/subject/${subjectId}/students`}>
-          View Students
-        </Button>
-      </Box>
-
-      <Box>
-         <GenerateClass handleGenerate={handleGenerate} />
-      </Box>
-
-      <Box>
-        <ClassList backTo="/student/dashboard" onRowClick={onRowClick} data={state.classes}/>
-
-        <Box my={3} display="flex" justifyContent="space-between">
-          <Button variant="outlined" color="primary" component={Link} to="/teacher/subjectList">
-            Back
-          </Button>
-          <Button variant="outlined" color="primary" onClick={() => setOpenAddPopup(true)}>
-            + Add Class
-          </Button>
+    (state ?
+      <Container maxWidth={"md"}>
+        <Box textAlign="center" my={5}>
+          <Typography variant="h4">{state.subjectName} - Class List</Typography>
         </Box>
-      </Box>
 
-      <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)} onAdd={addClass}/>
-    </Container>
-    // TODO: Loading spinner icon thingy
-    : <h1>Loading</h1>
+        <Box>
+          {/* <TeacherAddClassPopup /> */}
+          {occuranceState && <ClassAttendance data={occuranceState} />} 
+        </Box>
+
+        <Box my={2} display="flex" justifyContent="center">
+          <Button variant="contained" color="primary" component={Link} to={`/teacher/subject/${subjectId}/students`}>
+            View Students
+        </Button>
+        </Box>
+
+        <Box>
+          <GenerateClass handleGenerate={handleGenerate} />
+        </Box>
+
+        <Box>
+          <ClassList backTo="/student/dashboard" onRowClick={onRowClick} data={state.classes} />
+
+          <Box my={3} display="flex" justifyContent="space-between">
+            <Button variant="outlined" color="primary" component={Link} to="/teacher/subjectList">
+              Back
+          </Button>
+            <Button variant="outlined" color="primary" onClick={() => setOpenAddPopup(true)}>
+              + Add Class
+          </Button>
+          </Box>
+        </Box>
+
+        <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)} onAdd={addClass} />
+      </Container>
+      // TODO: Loading spinner icon thingy
+      : <h1>Loading</h1>
     )
   );
 }
