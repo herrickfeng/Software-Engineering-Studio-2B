@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createAttendance, getAttendance, getAttendanceBySubClass, getAttendanceBySubStu, updateAttendance, verifyLocation, updateSpecific } from "../controllers/attendance";
+import { createAttendance, getAttendance, getAttendanceBySubClass, getAttendanceBySubStu, updateAttendance, verifyLocation, verifyTeacher, verifyQuestions, updateSpecific } from "../controllers/attendance";
 import { getSubject, getAllStudentSubject, joinSubject, getAllStudents } from "../controllers/subject";
 import { getClass, getAllClass } from "../controllers/class";
 import { checkToken } from "../middleware/auth";
@@ -23,6 +23,8 @@ subjectRouter.get("/:subjectId/user/:userId/attendance", getAttendanceBySubStu);
 
 subjectRouter.put("/:subjectId/class/:classId/user/:userId/attendance", updateAttendance);
 subjectRouter.post("/:subjectId/class/:classId/user/:userId/location", verifyLocation);
+subjectRouter.post("/:subjectId/class/:classId/user/:userId/questions", verifyQuestions);
+subjectRouter.post("/:subjectId/class/:classId/user/:userId/teacher", verifyTeacher);
 subjectRouter.put("/:subjectId/class/:classId/user/:userId/attendance/:attendanceType", updateSpecific);
 
 //Get all students from subject

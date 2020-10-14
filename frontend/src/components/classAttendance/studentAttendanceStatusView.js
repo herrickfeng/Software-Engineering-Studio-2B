@@ -96,7 +96,17 @@ export default function SimpleTable(props) {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="center">{row.signOff}</TableCell>
+                        <TableCell align="center">
+                          <input
+                            name="signOff"
+                            type="checkbox"
+                            checked={row.signOff}
+                            disabled={props.disabled}
+                            onChange={(e) => {
+                              props.handleAttendanceChange(e, row);
+                            }}
+                          />
+                        </TableCell>
                         <TableCell align="center">
                           {props.disabled ? 
                             sumAttendance(row)

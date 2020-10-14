@@ -72,27 +72,6 @@ export default function ClassSlot(props) {
             {moment(props.data.class.startTime, "hh:mm").format('LT')} - {moment(props.data.class.endTime, "hh:mm").format('LT')}
             </Typography>
           </Box>
-          <br/>
-          <Grid >
-          <FormLabel component="legend">Teacher Attendance Verification</FormLabel>
-          <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-            <FormControlLabel
-              value="yes"
-              control={<Radio color="primary" />}
-              label="Yes"
-              labelPlacement="end"
-            />
-            <FormControlLabel
-              value="no"
-              control={<Radio color="primary" />}
-              label="No"
-              labelPlacement="end"
-            />
-          </RadioGroup>
-          </Grid>
-          <Button color="primary" variant="outlined">
-            Submit
-          </Button>
         </Box>
 
         <Box m={2}>

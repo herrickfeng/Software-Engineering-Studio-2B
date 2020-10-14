@@ -25,6 +25,12 @@ export default function QuestionsListView(props) {
                     <Checkbox
                         name="checkedB"
                         color="primary"
+                        checked={answer.correct}
+                        onChange={(e) => {
+                            console.log(answer)
+                            answer.correct = !answer.correct;
+                            props.handleAnswerChange(i, j, answer);
+                        }}
                     />
                     <Typography>
                         {answer.text}

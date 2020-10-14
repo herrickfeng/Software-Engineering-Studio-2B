@@ -32,15 +32,15 @@ export default function ClassSlotOption(props) {
 
   if (completed) {
     colorClass = classes.completed
-  } else if (incompleted) {
+  } else { //if (incompleted) { // Commented out so can set completed as a boolean and ignore incompleted variable
     colorClass = classes.incompleted
   }
 
   return (
     <Button variant="outlined" onClick={props.handleClick} className={clsx(classes.bigFlatButton, props.className, colorClass)} {...otherProps}>
       <Box m={1}>
-        {completed ? <DoneIcon/> : null}
-        {incompleted ? <CloseIcon/> : null}
+        {completed ? <DoneIcon/> : <CloseIcon/>}
+        {/* {incompleted ? <CloseIcon/> : null}  // Commented out so can set completed as a boolean */}
       </Box>
 
       <Box>
