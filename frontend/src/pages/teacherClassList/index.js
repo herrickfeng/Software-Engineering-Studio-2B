@@ -7,19 +7,34 @@ import GenerateClass from "../../components/TeacherAddClassPopup/index.js"
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";
-import { Box, Button, Container } from "@material-ui/core";
+import { Box, Button, Container, Card } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 import ClassList from "../../components/classList/index";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
+import { makeStyles } from '@material-ui/core/styles';
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
+    },
+}));
 
 export default function TeacherClassListPage(props) {
   const subjectId = props.match.params.subjectId;
   const { authState } = React.useContext(AuthContext);
   const [state, setState] = useState(undefined);
   const [openAddPopup, setOpenAddPopup] = React.useState(false);
-  const history = useHistory();
+    const history = useHistory();
+    const classes = useStyles();
 
   const fetchData = async () => {
     const subject = (await api.subject.get(authState.user.idToken, subjectId)).data.data;
@@ -49,14 +64,39 @@ export default function TeacherClassListPage(props) {
 		const { idToken } = authState.user;
     await api.admin.subject.class.generate(authState.user.idToken, subjectId, data);
 		setState(undefined);
-  }
+
+    }
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+
 
   return (
     (state ? 
-    <Container maxWidth={"md"}>
-      <Box textAlign="center" my={5}>
-        <Typography variant="h4">{state.subjectName} Class List</Typography>
-      </Box>
+          <Container maxWidth={"md"}>
+              <Box display="flex" justifyContent="center" alignItems="center" my={2} >
+                  <Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+                      <Box textAlign="center" my={2}>
+                          <Typography style={{ color: '#FFFFFF' }} variant={'h4'} align={'center'}>{state.subjectName} Class List</Typography>
+                      </Box>
+                  </Card>
+              </Box>
+
+              <Box className={classes.root} mb={2}>
+                  <Alert severity="info">Generate the classes for your subject.</Alert>
+              </Box>
 
       <Box>
         <TeacherAddClassPopup />
