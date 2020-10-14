@@ -99,6 +99,11 @@ function StudentLocation(props) {
           </GoogleMap>
         </LoadScript>
       </div>
+      <Box my={3} display="flex" justifyContent="space-between">
+        <Button variant="outlined" color="primary" component={Link} to={`/student/subject/${subjectId}/class/${classId}`}>
+          Back
+        </Button>
+      </Box>
     </Container>
   )
 }
