@@ -18,6 +18,7 @@ import TeacherClassAttendanceEditPage from "./pages/teacherClassAttendanceEdit/i
 import TeacherQuestionsViewPage from "./pages/teacherQuestionsView/index.js";
 import TeacherQuestionsEditPage from "./pages/teacherQuestionsEdit/index.js";
 import TeacherProfilePage from "./pages/teacherProfile/index.js";
+import StudentQuestion from "./pages/studentQuestion/index.js"
 import TeacherNavigation from "./components/teacherNavigation";
 import StudentDashboardPage from "./pages/studentDashboard";
 import StudentAttendancePage from "./pages/studentAttendance";
@@ -85,6 +86,10 @@ function AppRouter(props) {
         component={StudentProfilePage}
       />
 
+      <PrivateRoute path="/student/subject/:subjectId/class/:classId/question"
+        exact={true}
+        component={StudentQuestion}
+    
       <PrivateRoute 
         path="/student/subject/:subjectId"
         exact={true}
@@ -100,7 +105,7 @@ function AppRouter(props) {
        exact={true} 
        component={StudentLocationPage} 
       />
-
+    
       <PrivateRoute path="/teacher/profile" 
         exact={true}
         adminRoute={true}

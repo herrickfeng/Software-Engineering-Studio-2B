@@ -37,7 +37,7 @@ export default function ClassSlotOption(props) {
   }
 
   return (
-    <Button variant="outlined" className={clsx(classes.bigFlatButton, props.className, colorClass)} {...otherProps}>
+    <Button variant="outlined" onClick={props.handleClick} className={clsx(classes.bigFlatButton, props.className, colorClass)} {...otherProps}>
       <Box m={1}>
         {completed ? <DoneIcon/> : null}
         {incompleted ? <CloseIcon/> : null}
