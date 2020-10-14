@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Container, Button, TableHead, TableRow, TableCell, TableBody, Box } from "@material-ui/core";
-//DO I NEED TO CHANGE BELOW IMPORT TO BE FROM TEACHER PROFILE if it's doing the same thing as in student profile?
-// import Popup from "../../components/studentProfile/popup";
+import { Container, Button, TableHead, TableRow, TableCell, TableBody, Box, Grid, Typography} from "@material-ui/core";
 import api from "../../helpers/api";
 import { AuthContext } from "../../context/auth";
 import { Alert } from "@material-ui/lab";
@@ -9,6 +7,7 @@ import LinedTable from "../../components/linedTable/index";
 import { Link } from "react-router-dom";
 import UploadImageForm from "../../components/upload"; 
 import {makeStyles} from "@material-ui/core/styles";
+import Popup from "../../pages/teacherProfile/popup";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -20,42 +19,30 @@ export default function TeacherProfilePage(props) {
 
   const { authState } = React.useContext(AuthContext);
   const [profileState, setProfileState] = useState(undefined);
-  const classes = useStyles();
+  const classes = useStyles();  
   
+  const fetchData = async () => {
+    const userData = await api.user.get(authState.user.idToken)
+    setProfileState(userData.data.data);
+    console.log(userData)
+    console.log(authState.user.idToken)
+  };
+
   useEffect(() => {
-    setProfileState (
-      {
-        name: "Peter Pan",
-        id: "12345678",
-        email: "hsu.myat.win@uts.edu.au",
-        password: "*********",
-      }
-    )
-  },[])
-  
-  
-  // const fetchData = async () => {
-  //   const userData = await api.user.get(authState.user.idToken)
-  //   setProfileState(userData.data.data);
-  //   console.log(userData)
-  //   console.log(authState.user.idToken)
-  // };
+    if (profileState === undefined) {
+      fetchData();
+    }
+  });
 
-  // useEffect(() => {
-  //   if (profileState === undefined) {
-  //     fetchData();
-  //   }
-  // });
-
-  // const updateProfile = async (userData) => {
-  //   // TODO: Error toast 
-  //   setProfileState(userData);
-  //   api.user.update(authState.user.idToken, authState.user.uid, userData)
-  // }
+  const updateProfile = async (userData) => {
+    // TODO: Error toast 
+    setProfileState(userData);
+    api.user.update(authState.user.idToken, authState.user.uid, userData)
+  }
 
   const handleResetPassword = async () => {
     // TODO: Error toast 
-    // await api.auth.reset(profileState.email);
+    await api.auth.reset(profileState.email);
   }
 
   return (
@@ -63,19 +50,31 @@ export default function TeacherProfilePage(props) {
       {/* TODO: LOADING  */}
       {profileState ? (
       <>
-       {/* < TeacherProfile profileState={profileState} setState={setProfileState} handleResetPassword={handleResetPassword}/> */}
-
+       <Grid
+    container
+    direction="column"
+    justify="center"
+    alignItems="center"
+>
+      <Typography variant="h4" gutterBottom>
+          Profile
+      </Typography>
+      <img className={classes.image} src={profileState.image} height="200vh" />
+      <Typography variant="subtitle1" gutterBottom>
+          Profile picture
+      </Typography>
+    </Grid>
         <LinedTable>
           <TableBody>
             <TableRow>
               <TableCell>Name:</TableCell>
-              <TableCell>{profileState.name}</TableCell>
+              <TableCell>{profileState.displayName}</TableCell>
             </TableRow>
           </TableBody>
           <TableBody>
             <TableRow>
               <TableCell>Staff ID:</TableCell>
-              <TableCell>{profileState.id}</TableCell>
+              <TableCell>{profileState.uid}</TableCell>
             </TableRow>
           </TableBody>
           <TableBody>
@@ -88,32 +87,33 @@ export default function TeacherProfilePage(props) {
             <TableRow>
               <TableCell>Password</TableCell>
               <TableCell>
-                <Button variant="contained" color="primary" onClick={handleResetPassword} >Email Reset Link</Button>
+              *********
               </TableCell>
             </TableRow>
           </TableBody>
           <TableBody>
+          </TableBody>
+          <TableBody>
             <TableRow>
             <TableCell align="left">
-              <img className={classes.image} src={profileState.image} height="200vh" />
+              Profile Picture
             </TableCell>
             <TableCell>
               <UploadImageForm setState={setProfileState}/>
               </TableCell>
             </TableRow>
-          </TableBody>
+        </TableBody>
         </LinedTable>
-
+        
         <Box>
-          {/* <Popup profileState={profileState} updateProfile={updateProfile} /> */}
+          <Popup profileState={profileState} updateProfile={updateProfile} handleResetPassword={handleResetPassword} />
         </Box>
       </>)
         :
         <h1>Loading</h1>
       }
-    </Container>
 
-      
+    </Container>
 
   );
 }

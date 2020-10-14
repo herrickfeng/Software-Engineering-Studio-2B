@@ -8,8 +8,13 @@ import QuestionsList from "../../components/questions/questionsListView.js"
 import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
 
 // material-ui components
-import { Box, Button, Grid } from "@material-ui/core";
+import { Box, Button, Grid, Typography, Card, Container } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 
+
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default class TeacherQuestionsView extends React.Component {
 	static contextType = AuthContext;
@@ -84,8 +89,21 @@ export default class TeacherQuestionsView extends React.Component {
 	render() {
 		if (this.state)
 			return (
-				<Grid container direction="column">
-					<TeacherClassInformationView props={this.props} />
+				<Grid container direction="column" >
+					<Container maxWidth={"md"}>
+						<Box display="flex" justifyContent="center" alignItems="center" my={2} >
+							<Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+								<Box textAlign="center" my={2}>
+									<Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Questions List</Typography>
+								</Box>
+							</Card>
+						</Box>
+
+						<Box mb={2}>
+							<Alert severity="info">To add a question, click the edit button!</Alert>
+						</Box>
+					</Container>
+
 
 					<QuestionsList
 						state={this.state}

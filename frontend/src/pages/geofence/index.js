@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
-import { Container, Button } from "@material-ui/core";
+import { Container, Button, Box, Card, Typography } from "@material-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import TeacherSubjectListPage from "../teacherSubjectList";
@@ -66,6 +66,7 @@ export default function GeoFence(props) {
     [onEdit]
   );
 
+
   // Clean up refs
   const onUnmount = useCallback(() => {
     listenersRef.current.forEach(lis => lis.remove());
@@ -80,8 +81,14 @@ export default function GeoFence(props) {
   }
 
   return (
-    <Container>
-      <h1>UTS Geofence</h1>
+      <Container>
+          <Box my={2}>
+              <Card paper style={{backgroundColor: '#2964BA' }}>
+                  <Box my={2}>
+                        <Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>UTS Geofence</Typography>
+                  </Box>
+            </Card>
+          </Box>
       <div>
         <LoadScript
           id="script-loader"
@@ -111,9 +118,24 @@ export default function GeoFence(props) {
           </GoogleMap>
         </LoadScript>
       </div>
-      <Button onClick={savePath}>
-        Create
-        </Button>
+      
+      <Box my={2} display="flex" justifyContent="center" alignItems="center">
+              <Box mx={2}>
+            <Button
+            onClick={savePath}
+            color={"primary"}
+            variant={"outlined"}>
+                      Create
+            </Button>
+        </Box>
+              <Box mx={2}>
+            <Button
+                variant={"outlined"}
+                color={"primary"}>
+                            Back
+	        </Button>
+        </Box>
+      </Box>
     </Container>
   )
 }

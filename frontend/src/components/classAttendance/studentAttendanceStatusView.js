@@ -13,6 +13,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import TimerIcon from '@material-ui/icons/Timer';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import { green, red, yellow, orange } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   table: {
@@ -21,17 +24,18 @@ const useStyles = makeStyles({
 });
 
 function deleteItem(i) {
-    const { items } = this.state;
-    items.splice(i, 1);
-    this.setState({ items });
+  const { items } = this.state;
+  items.splice(i, 1);
+  this.setState({ items });
 }
 
 function sumAttendance(data) {
-  switch (data.facial + data.question + data.location){
-    case 0: return "Red"
-    case 1: return "Amber"
-    case 2: return "Amber-Green"
-    case 3: return "Green"
+  switch (data.facial + data.question + data.location + (data.signOff ? data.signOff : 0)) {
+    case 0: return <TimerIcon style={{ color: red[500] }} />
+    case 1: return <DoneOutlineIcon style={{ color: red[500] }} />
+    case 2: return <DoneOutlineIcon style={{ color: orange[500] }} />
+    case 3: return <DoneOutlineIcon style={{ color: green[500] }} />
+    case 4: return <DoneOutlineIcon style={{ color: green[500] }} />
   }
 }
 
@@ -42,7 +46,7 @@ export default function SimpleTable(props) {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
         <TableContainer style={{ width: "80%" }} component={Paper}>
-            <Table size="small" className={classes.table} aria-label="simple table">
+            <Table size="medium" className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                     <TableCell style={{width: '10%'}}>Name</TableCell>
@@ -107,12 +111,12 @@ export default function SimpleTable(props) {
                                 >
                             Delete
                           </Button>}
-                        </TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 }

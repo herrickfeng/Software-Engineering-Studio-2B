@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
 import moment from "moment"
+import FormatDate from "../../components/date"
 
 const useStyles = makeStyles((theme) => ({
   pass: {
@@ -53,12 +54,14 @@ export default function StudentAttendancePage(props) {
             < TableRow >
               <TableCell>{attendance.subject.subjectName}</TableCell>
               <TableCell>{attendance.class.className}</TableCell>
-              <TableCell>{moment(attendance.class.date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</TableCell>
+              <TableCell><FormatDate date={attendance.class.date} /></TableCell>
               <TableCell>{moment(attendance.class.startTime, "hh:mm").format('LT')} - {moment(attendance.class.endTime, "hh:mm").format('LT')}</TableCell>
               <TableCell>
-                <Typography className={classes.pass}>
-                  {(attendance.facial + attendance.location + attendance.question)/0.03}
-                </Typography>
+                {moment(attendance.class.date).isBefore(moment(), 'day') &&
+                  <Typography className={classes.pass}>
+                    {(attendance.facial + attendance.location + attendance.question) / 0.03}
+                  </Typography>
+                }
               </TableCell>
             </TableRow>
           ))}
