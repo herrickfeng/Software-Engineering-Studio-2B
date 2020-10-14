@@ -1,14 +1,32 @@
 import React from "react";
 import { createRef, useEffect, useState } from "react"
+
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Box, Button, Card, Typography } from "@material-ui/core";
+
 import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
-import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
 import FacialRec from "../../components/facialRec"
 import { makeStyles } from "@material-ui/core/styles";
+
+
+
+const useStyles = makeStyles((theme) => ({
+  attendanceDrawer: {
+    width: "28vw",
+  },
+  video: {
+    width: "50vw",
+    height: "auto",
+  },
+  content: {
+    flexGrow: 1,
+    marginRight: "28vw",
+  },
+}));
+
 
 const useGridStyles = makeStyles(({ breakpoints }) => ({
     root: {
@@ -23,22 +41,23 @@ export default function VideoStream(props) {
     let streamActive = false
     const gridStyles = useGridStyles();
 
+
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         if (videoTag.current != null) {
-          videoTag.current.srcObject = stream
-          streamActive = true
+          videoTag.current.srcObject = stream;
+          streamActive = true;
         }
       })
-      .catch(err => console.error(err))
+      .catch(err => console.error(err));
 
     return () => {
       if (streamActive) {
-        videoTag.current.srcObject.getTracks().forEach(track => track.stop()) 
+        videoTag.current.srcObject.getTracks().forEach(track => track.stop()) ;
       }
     }
-  })
+  });
 
   return (
       <Grid container direction="column" >

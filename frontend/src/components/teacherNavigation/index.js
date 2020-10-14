@@ -119,7 +119,18 @@ const MyDrawer = withStyles(styles)(
           onClick={onItemClick("ClassList")}>
             <ListItemText>Class List</ListItemText>
           </ListItem>
+
+        
+          <ListItem 
+          button 
+          component={Link}
+          to="/teacher/profile"
+          onClick={onItemClick("TeacherProfile")}>
+            <ListItemText>Teacher Profile</ListItemText>
+          </ListItem>
           <Divider/>
+          
+
           <ListItem
           button
           component={Link}
@@ -132,7 +143,7 @@ const MyDrawer = withStyles(styles)(
         </List>
       </Drawer>
       <main className={classes.content}>
-        <Link exact to="/teacher/subjectList" />
+        <Link to="/teacher/subjectList" />
         <Link to="/teacher/subjectList" />
         <Link to="/studnet/attendance" />
         <Link to="/signout" />

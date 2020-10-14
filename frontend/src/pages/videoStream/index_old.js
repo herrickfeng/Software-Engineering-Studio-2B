@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
-import ClassRoll from "../../components/facialRec/classRoll" 
+import ClassAttendanceList from "../../components/facialRec/ClassAttendanceList"
 
 
 export default function VideoStream(props) {
@@ -134,7 +134,7 @@ export default function VideoStream(props) {
           </Grid>
         </Grid>
         <Grid item component={Paper}>
-          <ClassRoll classList={classListState} subjectId={props.match.params.subjectId} classId={props.match.params.classId} idToken={authState.user.idToken}/>
+          <ClassAttendanceList classList={classListState} subjectId={props.match.params.subjectId} classId={props.match.params.classId} idToken={authState.user.idToken}/>
         </Grid>
       </Grid>
       )

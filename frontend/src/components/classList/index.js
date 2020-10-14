@@ -2,6 +2,7 @@ import React from "react"
 import { TableBody, TableCell, TableHead, TableRow, Box, TableContainer, Paper, Table } from "@material-ui/core";
 import LinedTable from "../../components/linedTable/index";
 import moment from "moment"
+import FormatDate from "../../components/date"
 
 /**
  * An example for what can be passed in via props
@@ -84,8 +85,7 @@ export default function ClassList(props) {
                   </Table>
               </TableContainer>
           </Box>
-
-          
+         
     </>
   );
 }

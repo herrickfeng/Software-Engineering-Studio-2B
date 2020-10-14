@@ -24,6 +24,10 @@ export default class TeacherSubjectListPage extends React.Component {
 		const { idToken } = this.context.authState.user;
 		const subjects = (await api.admin.subject.getAll(idToken)).data.data;
 		this.setState({ subjects });
+
+		const subjectAnalytics = (await api.admin.subject.analytics(idToken)).data.data;
+		this.setState({ subjectAnalytics: subjectAnalytics });
+		console.log(this.state)
 	}
 
 	deleteSubject = async (subjectId) => {
@@ -37,9 +41,8 @@ export default class TeacherSubjectListPage extends React.Component {
 		const subject = (await api.admin.subject.create(idToken, subjectData)).data.data;
 		console.log(subject)
 		this.state.subjects.push(subject);
-		this.setState({ subjects: this.state.subjects});
+		this.setState({ subjects: this.state.subjects });
 	}
-
 	render() {
 		return (
 			<Box>
@@ -48,8 +51,8 @@ export default class TeacherSubjectListPage extends React.Component {
 				</Box>
 
 				<Popup addSubject={this.addSubject} />
-        <SubjectList subjectState={this.state} deleteSubject={this.deleteSubject} />
-      </Box>
+				<SubjectList subjectState={this.state} deleteSubject={this.deleteSubject} />
+			</Box>
 
 		);
 	}

@@ -34,19 +34,19 @@ export default function SubjectList(props) {
               <Typography gutterBottom variant="h5">
                 {subject.subjectCode} {subject.subjectName}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {subject.subjectId}
-              </Typography>
+              {/* <Typography variant="body2" color="textSecondary">
+                This is a safe space. {subject.subjectId}
+              </Typography> */}
             </CardContent>
           </CardActionArea>
-
-          {props.onDeleteSubjectClick ? (
+              {/* TODO: Delete button */}
+          {/* {props.onDeleteSubjectClick ? (
             <CardActions>
               <Button size="small" color="primary" onClick={() => props.onDeleteSubjectClick(subject)}>
                 Delete
               </Button>
             </CardActions>
-          ) : null}
+          ) : null} */}
 
         </Card>
       </Box>
