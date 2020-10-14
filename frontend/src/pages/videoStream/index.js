@@ -113,17 +113,6 @@ export default function VideoStream(props) {
 				        </Button>
                 </Box>
               </Grid>
-              <Grid item>
-                      <Box display="flex" justifyContent="center" alignItems="center" m={2} >
-                  <Button
-                    variant={"outlined"}
-                    color={"primary"}
-                    href={"https://www.youtube.com/watch?v=qkQg9GGitow"}>
-
-                    Forwards
-				          </Button>
-                </Box>
-              </Grid>
             </Grid>
           </Grid>
 
