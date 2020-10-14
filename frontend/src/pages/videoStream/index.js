@@ -1,19 +1,32 @@
 import React from "react";
 import { createRef, useEffect, useState } from "react"
+
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Box, Button, Card, Typography, Container } from "@material-ui/core";
+import { Box, Button, Card, Typography } from "@material-ui/core";
+
 import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
-import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
 import FacialRec from "../../components/facialRec"
 import { makeStyles } from "@material-ui/core/styles";
-import MuiAlert from '@material-ui/lab/Alert';
 
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+
+
+const useStyles = makeStyles((theme) => ({
+  attendanceDrawer: {
+    width: "28vw",
+  },
+  video: {
+    width: "50vw",
+    height: "auto",
+  },
+  content: {
+    flexGrow: 1,
+    marginRight: "28vw",
+  },
+}));
+
 
 const useGridStyles = makeStyles(({ breakpoints }) => ({
     root: {
@@ -28,27 +41,28 @@ export default function VideoStream(props) {
     let streamActive = false
     const gridStyles = useGridStyles();
 
+
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         if (videoTag.current != null) {
-          videoTag.current.srcObject = stream
-          streamActive = true
+          videoTag.current.srcObject = stream;
+          streamActive = true;
         }
       })
-      .catch(err => console.error(err))
+      .catch(err => console.error(err));
 
     return () => {
       if (streamActive) {
-        videoTag.current.srcObject.getTracks().forEach(track => track.stop()) 
+        videoTag.current.srcObject.getTracks().forEach(track => track.stop()) ;
       }
     }
-  })
+  });
 
   return (
       <Grid container direction="column" >
           <Grid item >
-              <Container maxWidth={"md"}>
+              <Box>
                   <Box display="flex" justifyContent="center" alignItems="center" my={2} >
                       <Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
                           <Box textAlign="center" my={2}>
@@ -56,11 +70,14 @@ export default function VideoStream(props) {
                           </Box>
                       </Card>
                   </Box>
-
-                    <Box mb={0}>
-                        <Alert severity="info">Please show your face to check in!</Alert>
-                    </Box>
-              </Container>
+                  <Box display="flex" justifyContent="center" alignItems="center" my={0} >
+                      <Card paper style={{ height: '40px', width: '930px', backgroundColor: '#848F9F' }}>
+                          <Box textAlign="center" my={0.5}>
+                              <Typography style={{ color: '#FFFFFF' }} variant={'h6'} align={'center'}>Please show your face to check in!</Typography>
+                          </Box>
+                      </Card>
+                  </Box>
+              </Box>
           </Grid>
 
           <Grid component={Paper}>

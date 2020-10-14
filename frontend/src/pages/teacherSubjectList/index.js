@@ -8,14 +8,9 @@ import Popup from "../../components/subjectList/popup.js"
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";
-import { Box, Card, Container } from "@material-ui/core";
-import MuiAlert from '@material-ui/lab/Alert';
+import { Box } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
-
-function Alert(props) {
-	return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default class TeacherSubjectListPage extends React.Component {
 	static contextType = AuthContext;
@@ -29,6 +24,10 @@ export default class TeacherSubjectListPage extends React.Component {
 		const { idToken } = this.context.authState.user;
 		const subjects = (await api.admin.subject.getAll(idToken)).data.data;
 		this.setState({ subjects });
+
+		const subjectAnalytics = (await api.admin.subject.analytics(idToken)).data.data;
+		this.setState({ subjectAnalytics: subjectAnalytics });
+		console.log(this.state)
 	}
 
 	deleteSubject = async (subjectId) => {
@@ -42,25 +41,18 @@ export default class TeacherSubjectListPage extends React.Component {
 		const subject = (await api.admin.subject.create(idToken, subjectData)).data.data;
 		console.log(subject)
 		this.state.subjects.push(subject);
-		this.setState({ subjects: this.state.subjects});
+		this.setState({ subjects: this.state.subjects });
 	}
-
 	render() {
 		return (
-			<Container maxWidth={"md"}>
-				<Box display="flex" justifyContent="center" alignItems="center" my={2} >
-					<Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
-						<Box textAlign="center" my={2}>
-							<Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Subject List</Typography>
-						</Box>
-					</Card>
+			<Box>
+				<Box textAlign="center" my={5}>
+					<Typography variant="h4">Subject List</Typography>
 				</Box>
-				<Box mb={2}>
-					<Alert severity="info">Add a Subject to your subject list below!</Alert>
-				</Box>
+
 				<Popup addSubject={this.addSubject} />
-        <SubjectList subjectState={this.state} deleteSubject={this.deleteSubject} />
-      </Container>
+				<SubjectList subjectState={this.state} deleteSubject={this.deleteSubject} />
+			</Box>
 
 		);
 	}

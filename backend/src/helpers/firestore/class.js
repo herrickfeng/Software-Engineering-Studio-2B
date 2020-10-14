@@ -14,6 +14,12 @@ export default {
       .collection(collectionName)
       .get();
   },
+  getAllWhereIn: (where, ids) => {
+    return db
+      .collection(collectionName)
+      .where(where, "in", ids)
+      .get();
+  },
   create: (classDoc, data) => {
     return classDoc.ref.set(data);
   },
