@@ -42,7 +42,7 @@ export default function SimpleTable(props) {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
         <TableContainer style={{ width: "80%" }} component={Paper}>
-            <Table size="small" className={classes.table} aria-label="simple table">
+            <Table size="medium" className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                     <TableCell style={{width: '10%'}}>Name</TableCell>
