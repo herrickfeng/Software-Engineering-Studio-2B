@@ -8,11 +8,12 @@ import ClassAttendance from "../../components/chart/classAttendance"
 
 // material-ui components
 import Typography from "@material-ui/core/Typography";
-import { Box, Button, Container } from "@material-ui/core";
+import { Box, Button, Container, Card } from "@material-ui/core";
 import ClassList from "../../components/classList/index";
 import { Link, useHistory } from "react-router-dom";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
+
 
 
 export default function TeacherClassListPage(props) {
@@ -57,10 +58,15 @@ export default function TeacherClassListPage(props) {
 
   return (
     (state ?
-      <Container maxWidth={"md"}>
-        <Box textAlign="center" my={5}>
-          <Typography variant="h4">{state.subjectName} - Class List</Typography>
-        </Box>
+          <Container maxWidth={"md"}>
+            <Box display="flex" justifyContent="center" alignItems="center" my={2} >
+                <Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+                    <Box textAlign="center" my={2}>
+                          <Typography style={{ color: '#FFFFFF' }} variant={'h4'} align={'center'}>{state.subjectName} - Class List</Typography>
+                    </Box>
+                </Card>
+              </Box>
+
 
         <Box>
           {/* <TeacherAddClassPopup /> */}
@@ -70,7 +76,7 @@ export default function TeacherClassListPage(props) {
         <Box my={2} display="flex" justifyContent="center">
           <Button variant="contained" color="primary" component={Link} to={`/teacher/subject/${subjectId}/students`}>
             View Students
-        </Button>
+            </Button>
         </Box>
 
         <Box>
