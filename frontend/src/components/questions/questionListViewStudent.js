@@ -11,18 +11,21 @@ import Divider from '@material-ui/core/Divider';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import { Radio } from "@material-ui/core";
+import Checkbox from '@material-ui/core/Checkbox';
 
 export default function QuestionsListView(props) {
     const answerBox = (answer, i, j) => {
         return (
             <Grid container style={{ margin: '10px' }}>
-                <Grid item style={{ margin: '15px' }}>
-                    {/* TODO add radio button */}
-                    <Typography>
-                        {`${String.fromCharCode(j + 97)}.`}
-                    </Typography>
-                </Grid>
-                <Grid item >
+                <Grid container item style={{ margin: '15px' }} 
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="center">
+                    <Checkbox
+                        name="checkedB"
+                        color="primary"
+                    />
                     <Typography>
                         {answer.text}
                     </Typography>
@@ -42,9 +45,18 @@ export default function QuestionsListView(props) {
 
                         <Divider variant="fullWidth" />
 
-                        <Grid container>
-                            <Grid item>
-                                {/* TODO radio group */}
+                        <Grid 
+                            container
+                            direction="row"
+                            justify="flex-start"
+                            alignItems="flex-start"
+                        >
+                            <Grid 
+                                item 
+                                direction="row"
+                                justify="center"
+                                alignItems="center"
+                            >
                                 {question.answers.map((answer, j) => {
                                     return answerBox(answer, index, j)
                                 })}

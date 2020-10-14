@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Button, Container } from "@material-ui/core";
 import ClassSlot from "../../components/classSlot/index";
 import ClassSlotOption from "../../components/classSlot/ClassSlotOption";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
 
@@ -12,6 +12,7 @@ export default function StudentClassPage(props) {
   const classId = props.match.params.classId;
   const { authState } = React.useContext(AuthContext);
   const [state, setState] = useState(undefined);
+  const history = useHistory();
 
   const fetchData = async () => {
     const subject = (await api.subject.get(authState.user.idToken, subjectId)).data.data;
@@ -25,12 +26,16 @@ export default function StudentClassPage(props) {
     }
   });
 
+  const handleClickQuestions = async () => {
+    history.push(`/student/subject/${subjectId}/class/${classId}/question`);
+  }
+
   return (
     // TODO Loading spinner icon thingy
     (state ? 
     <Container>
       <ClassSlot data={state}>
-        <ClassSlotOption completed>
+        <ClassSlotOption completed handleClick={handleClickQuestions}>
           View Class Questions
         </ClassSlotOption>
 

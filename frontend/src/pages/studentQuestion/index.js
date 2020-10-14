@@ -53,7 +53,7 @@ export default class StudentQuestionsView extends React.Component {
 								variant="outlined"
 								color="primary"
 								component={Link}
-								to={`/teacher/subject/${this.subjectId}/class/${this.classId}`}>
+								to={`/student/subject/${this.subjectId}/class/${this.classId}`}>
 								Back
 						</Button>
 						</Box>
@@ -62,7 +62,7 @@ export default class StudentQuestionsView extends React.Component {
 							<Button variant="outlined"
 								color="secondary"
 								onClick={this.handleDisableClicked}>
-								{this.state.disabled ? "Edit" : "Save"}
+								{this.state.disabled ? "Edit" : "Submit"}
 							</Button>
 						</Box>
 					</Box>
