@@ -5,6 +5,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Checkbox from '@material-ui/core/Checkbox';
 
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -35,10 +36,12 @@ export default function QuestionsListView(props) {
                                 props.handleAnswerChange(i, j, answer);
                             }}
                         />
-                    </Typography>
+                    
                     {/* TODO: Clean up correct checkbox button */}
-                    <input
-                        name="facial"
+
+                    <Checkbox
+                            name="facial"
+                            color="secondary"
                         type="checkbox"
                         checked={answer.correct}
                         disabled={props.state.disabled}
@@ -46,7 +49,8 @@ export default function QuestionsListView(props) {
                             answer.correct = !answer.correct;
                             props.handleAnswerChange(i, j, answer);
                         }}
-                    />
+                        />
+                    </Typography>
                 </Grid>
             </Grid>
         )
@@ -54,7 +58,7 @@ export default function QuestionsListView(props) {
 
     const questionBox = (question, index) => {
         return (
-            <Box mx={10} mb={5}>
+            <Box mx={35} mb={5}>
                 <Card >
                     <CardContent>
                         <Typography>
@@ -64,7 +68,7 @@ export default function QuestionsListView(props) {
                                 id="outlined-basic"
                                 label="Question Option"
                                 variant="outlined"
-                                style={{ width: '150ch' }}
+                                style={{ width: '156ch' }}
                                 onChange={(e) => props.handleQuestionChange(index, e.target.value)}
                             />
                         </Typography>
@@ -81,12 +85,23 @@ export default function QuestionsListView(props) {
                         {/* TODO: Clean up Add/Remove button */}
                         {!props.state.disabled && (
                             <>
-                                <Button onClick={() => props.handleAddAnswerBox(index)}>
-                                    Add
-                                </Button>
-                                <Button onClick={() => props.handleRemoveAnswerBox(index)}>
-                                    Remove
-                                </Button>
+                                <Box my={2} display="flex" justifyContent="center" alignItems="center">
+                                    <Box mx={2}>
+                                        <Button variant="outlined"
+                                            color="primary"
+                                            onClick={() => props.handleAddAnswerBox(index)}>
+                                            Add Response
+                                        </Button>
+                                    </Box>
+
+                                    <Box mx={2}>
+                                        <Button variant="outlined"
+                                            color="secondary"
+                                            onClick={() => props.handleRemoveAnswerBox(index)}>
+                                            Remove Response
+                                    </Button>
+                                    </Box>
+                                </Box>
                             </>
                         )}
                     </CardContent>
@@ -103,12 +118,23 @@ export default function QuestionsListView(props) {
             {/* TODO: Clean up Add/Remove button */}
             {!props.state.disabled && (
                 <>
-                    <Button onClick={props.handleAddQuestionBox} >
-                        Add
-                    </Button>
-                    <Button onClick={props.handleRemoveQuestionBox}>
-                        Remove
-                    </Button>
+                    <Box my={2} display="flex" justifyContent="center" alignItems="center">
+                        <Box mx={2}>
+                            <Button variant="outlined"
+                                color="primary"
+                                onClick={props.handleAddQuestionBox}>
+                                Add Question
+                                        </Button>
+                        </Box>
+
+                        <Box mx={2}>
+                            <Button variant="outlined"
+                                color="secondary"
+                                onClick={props.handleRemoveQuestionBox}>
+                                Remove Question
+                                    </Button>
+                        </Box>
+                    </Box>
                 </>
             )}
         </Box>

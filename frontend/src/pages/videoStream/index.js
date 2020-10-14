@@ -1,11 +1,16 @@
 import React from "react";
 import { createRef, useEffect, useState } from "react"
-import { Box, Button, Drawer, Toolbar, Grid, Paper } from "@material-ui/core";
+
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { Box, Button, Card, Typography } from "@material-ui/core";
+
 import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
 import { AuthContext } from "../../context/auth";
 import FacialRec from "../../components/facialRec"
 import { makeStyles } from "@material-ui/core/styles";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,10 +28,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+const useGridStyles = makeStyles(({ breakpoints }) => ({
+    root: {
+        [breakpoints.up('md')]: {
+            justifyContent: 'center',
+        },
+    },
+}));
+
 export default function VideoStream(props) {
   const videoTag = createRef();
-  const classes = useStyles();
-  let streamActive = false;
+    let streamActive = false
+    const gridStyles = useGridStyles();
+
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -46,19 +60,49 @@ export default function VideoStream(props) {
   });
 
   return (
-    <div>
-      <Box className={classes.content}>
-        <Box m={2}>
-          <Box display="flex" justifyContent="center">
-            <div className={classes.video}>
-              <video ref={videoTag} width="100%" height="100%" muted autoPlay />
-            </div>
-          </Box>
+      <Grid container direction="column" >
+          <Grid item >
+              <Box>
+                  <Box display="flex" justifyContent="center" alignItems="center" my={2} >
+                      <Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+                          <Box textAlign="center" my={2}>
+                              <Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Facial Authentication</Typography>
+                          </Box>
+                      </Card>
+                  </Box>
+                  <Box display="flex" justifyContent="center" alignItems="center" my={0} >
+                      <Card paper style={{ height: '40px', width: '930px', backgroundColor: '#848F9F' }}>
+                          <Box textAlign="center" my={0.5}>
+                              <Typography style={{ color: '#FFFFFF' }} variant={'h6'} align={'center'}>Please show your face to check in!</Typography>
+                          </Box>
+                      </Card>
+                  </Box>
+              </Box>
+          </Grid>
 
-          <Box my={6}>
-            <Grid item direction="row" container>
+          <Grid component={Paper}>
+              <Grid item direction="row" container classes={gridStyles}>
+                  <Grid item>
+                      <Box display="flex" justifyContent="center" alignItems="center" m={2} >
+                          <Card paper style={{ height: '800px', width: '1050px', backgroundColor: '#1A4B93' }}>
+                              <Box textAlign="center">
+                                  <video ref={videoTag} width="1000vh" height="800vh" muted autoPlay></video>
+                              </Box>
+                          </Card>
+                      </Box>
+                  </Grid>
+                  <Grid item>
+                      <Box display="flex" justifyContent="center" alignItems="center" m={2} >
+                          <Grid component={Paper}>
+                              <FacialRec subjectId={props.match.params.subjectId} classId={props.match.params.classId} videoTag={videoTag} />
+                          </Grid>
+                      </Box>
+                  </Grid>
+              </Grid>
+
+              <Grid item direction="row" container classes={gridStyles}>
               <Grid item>
-                <Box textAlign="center" mx={1}>
+                      <Box display="flex" justifyContent="center" alignItems="center" m={2} >
                   <Button
                     variant={"outlined"}
                     color={"primary"}
@@ -66,30 +110,24 @@ export default function VideoStream(props) {
                     to={`/teacher/subject/${props.match.params.subjectId}/class/${props.match.params.classId}`}>
 
                     Back
-                  </Button>
+				        </Button>
                 </Box>
               </Grid>
-
               <Grid item>
-                <Box textAlign="center" mx={1}>
+                      <Box display="flex" justifyContent="center" alignItems="center" m={2} >
                   <Button
                     variant={"outlined"}
                     color={"primary"}
                     href={"https://www.youtube.com/watch?v=qkQg9GGitow"}>
 
                     Forwards
-                  </Button>
+				          </Button>
                 </Box>
               </Grid>
             </Grid>
-          </Box>
-        </Box>
-      </Box>
+          </Grid>
 
-      <Drawer classes={{paper: classes.attendanceDrawer}} anchor="right" variant="permanent">
-        <Toolbar/>
-        <FacialRec subjectId={props.match.params.subjectId} classId={props.match.params.classId} videoTag={videoTag} />
-      </Drawer>
-    </div>
+      
+    </Grid>
   )
 }

@@ -8,7 +8,7 @@ import StudentAttendanceStatusView from "../../components/classAttendance/studen
 import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
 
 // material-ui components
-import { Box, Button, Grid } from "@material-ui/core";
+import { Box, Button, Grid, Card, Typography } from "@material-ui/core";
 
 
 export default class TeacherClassAttendanceView extends React.Component {
@@ -55,8 +55,20 @@ export default class TeacherClassAttendanceView extends React.Component {
 		return (
 			(this.state ?
 				<Grid container direction="column">
-					<TeacherClassInformationView props={this.props} />
-
+					<Box display="flex" justifyContent="center" alignItems="center" my={2} >
+						<Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+							<Box textAlign="center" my={2}>
+								<Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Class Attendance</Typography>
+							</Box>
+						</Card>
+					</Box>
+					<Box display="flex" justifyContent="center" alignItems="center" my={0} >
+						<Card paper style={{ height: '40px', width: '930px', backgroundColor: '#848F9F' }}>
+							<Box textAlign="center" my={0.5}>
+								<Typography style={{ color: '#FFFFFF' }} variant={'h6'} align={'center'}>To edit the class attendance, click the edit button!</Typography>
+							</Box>
+						</Card>
+					</Box>
 					<StudentAttendanceStatusView attendances={this.state}  disabled={this.state.disabled} handleAttendanceChange={this.handleAttendanceChange} handleDelete={this.handleDelete}/>
 
 					<Box my={2} display="flex" justifyContent="center" alignItems="center">

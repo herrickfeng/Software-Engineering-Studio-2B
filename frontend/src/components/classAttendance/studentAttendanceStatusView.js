@@ -45,81 +45,71 @@ export default function SimpleTable(props) {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-      <TableContainer style={{ width: "80%" }} component={Paper}>
-        <Table size="small" className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell style={{ width: '10%' }}>Name</TableCell>
-              <TableCell style={{ width: '10%' }} align="center">ID</TableCell>
-              <TableCell style={{ width: '15%' }} align="center">Facial</TableCell>
-              <TableCell style={{ width: '15%' }} align="center">Questions</TableCell>
-              <TableCell style={{ width: '15%' }} align="center">Location</TableCell>
-              <TableCell style={{ width: '15%' }} align="center">Sign Off</TableCell>
-              <TableCell style={{ width: '15%' }} align="center">Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows && rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell align="center">{row.student.displayName}</TableCell>
-                <TableCell align="center">{row.student.studentId}</TableCell>
-                <TableCell align="center">
-                  <input
-                    name="facial"
-                    type="checkbox"
-                    checked={row.facial}
-                    disabled={props.disabled}
-                    onChange={(e) => {
-                      props.handleAttendanceChange(e, row);
-                    }}
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <input
-                    name="question"
-                    type="checkbox"
-                    checked={row.question}
-                    disabled={props.disabled}
-                    onChange={(e) => {
-                      props.handleAttendanceChange(e, row);
-                    }}
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <input
-                    name="location"
-                    type="checkbox"
-                    checked={row.location}
-                    disabled={props.disabled}
-                    onChange={(e) => {
-                      props.handleAttendanceChange(e, row);
-                    }}
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <input
-                    name="signOff"
-                    type="checkbox"
-                    checked={row.signOff}
-                    disabled={props.disabled}
-                    onChange={(e) => {
-                      props.handleAttendanceChange(e, row);
-                    }}
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  {props.disabled ?
-                    sumAttendance(row)
-                    :
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      style={{ height: '20px' }}
-                      onClick={(e) => {
-                        props.handleDelete(row.uid);
-                      }}
-                    >
-                      Delete
+        <TableContainer style={{ width: "80%" }} component={Paper}>
+            <Table size="medium" className={classes.table} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                    <TableCell style={{width: '10%'}}>Name</TableCell>
+                    <TableCell style={{width: '10%'}} align="center">ID</TableCell>
+                    <TableCell style={{width: '15%'}} align="center">Facial</TableCell>
+                    <TableCell style={{width: '15%'}} align="center">Questions</TableCell>
+                    <TableCell style={{width: '15%'}} align="center">Location</TableCell>
+                    <TableCell style={{width: '15%'}} align="center">Sign Off</TableCell>
+                    <TableCell style={{ width: '15%' }} align="center">Status</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows && rows.map((row) => (
+                    <TableRow key={row.name}>
+                        <TableCell align="center">{row.student.displayName}</TableCell>
+                        <TableCell align="center">{row.student.studentId}</TableCell>
+                        <TableCell align="center">
+                          <input
+                            name="facial"
+                            type="checkbox"
+                            checked={row.facial}
+                            disabled={props.disabled}
+                            onChange={(e) => {
+                              props.handleAttendanceChange(e, row);
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="center">
+                          <input
+                            name="question"
+                            type="checkbox"
+                            checked={row.question}
+                            disabled={props.disabled}
+                            onChange={(e) => {
+                              props.handleAttendanceChange(e, row);
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="center">
+                          <input
+                            name="location"
+                            type="checkbox"
+                            checked={row.location}
+                            disabled={props.disabled}
+                            onChange={(e) => {
+                              props.handleAttendanceChange(e, row);
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="center">{row.signOff}</TableCell>
+                        <TableCell align="center">
+                          {props.disabled ? 
+                            sumAttendance(row)
+                          :
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                style={{height: '20px'}}
+                                onClick={(e) => {
+                                  props.handleDelete(row.uid);
+                                }}
+                                >
+                            Delete
                           </Button>}
                 </TableCell>
               </TableRow>
