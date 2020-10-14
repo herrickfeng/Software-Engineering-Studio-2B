@@ -203,7 +203,13 @@ export const verifyLocation = async (req, res) => {
         const subjectDoc = await firestore.subject.get(subjectId);
         if (subjectDoc.exists) {
             var subjectBody = subjectDoc.data();
-            polygon = subjectBody.path;
+            if (subjectBody.path){
+                polygon = subjectBody.path;
+            } else {
+                return res.status(200).json(
+                    successResponse({ msg: "Your teacher has not set a location for this class or subject." })
+                );
+            }
         } else {
             throw new FirestoreError("missing", subjectDoc.ref, "subject");
         }

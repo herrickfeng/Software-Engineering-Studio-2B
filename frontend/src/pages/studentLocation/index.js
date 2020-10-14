@@ -19,12 +19,7 @@ function StudentLocation(props) {
   const fetchData = async () => {
     const subject = (await api.subject.get(authState.user.idToken, subjectId)).data.data;
     if (subject.path === undefined) {
-      subject.path = [
-        { lat: -33.88279028529906, lng: 151.20092378902436 },
-        { lat: -33.883389068048494, lng: 151.19960221824647 },
-        { lat: -33.88426395513446, lng: 151.20014746494294 },
-        { lat: -33.8837497927527, lng: 151.2014797645569 }
-      ]
+      subject.path = []
     }
     setState(subject);
     setPath(subject.path);
