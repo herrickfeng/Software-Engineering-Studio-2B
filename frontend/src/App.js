@@ -89,6 +89,7 @@ function AppRouter(props) {
       <PrivateRoute path="/student/subject/:subjectId/class/:classId/question"
         exact={true}
         component={StudentQuestion}
+      />
     
       <PrivateRoute 
         path="/student/subject/:subjectId"
