@@ -6,6 +6,7 @@ import Popup from "../../components/studentProfile/popup";
 import api from "../../helpers/api";
 import { AuthContext } from "../../context/auth";
 import { Alert } from "@material-ui/lab";
+import LoadingStatus from "../../components/loadingStatus/index";
 
 export default function StudentProfilePage(props) {
   const { authState } = React.useContext(AuthContext);
@@ -43,7 +44,7 @@ export default function StudentProfilePage(props) {
         </Box>
       ]
         :
-        <h1>Loading</h1>
+        <LoadingStatus />
       }
     </Container>
   );

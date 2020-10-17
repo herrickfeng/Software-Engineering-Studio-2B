@@ -8,6 +8,7 @@ import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
 import ClassAttendanceList from "../../components/facialRec/ClassAttendanceList"
+import LoadingStatus from "../../components/loadingStatus/index";
 
 
 export default function VideoStream(props) {
@@ -108,9 +109,7 @@ export default function VideoStream(props) {
     console.log("load")
     buildLoad()
     return (
-      <div>
-        <h1> Loading </h1>
-      </div>
+      <LoadingStatus />
     )
   } else {
     return (

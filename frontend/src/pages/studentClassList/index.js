@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
+import LoadingStatus from "../../components/loadingStatus/index";
 
 export default function StudentClassListPage(props) {
   const subjectId = props.match.params.subjectId;
@@ -42,9 +43,9 @@ export default function StudentClassListPage(props) {
           Back
         </Button>
       </Box>
-    </Container> 
-    // TODO: Loading spinner icon thingy
-    : <h1>Loading</h1>
+    </Container>
+    :
+    <LoadingStatus />
     )
   );
 }

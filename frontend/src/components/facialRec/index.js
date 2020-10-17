@@ -3,6 +3,7 @@ import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
 import ClassAttendanceList from "./ClassAttendanceList"
+import LoadingStatus from "../loadingStatus/index";
 
 
 export default function FacialRec(props) {
@@ -106,9 +107,7 @@ export default function FacialRec(props) {
 
   if (!classListState) {
     return (
-      <div>
-        <h1> Loading </h1>
-      </div>
+      <LoadingStatus />
     );
   } else {
     HandleDetections();

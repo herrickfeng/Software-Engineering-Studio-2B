@@ -9,6 +9,7 @@ import TeacherClassInformationView from "../../components/applicationsView/class
 
 // material-ui components
 import { Box, Button, Grid } from "@material-ui/core";
+import LoadingStatus from "../../components/loadingStatus/index";
 
 
 export default class TeacherClassAttendanceView extends React.Component {
@@ -85,8 +86,7 @@ export default class TeacherClassAttendanceView extends React.Component {
 					</Box>
 				</Grid>
 				:
-				// TODO loading icon spinner
-				<h1>Loading</h1>
+				<LoadingStatus />
 			)
 		);
 	}

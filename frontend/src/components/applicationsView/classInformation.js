@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment"
+import LoadingStatus from "../loadingStatus/index";
 
 const useStyles = makeStyles(() => ({
     title: {
@@ -53,7 +54,7 @@ export default function TeacherApplicationsView(props) {
                 <Typography className={styles.subtext}>Code: {state.class.classCode}</Typography>
             </Box>
             :
-            <h1>Loading</h1>
+            <LoadingStatus />
         )
     )
 }

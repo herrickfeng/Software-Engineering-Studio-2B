@@ -13,6 +13,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import LoadingStatus from "../loadingStatus/index";
 
 
 export default function TeacherSubjectList(props) {
@@ -47,7 +48,7 @@ export default function TeacherSubjectList(props) {
 				</Card>
 			</Box>
 		)
-	}
+	};
 
 	return (
 		<Container maxWidth="md">
@@ -56,9 +57,8 @@ export default function TeacherSubjectList(props) {
 					return subjectCard(subject);
 				})
 			) : (
-					// TODO Loading spinner
-					<h1>Loading</h1>
-				)}
+				<LoadingStatus />
+			)}
 		</Container>
 	);
 }

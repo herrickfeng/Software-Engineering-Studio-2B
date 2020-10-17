@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import LinedTable from "../../components/linedTable/index";
 import api from "../../helpers/api/index";
 import { AuthContext } from "../../context/auth";
+import LoadingStatus from "../../components/loadingStatus/index";
 
 
 export default function TeacherViewStudentsPage(props) {
@@ -22,6 +23,10 @@ export default function TeacherViewStudentsPage(props) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  return (
+    <LoadingStatus />
+  );
 
   return (
     (data.students ?
@@ -70,8 +75,7 @@ export default function TeacherViewStudentsPage(props) {
             </Box>
           </Box>
         </Container>
-        // TODO: Loading spinner icon thingy
-        : <h1>Loading</h1>
+        : <LoadingStatus />
     )
   );
 }

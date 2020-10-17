@@ -5,6 +5,7 @@ import ClassSlotOption from "../../components/classSlot/ClassSlotOption";
 import { Link } from "react-router-dom";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
+import LoadingStatus from "../../components/loadingStatus/index";
 
 
 export default function StudentClassPage(props) {
@@ -42,7 +43,7 @@ export default function StudentClassPage(props) {
       <Button mt={6} variant="outlined" color="primary" component={Link} to={`/student/subject/${subjectId}`}>Back</Button>
     </Container>
     :
-    <h1>Loading</h1>
+    <LoadingStatus />
     )
   );
 }

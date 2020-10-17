@@ -40,7 +40,7 @@ import {
   generateClassAdmin,
 } from "./class";
 
-export const API_HOST = "localhost:4000";
+export const API_HOST = "192.168.0.14:4000";
 
 export default {
   auth: {

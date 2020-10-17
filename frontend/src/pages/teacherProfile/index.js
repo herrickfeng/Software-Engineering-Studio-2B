@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import UploadImageForm from "../../components/upload"; 
 import {makeStyles} from "@material-ui/core/styles";
 import Popup from "../../pages/teacherProfile/popup";
+import LoadingStatus from "../../components/loadingStatus/index";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -108,10 +109,10 @@ export default function TeacherProfilePage(props) {
         <Box>
           <Popup profileState={profileState} updateProfile={updateProfile} handleResetPassword={handleResetPassword} />
         </Box>
-      </>)
-        :
-        <h1>Loading</h1>
-      }
+      </>
+      ) : (
+        <LoadingStatus />
+      )}
 
     </Container>
 
