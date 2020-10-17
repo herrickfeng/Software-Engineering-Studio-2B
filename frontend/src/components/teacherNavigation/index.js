@@ -36,7 +36,7 @@ const styles = theme => ({
 	  marginRight: 20
   },
   signOut:{
-    color: "red"
+    color: "red",
   },
 	toolbarMargin: theme.mixins.toolbar,
 	aboveDrawer: {
@@ -104,23 +104,6 @@ const MyDrawer = withStyles(styles)(
           >
             <ListItemText>Staff Dashboard</ListItemText>
           </ListItem>
-          <ListItem
-            button
-            component={Link}
-            to="/upload"
-            onClick={onItemClick("UploadPage")}
-          >
-            <ListItemText>Upload</ListItemText>
-          </ListItem>
-          <ListItem 
-          button 
-          component={Link}
-          to="/teacher/subjectList/classList"
-          onClick={onItemClick("ClassList")}>
-            <ListItemText>Class List</ListItemText>
-          </ListItem>
-
-        
           <ListItem 
           button 
           component={Link}
@@ -129,8 +112,6 @@ const MyDrawer = withStyles(styles)(
             <ListItemText>Teacher Profile</ListItemText>
           </ListItem>
           <Divider/>
-          
-
           <ListItem
           button
           component={Link}
@@ -144,8 +125,6 @@ const MyDrawer = withStyles(styles)(
       </Drawer>
       <main className={classes.content}>
         <Link to="/teacher/subjectList" />
-        <Link to="/teacher/subjectList" />
-        <Link to="/studnet/attendance" />
         <Link to="/signout" />
       </main>
     </Box>
