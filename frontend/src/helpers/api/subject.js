@@ -152,3 +152,43 @@ export const deleteSubjectAdmin = async (idToken, subjectId) => {
 	);
 	return res;
 };
+
+export const getSubjectAnalyticsAdmin = async (idToken) => {
+	const res = await axios.get(`http://${API_HOST}/admin/subject/analytics`, {
+		headers: { Authorization: `Bearer ${idToken}` },
+	});
+	return res;
+};
+
+export const verifyLocation = async (idToken, subjectId, classId, userId, data) => {
+  const res = await axios.post(
+		`http://${API_HOST}/subject/${subjectId}/class/${classId}/user/${userId}/location`,
+		data,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+  return res;
+}
+
+export const verifyQuestions = async (idToken, subjectId, classId, userId, data) => {
+  const res = await axios.post(
+		`http://${API_HOST}/subject/${subjectId}/class/${classId}/user/${userId}/questions`,
+		data,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+  return res;
+}
+
+export const verifyTeacher = async (idToken, subjectId, classId, userId, data) => {
+  const res = await axios.post(
+		`http://${API_HOST}/subject/${subjectId}/class/${classId}/user/${userId}/teacher`,
+		data,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+  return res;
+}

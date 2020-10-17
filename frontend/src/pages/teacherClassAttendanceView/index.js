@@ -7,9 +7,14 @@ import { AuthContext } from "../../context/auth";
 import StudentAttendanceStatusView from "../../components/classAttendance/studentAttendanceStatusView.js"
 import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
 
-// material-ui components
-import { Box, Button, Grid } from "@material-ui/core";
 
+// material-ui components
+import { Box, Button, Grid, Card, Typography, Container } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default class TeacherClassAttendanceView extends React.Component {
 	static contextType = AuthContext;
@@ -55,8 +60,18 @@ export default class TeacherClassAttendanceView extends React.Component {
 		return (
 			(this.state ?
 				<Grid container direction="column">
-					<TeacherClassInformationView props={this.props} />
-
+					<Container maxWidth={"md"}>
+						<Box display="flex" justifyContent="center" alignItems="center" my={2} >
+							<Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+								<Box textAlign="center" my={2}>
+									<Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Class Attendance</Typography>
+								</Box>
+							</Card>
+						</Box>
+						<Box mb={2}>
+							<Alert severity="info">To edit the class attendance, click the edit button!</Alert>
+						</Box>
+					</Container>
 					<StudentAttendanceStatusView attendances={this.state}  disabled={this.state.disabled} handleAttendanceChange={this.handleAttendanceChange} handleDelete={this.handleDelete}/>
 
 					<Box my={2} display="flex" justifyContent="center" alignItems="center">

@@ -40,7 +40,7 @@ export const newUser = async (req, res) => {
         const user = await admin.auth().createUser({ email, password, displayName })
 
         const userDoc = await firestore.user.get(user.uid);
-        var userBody = { email, password, displayName, studentId: studentId ? studentId : "", uid: user.uid }
+        var userBody = { email, displayName, studentId: studentId ? studentId : "", uid: user.uid }
         await firestore.user.create(userDoc, userBody);
 
         const defaultUserRoles = {

@@ -70,7 +70,7 @@ export default function TeacherAddClassPopup(props) {
             autoFocus
             variant="outlined"
             margin="normal"
-            id="data"
+            id="date"
             type="date"
             label="Date"
             fullWidth

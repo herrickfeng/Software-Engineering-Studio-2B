@@ -89,8 +89,9 @@ export const getClass = async (req, res) => {
 
         const classDoc = await firestore.class.get(id);
         if (classDoc.exists === true) {
+            const classData = classDoc.data();
             return res.status(200).json(
-                successResponse(classDoc.data())
+                successResponse(classData)
             );
         } else {
             throw new FirestoreError("missing", classDoc.ref, "class");
@@ -201,6 +202,12 @@ export const getAllClass = async (req, res) => {
                     throw new FirestoreError("missing", classDoc.ref, "class");
                 }
             }
+
+            classBodys.sort((a, b) => {
+                if (a.date == b.date)
+                    return a.startTime > b.startTime ? 1 : -1
+                return a.date > b.date ? 1 : -1
+            })
 
             return res.status(200).json(successResponse(classBodys));
         }

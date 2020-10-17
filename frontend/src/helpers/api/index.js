@@ -26,8 +26,12 @@ import {
   getAttendance,
   getAttendanceBySubClass,
   getAttendanceBySubStu,
+  verifyLocation,
+  verifyQuestions,
+  verifyTeacher,
   updateAttendance,
   updateAttendanceSpecific,
+  getSubjectAnalyticsAdmin,
 } from "./subject";
 import {
   getClassStudent,
@@ -38,6 +42,7 @@ import {
   updateClassAdmin,
   deleteClassAdmin,
   generateClassAdmin,
+  getClassAnalyticsAdmin,
 } from "./class";
 
 export const API_HOST = "localhost:4000";
@@ -68,6 +73,9 @@ export default {
     attend: {
       create: createAttendance,
       get: getAttendance,
+      location: verifyLocation,
+      questions: verifyQuestions,
+      teacher: verifyTeacher,
       getByCl: getAttendanceBySubClass,
       getBySub: getAttendanceBySubStu,
       update: updateAttendance,
@@ -81,6 +89,7 @@ export default {
       get: getSubjectAdmin,
       update: updateSubjectAdmin,
       delete: deleteSubjectAdmin,
+      analytics: getSubjectAnalyticsAdmin,
       class: {
         create: createClassAdmin,
         get: getClassAdmin,
@@ -88,6 +97,7 @@ export default {
         update: updateClassAdmin,
         delete: deleteClassAdmin,
         generate: generateClassAdmin,
+        analytics: getClassAnalyticsAdmin,
       }
     }
   }

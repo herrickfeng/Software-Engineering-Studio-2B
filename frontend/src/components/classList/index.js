@@ -1,7 +1,8 @@
 import React from "react"
-import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import { TableBody, TableCell, TableHead, TableRow, Box, TableContainer, Paper, Table } from "@material-ui/core";
 import LinedTable from "../../components/linedTable/index";
 import moment from "moment"
+import FormatDate from "../../components/date"
 
 /**
  * An example for what can be passed in via props
@@ -59,28 +60,32 @@ export default function ClassList(props) {
 
   return (
     <>
-      <LinedTable>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Time</TableCell>
-            <TableCell>Class Code</TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {data.map(entry => (
-            <TableRow key={entry.code}
-              onClick={(e) => onRowClick(e, entry)} hover={props.onRowClick !== undefined}>
-              <TableCell>{entry.className}</TableCell>
-              <TableCell>{moment(entry.date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</TableCell>
-              <TableCell>{moment(entry.startTime, "hh:mm").format('LT')} - {moment(entry.endTime, "hh:mm").format('LT')}</TableCell>
-              <TableCell>{entry.classCode}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </LinedTable>
+          <Box display="flex" justifyContent="center" alignItems="center">
+              <TableContainer style={{ width: "100%" }} component={Paper}>
+                  <Table size="medium" aria-label="simple table">
+                      <TableHead>
+                          <TableRow>
+                              <TableCell>Name</TableCell>
+                              <TableCell>Date</TableCell>
+                              <TableCell>Time</TableCell>
+                              <TableCell>Class Code</TableCell>
+                          </TableRow>
+                      </TableHead>
+                      <TableBody>
+                          {data.map(entry => (
+                              <TableRow key={entry.code}
+                                  onClick={(e) => onRowClick(e, entry)} hover={props.onRowClick !== undefined}>
+                                  <TableCell>{entry.className}</TableCell>
+                                  <TableCell>{moment(entry.date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</TableCell>
+                                  <TableCell>{moment(entry.startTime, "hh:mm").format('LT')} - {moment(entry.endTime, "hh:mm").format('LT')}</TableCell>
+                                  <TableCell>{entry.classCode}</TableCell>
+                              </TableRow>
+                          ))}
+                      </TableBody>
+                  </Table>
+              </TableContainer>
+          </Box>
+         
     </>
   );
 }

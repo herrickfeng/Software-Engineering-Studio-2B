@@ -151,6 +151,203 @@ export const updateAttendance = async (req, res) => {
     }
 };
 
+function inside(point, vs) {
+    // ray-casting algorithm based on
+    // https://wrf.ecse.rpi.edu/Research/Short_Notes/pnpoly.html/pnpoly.html
+
+    var x = point.latitude, y = point.longitude;
+
+    var inside = false;
+    for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+        var xi = vs[i].lat, yi = vs[i].lng;
+        var xj = vs[j].lat, yj = vs[j].lng;
+
+        var intersect = ((yi > y) != (yj > y))
+            && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+    }
+
+    return inside;
+};
+
+export const verifyLocation = async (req, res) => {
+    try {
+        const { latitude, longitude } = req.body;
+        const subjectId = req.params.subjectId;
+        const classId = req.params.classId;
+        const userId = req.params.userId;
+        checkParams({
+            latitude: {
+                data: latitude,
+                expectedType: "number"
+            },
+            longitude: {
+                data: longitude,
+                expectedType: "number"
+            },
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            },
+            classId: {
+                data: classId,
+                expectedType: "string"
+            },
+            userId: {
+                data: userId,
+                expectedType: "string"
+            }
+        });
+
+        var polygon;
+        const subjectDoc = await firestore.subject.get(subjectId);
+        if (subjectDoc.exists) {
+            var subjectBody = subjectDoc.data();
+            if (subjectBody.path) {
+                polygon = subjectBody.path;
+            } else {
+                return res.status(200).json(
+                    successResponse({ msg: "Your teacher has not set a location for this class or subject." })
+                );
+            }
+        } else {
+            throw new FirestoreError("missing", subjectDoc.ref, "subject");
+        }
+
+        if (inside({ latitude, longitude }, polygon)) {
+            const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
+            if (allAttendanceDoc.size > 0) {
+                const attendanceDoc = allAttendanceDoc.docs[0];
+                var attendanceBody = attendanceDoc.data();
+                attendanceBody.location = true;
+                await firestore.subject.update(attendanceDoc, attendanceBody);
+                return res.status(200).json(
+                    successResponse({ msg: "Verified location within region. Location authentication successfully marked." })
+                );
+            } else {
+                throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
+            }
+        }
+        else {
+            return res.status(200).json(
+                successResponse({ msg: "Location not within region. Please move to the region." })
+            );
+        }
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
+
+export const verifyQuestions = async (req, res) => {
+    try {
+        const questions = req.body;
+        const subjectId = req.params.subjectId;
+        const classId = req.params.classId;
+        const userId = req.params.userId;
+        checkParams({
+            questions: {
+                data: questions,
+                expectedType: "object"
+            },
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            },
+            classId: {
+                data: classId,
+                expectedType: "string"
+            },
+            userId: {
+                data: userId,
+                expectedType: "string"
+            }
+        });
+
+        const classDoc = await firestore.class.get(classId);
+        var classData;
+        if (classDoc.exists === true) {
+            classData = classDoc.data();
+        } else {
+            throw new FirestoreError("missing", classDoc.ref, "class");
+        }
+
+        var total = 0;
+        var correct = 0;
+
+        const teacherQuestions = classData.questions;
+        for (const i in teacherQuestions) {
+            const question = teacherQuestions[i];
+            var mistake = false
+            for (const j in question.answers) {
+                const correct = question.answers[j].correct
+                if (correct !== questions[i].answers[j].correct)
+                    mistake = true
+            }
+            total++;
+            if (!mistake)
+                correct++;
+        }
+        
+        const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
+        if (allAttendanceDoc.size > 0) {
+            const attendanceDoc = allAttendanceDoc.docs[0];
+            var attendanceBody = attendanceDoc.data();
+            attendanceBody.question = total == correct;
+            attendanceBody.score = correct/total
+            await firestore.subject.update(attendanceDoc, attendanceBody);
+            return res.status(200).json(
+                successResponse({ msg: "Answers submitted successfully." })
+            );
+        } else {
+            throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
+        }
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
+
+export const verifyTeacher = async (req, res) => {
+    try {
+        const { teacher } = req.body;
+        const subjectId = req.params.subjectId;
+        const classId = req.params.classId;
+        const userId = req.params.userId;
+        checkParams({
+            teacher: {
+                data: teacher,
+                expectedType: "boolean"
+            },
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            },
+            classId: {
+                data: classId,
+                expectedType: "string"
+            },
+            userId: {
+                data: userId,
+                expectedType: "string"
+            }
+        });
+
+        const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
+        if (allAttendanceDoc.size > 0) {
+            const attendanceDoc = allAttendanceDoc.docs[0];
+            var attendanceBody = attendanceDoc.data();
+            attendanceBody.teacher = teacher
+            await firestore.subject.update(attendanceDoc, attendanceBody);
+            return res.status(200).json(
+                successResponse({ msg: "Answers submitted successfully." })
+            );
+        } else {
+            throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
+        }
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
+
 export const getAttendance = async (req, res) => {
     try {
         const attendanceBody = req.body;
@@ -279,11 +476,11 @@ export const getStuAttendance = async (req, res) => {
                 class: classMap[doc.data().classId]
             };
         })
-        
+
         attendances.sort((a, b) => {
-            if (a.class.date == b.class.date) 
-                return a.class.startTime > b.class.startTime ? 1 : -1 
-            return a.class.date > b.class.date ? 1 : -1 
+            if (a.class.date == b.class.date)
+                return a.class.startTime > b.class.startTime ? 1 : -1
+            return a.class.date > b.class.date ? 1 : -1
         })
 
         return res.status(200).json(
