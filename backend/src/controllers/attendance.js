@@ -203,18 +203,24 @@ export const verifyLocation = async (req, res) => {
         const subjectDoc = await firestore.subject.get(subjectId);
         if (subjectDoc.exists) {
             var subjectBody = subjectDoc.data();
-            polygon = subjectBody.path;
+            if (subjectBody.path) {
+                polygon = subjectBody.path;
+            } else {
+                return res.status(200).json(
+                    successResponse({ msg: "Your teacher has not set a location for this class or subject." })
+                );
+            }
         } else {
             throw new FirestoreError("missing", subjectDoc.ref, "subject");
         }
 
-        if (inside({ latitude, longitude }, polygon)){
+        if (inside({ latitude, longitude }, polygon)) {
             const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
             if (allAttendanceDoc.size > 0) {
                 const attendanceDoc = allAttendanceDoc.docs[0];
                 var attendanceBody = attendanceDoc.data();
                 attendanceBody.location = true;
-                await firestore.subject.update(attendanceDoc, attendanceBody );
+                await firestore.subject.update(attendanceDoc, attendanceBody);
                 return res.status(200).json(
                     successResponse({ msg: "Verified location within region. Location authentication successfully marked." })
                 );
@@ -226,6 +232,116 @@ export const verifyLocation = async (req, res) => {
             return res.status(200).json(
                 successResponse({ msg: "Location not within region. Please move to the region." })
             );
+        }
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
+
+export const verifyQuestions = async (req, res) => {
+    try {
+        const questions = req.body;
+        const subjectId = req.params.subjectId;
+        const classId = req.params.classId;
+        const userId = req.params.userId;
+        checkParams({
+            questions: {
+                data: questions,
+                expectedType: "object"
+            },
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            },
+            classId: {
+                data: classId,
+                expectedType: "string"
+            },
+            userId: {
+                data: userId,
+                expectedType: "string"
+            }
+        });
+
+        const classDoc = await firestore.class.get(classId);
+        var classData;
+        if (classDoc.exists === true) {
+            classData = classDoc.data();
+        } else {
+            throw new FirestoreError("missing", classDoc.ref, "class");
+        }
+
+        var total = 0;
+        var correct = 0;
+
+        const teacherQuestions = classData.questions;
+        for (const i in teacherQuestions) {
+            const question = teacherQuestions[i];
+            var mistake = false
+            for (const j in question.answers) {
+                const correct = question.answers[j].correct
+                if (correct !== questions[i].answers[j].correct)
+                    mistake = true
+            }
+            total++;
+            if (!mistake)
+                correct++;
+        }
+        
+        const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
+        if (allAttendanceDoc.size > 0) {
+            const attendanceDoc = allAttendanceDoc.docs[0];
+            var attendanceBody = attendanceDoc.data();
+            attendanceBody.question = total == correct;
+            attendanceBody.score = correct/total
+            await firestore.subject.update(attendanceDoc, attendanceBody);
+            return res.status(200).json(
+                successResponse({ msg: "Answers submitted successfully." })
+            );
+        } else {
+            throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
+        }
+    } catch (error) {
+        return handleApiError(res, error);
+    }
+};
+
+export const verifyTeacher = async (req, res) => {
+    try {
+        const { teacher } = req.body;
+        const subjectId = req.params.subjectId;
+        const classId = req.params.classId;
+        const userId = req.params.userId;
+        checkParams({
+            teacher: {
+                data: teacher,
+                expectedType: "boolean"
+            },
+            subjectId: {
+                data: subjectId,
+                expectedType: "string"
+            },
+            classId: {
+                data: classId,
+                expectedType: "string"
+            },
+            userId: {
+                data: userId,
+                expectedType: "string"
+            }
+        });
+
+        const allAttendanceDoc = await firestore.attendance.getBy(subjectId, classId, userId);
+        if (allAttendanceDoc.size > 0) {
+            const attendanceDoc = allAttendanceDoc.docs[0];
+            var attendanceBody = attendanceDoc.data();
+            attendanceBody.teacher = teacher
+            await firestore.subject.update(attendanceDoc, attendanceBody);
+            return res.status(200).json(
+                successResponse({ msg: "Answers submitted successfully." })
+            );
+        } else {
+            throw new FirestoreError("missing", attendanceDoc.ref, "attendance");
         }
     } catch (error) {
         return handleApiError(res, error);

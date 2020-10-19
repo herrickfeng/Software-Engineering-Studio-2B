@@ -9,8 +9,13 @@ import TeacherClassInformationView from "../../components/applicationsView/class
 import LoadingSpinner from "../../components/loadingSpinner";
 
 // material-ui components
-import { Box, Button, Grid, Typography, Card } from "@material-ui/core";
+import { Box, Button, Grid, Typography, Card, Container } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 
+
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default class TeacherQuestionsView extends React.Component {
 	static contextType = AuthContext;
@@ -86,21 +91,20 @@ export default class TeacherQuestionsView extends React.Component {
 		if (this.state)
 			return (
 				<Grid container direction="column" >
+					<Container maxWidth={"md"}>
+						<Box display="flex" justifyContent="center" alignItems="center" my={2} >
+							<Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+								<Box textAlign="center" my={2}>
+									<Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Questions List</Typography>
+								</Box>
+							</Card>
+						</Box>
 
-					<Box display="flex" justifyContent="center" alignItems="center" my={2} >
-						<Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
-							<Box textAlign="center" my={2}>
-								<Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Questions List</Typography>
-							</Box>
-						</Card>
-					</Box>
-					<Box display="flex" justifyContent="center" alignItems="center" my={0} >
-						<Card paper style={{ height: '40px', width: '930px', backgroundColor: '#848F9F' }}>
-							<Box textAlign="center" my={0.5}>
-								<Typography style={{ color: '#FFFFFF' }} variant={'h6'} align={'center'}>To add a question, click the edit button!</Typography>
-							</Box>
-						</Card>
-					</Box>
+						<Box mb={2}>
+							<Alert severity="info">To add a question, click the edit button!</Alert>
+						</Box>
+					</Container>
+
 
 					<QuestionsList
 						state={this.state}

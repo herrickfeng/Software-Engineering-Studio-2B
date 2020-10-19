@@ -37,8 +37,12 @@ export default function TeacherApplicationsView(props) {
         const subjectId = props.match.params.subjectId;
         const classId = props.match.params.classId;
         const { idToken } = authState.user;
-        const subject = (await api.admin.subject.get(idToken, subjectId)).data.data;
-        const subjectClass = (await api.admin.subject.class.get(idToken, subjectId, classId)).data.data;
+        const subject = authState.user.claims.teacher ? 
+            (await api.admin.subject.get(idToken, subjectId)).data.data:
+            (await api.subject.get(idToken, subjectId)).data.data;
+        const subjectClass = authState.user.claims.teacher ? 
+            (await api.admin.subject.class.get(idToken, subjectId, classId)).data.data:
+            (await api.subject.class.get(idToken, subjectId, classId)).data.data;
         setState({ subject: subject, class: subjectClass });
     };
 

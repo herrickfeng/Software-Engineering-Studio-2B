@@ -89,8 +89,9 @@ export const getClass = async (req, res) => {
 
         const classDoc = await firestore.class.get(id);
         if (classDoc.exists === true) {
+            const classData = classDoc.data();
             return res.status(200).json(
-                successResponse(classDoc.data())
+                successResponse(classData)
             );
         } else {
             throw new FirestoreError("missing", classDoc.ref, "class");

@@ -170,3 +170,25 @@ export const verifyLocation = async (idToken, subjectId, classId, userId, data) 
   );
   return res;
 }
+
+export const verifyQuestions = async (idToken, subjectId, classId, userId, data) => {
+  const res = await axios.post(
+		`http://${API_HOST}/subject/${subjectId}/class/${classId}/user/${userId}/questions`,
+		data,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+  return res;
+}
+
+export const verifyTeacher = async (idToken, subjectId, classId, userId, data) => {
+  const res = await axios.post(
+		`http://${API_HOST}/subject/${subjectId}/class/${classId}/user/${userId}/teacher`,
+		data,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+  return res;
+}
