@@ -6,6 +6,7 @@ import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
 import StudentAttendanceStatusView from "../../components/classAttendance/studentAttendanceStatusView.js"
 import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
+import LoadingSpinner from "../../components/loadingSpinner";
 
 // material-ui components
 import { Box, Button, Grid, Card, Typography } from "@material-ui/core";
@@ -97,8 +98,8 @@ export default class TeacherClassAttendanceView extends React.Component {
 					</Box>
 				</Grid>
 				:
-				// TODO loading icon spinner
-				<h1>Loading</h1>
+				
+				<LoadingSpinner/>
 			)
 		);
 	}

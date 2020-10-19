@@ -13,6 +13,7 @@ import ClassList from "../../components/classList/index";
 import { Link, useHistory } from "react-router-dom";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
+import LoadingSpinner from "../../components/loadingSpinner"
 
 
 export default function TeacherClassListPage(props) {
@@ -92,8 +93,7 @@ export default function TeacherClassListPage(props) {
 
         <TeacherAddClassPopup open={openAddPopup} onClose={() => setOpenAddPopup(false)} onAdd={addClass} />
       </Container>
-      // TODO: Loading spinner icon thingy
-      : <h1>Loading</h1>
+      : <LoadingSpinner/>
     )
   );
 }

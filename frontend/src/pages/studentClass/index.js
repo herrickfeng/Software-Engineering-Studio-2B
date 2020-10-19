@@ -5,6 +5,7 @@ import ClassSlotOption from "../../components/classSlot/ClassSlotOption";
 import { Link } from "react-router-dom";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
+import LoadingSpinner from "../../components/loadingSpinner";
 
 
 export default function StudentClassPage(props) {
@@ -26,7 +27,6 @@ export default function StudentClassPage(props) {
   });
 
   return (
-    // TODO Loading spinner icon thingy
     (state ? 
     <Container>
       <ClassSlot data={state}>
@@ -42,7 +42,7 @@ export default function StudentClassPage(props) {
       <Button mt={6} variant="outlined" color="primary" component={Link} to={`/student/subject/${subjectId}`}>Back</Button>
     </Container>
     :
-    <h1>Loading</h1>
+    <LoadingSpinner/>
     )
   );
 }

@@ -10,7 +10,7 @@ import * as faceapi from 'face-api.js';
 import { AuthContext } from "../../context/auth";
 import FacialRec from "../../components/facialRec"
 import { makeStyles } from "@material-ui/core/styles";
-
+import LoadingSpinner from "../../components/loadingSpinner"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -83,7 +83,7 @@ export default function VideoStream(props) {
           <Grid component={Paper}>
               <Grid item direction="row" container classes={gridStyles}>
                   <Grid item>
-                      <Box display="flex" justifyContent="center" alignItems="center" m={2} >
+                      <Box display="flex" justifyContent="center" alignItems="center" m={2}>
                           <Card paper style={{ height: '800px', width: '1050px', backgroundColor: '#1A4B93' }}>
                               <Box textAlign="center">
                                   <video ref={videoTag} width="1000vh" height="800vh" muted autoPlay></video>
@@ -92,7 +92,7 @@ export default function VideoStream(props) {
                       </Box>
                   </Grid>
                   <Grid item>
-                      <Box display="flex" justifyContent="center" alignItems="center" m={2} >
+                      <Box display="flex" justifyContent="center" alignItems="center" m={2}>
                           <Grid component={Paper}>
                               <FacialRec subjectId={props.match.params.subjectId} classId={props.match.params.classId} videoTag={videoTag} />
                           </Grid>
@@ -111,17 +111,6 @@ export default function VideoStream(props) {
 
                     Back
 				        </Button>
-                </Box>
-              </Grid>
-              <Grid item>
-                      <Box display="flex" justifyContent="center" alignItems="center" m={2} >
-                  <Button
-                    variant={"outlined"}
-                    color={"primary"}
-                    href={"https://www.youtube.com/watch?v=qkQg9GGitow"}>
-
-                    Forwards
-				          </Button>
                 </Box>
               </Grid>
             </Grid>

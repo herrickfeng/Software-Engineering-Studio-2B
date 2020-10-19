@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
+import LoadingSpinner from "../../components/loadingSpinner";
 
 export default function StudentClassListPage(props) {
   const subjectId = props.match.params.subjectId;
@@ -43,8 +44,7 @@ export default function StudentClassListPage(props) {
         </Button>
       </Box>
     </Container> 
-    // TODO: Loading spinner icon thingy
-    : <h1>Loading</h1>
+    : <LoadingSpinner/>
     )
   );
 }

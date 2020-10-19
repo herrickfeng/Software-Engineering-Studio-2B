@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import SubjectCompletion from "../../components/chart/subjectCompletion"
+import LoadingSpinner from "../loadingSpinner";
 
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
@@ -53,8 +54,7 @@ export default function TeacherSubjectList(props) {
 					return subjectCard(subject);
 				})
 			) : (
-					// TODO Loading spinner
-					<h1>Loading</h1>
+					<LoadingSpinner/>
 				)}
 		</Container>
 	);
