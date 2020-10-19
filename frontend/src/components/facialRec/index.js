@@ -3,6 +3,7 @@ import * as faceapi from 'face-api.js';
 import api from "../../helpers/api/index"
 import { AuthContext } from "../../context/auth";
 import ClassAttendanceList from "./ClassAttendanceList"
+import LoadingSpinner from "../loadingSpinner"
 
 
 export default function FacialRec(props) {
@@ -71,12 +72,13 @@ export default function FacialRec(props) {
                   reRender = true
                 }
               }
-            }));
-            detectionFound = false;
-            if (reRender) {
-              reRender = false;
-              setClassListState(classListState)
-            }
+            })).then(() => {
+              detectionFound = false;
+              if (reRender) {
+                reRender = false;
+                setClassListState(classListState)
+              }
+            })
           }
         }
       }, 3000);
@@ -100,14 +102,11 @@ export default function FacialRec(props) {
     setClassListState(labeledDescriptors)
   };
 
-  useEffect(() => {
-    buildLoad();
-  }, [buildLoad]);
-
   if (!classListState) {
+    buildLoad();
     return (
       <div>
-        <h1> Loading </h1>
+        <LoadingSpinner/>
       </div>
     );
   } else {

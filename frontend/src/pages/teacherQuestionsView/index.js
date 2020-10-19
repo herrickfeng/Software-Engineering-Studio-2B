@@ -6,6 +6,7 @@ import api from "../../helpers/api";
 import { AuthContext } from "../../context/auth";
 import QuestionsList from "../../components/questions/questionsListView.js"
 import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
+import LoadingSpinner from "../../components/loadingSpinner";
 
 // material-ui components
 import { Box, Button, Grid, Typography, Card, Container } from "@material-ui/core";
@@ -137,6 +138,6 @@ export default class TeacherQuestionsView extends React.Component {
 				</Grid>
 			);
 		else
-			return "Loading"
+			return <LoadingSpinner/>
 	}
 }

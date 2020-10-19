@@ -6,6 +6,7 @@ import Popup from "../../components/studentProfile/popup";
 import api from "../../helpers/api";
 import { AuthContext } from "../../context/auth";
 import { Alert } from "@material-ui/lab";
+import LoadingSpinner from "../../components/loadingSpinner";
 
 export default function StudentProfilePage(props) {
   const { authState } = React.useContext(AuthContext);
@@ -35,7 +36,6 @@ export default function StudentProfilePage(props) {
 
   return (
     <Container maxWidth={"md"}>
-      {/* TODO: LOADING  */}
       {profileState ? [
         < StudentProfile profileState={profileState} setState={setProfileState} handleResetPassword={handleResetPassword}/>,
         <Box>
@@ -43,7 +43,7 @@ export default function StudentProfilePage(props) {
         </Box>
       ]
         :
-        <h1>Loading</h1>
+        <LoadingSpinner/>
       }
     </Container>
   );

@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import LoadingSpinner from "../loadingSpinner"
 import moment from "moment"
 
 const useStyles = makeStyles(() => ({
@@ -80,7 +81,9 @@ export default function TeacherApplicationsView(props) {
                     </Box>
                 </Box >
             </Box>:
-            <h1>Loading</h1>
+            <div>
+              <LoadingSpinner />
+            </div>
         )
     )
 }
