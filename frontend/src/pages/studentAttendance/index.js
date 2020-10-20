@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Container, TableBody, TableCell, TableHead, TableRow, Typography } from "@material-ui/core";
+import { Container, TableBody, TableCell, TableHead, TableRow, Typography, Box } from "@material-ui/core";
 import LinedTable from "../../components/linedTable/index";
 import { makeStyles } from "@material-ui/core/styles";
 import api from "../../helpers/api"
@@ -57,11 +57,15 @@ export default function StudentAttendancePage(props) {
               <TableCell><FormatDate date={attendance.class.date} /></TableCell>
               <TableCell>{moment(attendance.class.startTime, "hh:mm").format('LT')} - {moment(attendance.class.endTime, "hh:mm").format('LT')}</TableCell>
               <TableCell>
-                {moment(attendance.class.date).isBefore(moment(), 'day') &&
-                  <Typography className={classes.pass}>
-                    {(attendance.facial + attendance.location + attendance.question) / 0.03}
-                  </Typography>
-                }
+                {(moment(attendance.class.date).isBefore(moment(), 'day') && (
+                    <Typography className={classes.pass}>
+                      {Math.round((attendance.facial + attendance.location + attendance.question) / 0.0003) / 100}
+                    </Typography>
+                  )) || (
+                    <Box fontWeight="fontWeightBold">
+                      TBD
+                    </Box>
+                )}
               </TableCell>
             </TableRow>
           ))}
