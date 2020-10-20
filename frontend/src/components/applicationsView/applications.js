@@ -1,117 +1,88 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { AuthContext } from "../../context/auth";
-import api from "../../helpers/api";
+import React from "react";
 import { Link } from "react-router-dom";
-
-// material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Color from 'color';
-
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Box from "@material-ui/core/Box";
 
 
-// Grid breaking points for the 2x2 grid of cards
-const useGridStyles = makeStyles(({ breakpoints }) => ({
-  root: {
-    [breakpoints.up('md')]: {
-      justifyContent: 'center',
-    },
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: "15%",
+    marginRight: "15%",
+  },
+  cardContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  fancyCard: {
+    flexBasis: "50%",
+  },
+  card: {
+    height: "350px",
+    width: "450px",
+    backgroundColor: "#2964BA",
+    margin: theme.spacing(1),
+  },
+  cardMedia: {
+    height: 0,
+    paddingTop: "64%",
+  },
+  cardLabel: {
+    color: "#FFFFFF",
   },
 }));
 
 
 export default function TeacherApplicationsView(props) {
-  const gridStyles = useGridStyles();
+  const classes = useStyles();
 
-    // Grid with container grid for each row (2x2 grid)
-	return (
-        <Grid>
-            <Grid container classes={gridStyles} my={5} spacing={4} direction="row" wrap={'nowrap'}>
-                <Grid item >
-                    <Card style={{ height: '350px', width: '450px', backgroundColor: '#2964BA'}}>
-                        <CardActionArea>
-                            <CardMedia
-                              style={{ height: 0, paddingTop: '64%' }}
-                              image={require("../../images/authentication.jpg")}
-                              component={Link}
-                              to={`/teacher/subject/${props.subjectId}/class/${props.classId}/video`}
-                                
-                            />
-                            <CardContent>
-                                <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">
-                                    View Facial Authentication
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-                <Grid item >
-                    <Card style={{ height: '350px', width: '450px', backgroundColor: '#2964BA' }}>
-                        <CardActionArea>
-                            <CardMedia
-                                style={{ height: 0, paddingTop: '64%' }}
-                                image={require("../../images/attendance.jpg")}
-                                component={Link}
+  function FancyCard(props) {
+    return (
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.cardMedia}
+              image={props.image}
+              component={Link}
+              to={props.to}
+            />
+            <CardContent>
+              <Typography className={classes.cardLabel} variant="h5">
+                {props.label}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+    );
+  }
 
-                                to={`/teacher/subject/${props.subjectId}/class/${props.classId}/attendance`}
+  return (
+    <Box className={classes.container}>
+      <Box className={classes.cardContainer}>
+        <FancyCard to={`/teacher/subject/${props.subjectId}/class/${props.classId}/video`}
+                   image={require("../../images/authentication.jpg")}
+                   label="View Facial Authentication" />
 
-                            />
-                            <CardContent>
-                                <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">
-                                    View Class Attendance
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-            </Grid>
+        <FancyCard to={`/teacher/subject/${props.subjectId}/class/${props.classId}/attendance`}
+                   image={require("../../images/attendance.jpg")}
+                   label="View Class Attendance" />
 
-            <Grid container classes={gridStyles} my={5} spacing={4} direction="row" wrap={'nowrap'}>
-                <Grid item>
-                    <Card style={{ height: '350px', width: '450px', backgroundColor: '#2964BA' }}>
-                        <CardActionArea>
-                            <CardMedia
-                                style={{ height: 0, paddingTop: '64%' }}
-                                image={require("../../images/questions.jpg")}
-                                component={Link}
-                                to={`/teacher/subject/${props.subjectId}/class/${props.classId}/questions`}
-                            />
-                            <CardContent>
-                                <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">
-                                    View Questions
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
+        <FancyCard to={`/teacher/subject/${props.subjectId}/class/${props.classId}/questions`}
+                   image={require("../../images/questions.jpg")}
+                   label="View Questions" />
 
-                <Grid item>
-                    <Card style={{ height: '350px', width: '450px', backgroundColor: '#2964BA' }}>
-                        <CardActionArea>
-                            <CardMedia
-                                style={{ height: 0, paddingTop: '64%' }}
-                                image={require("../../images/location.png")}
-                                component={Link}
-                                to={`/teacher/subject/${props.subjectId}/class/${props.classId}/location`}
-                            />
-                            <CardContent>
-                                <Typography style={{ color: '#FFFFFF' }} variant="h5" component="h2">
-                                    View Location Settings
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-            </Grid>
-        </Grid>
-	)
+        <FancyCard to={`/teacher/subject/${props.subjectId}/class/${props.classId}/location`}
+                   image={require("../../images/location.png")}
+                   label="View Location Settings" />
+      </Box>
+    </Box>
+  )
 }

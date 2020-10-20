@@ -61,15 +61,15 @@ export default function TeacherApplicationsView(props) {
                         </Box>
                     </Card>
                 </Box>
-                <Box display="flex" justifyContent="center" alignItems="center" my={2} >
-                    <Box textAlign="center" mx={2}>
+                <Box display="flex" justifyContent="center" alignItems="center" my={1} flexWrap="wrap">
+                    <Box textAlign="center" mx={2} my={1}>
                         <Card paper style={{ height: '80px', width: '450px', backgroundColor: '#848F9F' }}>
                             <Box textAlign="center" my={3}>
                                 <Typography className={styles.subtitle}>{state.class.className}</Typography>
                             </Box>
                         </Card>
                     </Box>
-                    <Box textAlign="center" mx={2}>
+                    <Box textAlign="center" mx={2} my={1}>
                         <Card paper style={{ height: '80px', width: '450px', backgroundColor: '#848F9F' }}>
                             <Box textAlign="center" my={1.5}>
                                 <Typography className={styles.subtext}>Date: {moment(state.class.date, "YYYY-MM-DD").format("DD/MM/YYYY")}</Typography>
