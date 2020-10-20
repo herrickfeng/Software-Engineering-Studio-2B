@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import UploadImageForm from "../../components/upload"; 
 import {makeStyles} from "@material-ui/core/styles";
 import Popup from "../../pages/teacherProfile/popup";
+import LoadingSpinner from "../../components/loadingSpinner";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -110,7 +111,7 @@ export default function TeacherProfilePage(props) {
         </Box>
       </>)
         :
-        <h1>Loading</h1>
+        <LoadingSpinner/>
       }
 
     </Container>
