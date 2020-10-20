@@ -6,6 +6,7 @@ import api from "../../helpers/api"
 import { AuthContext } from "../../context/auth";
 import moment from "moment"
 import FormatDate from "../../components/date"
+import DynamicTable from "../../components/dynamicTable/index";
 
 const useStyles = makeStyles((theme) => ({
   pass: {
@@ -38,7 +39,7 @@ export default function StudentAttendancePage(props) {
 
   return (
     <Container maxWidth={"md"}>
-      <LinedTable>
+      <LinedTable component={DynamicTable}>
         <TableHead>
           <TableRow>
             <TableCell>Subject</TableCell>

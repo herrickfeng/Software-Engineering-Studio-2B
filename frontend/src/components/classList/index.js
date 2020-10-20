@@ -3,6 +3,7 @@ import { TableBody, TableCell, TableHead, TableRow, Box, TableContainer, Paper, 
 import LinedTable from "../../components/linedTable/index";
 import moment from "moment"
 import FormatDate from "../../components/date"
+import DynamicTable from "../dynamicTable/index";
 
 /**
  * An example for what can be passed in via props
@@ -62,7 +63,7 @@ export default function ClassList(props) {
     <>
           <Box display="flex" justifyContent="center" alignItems="center">
               <TableContainer style={{ width: "100%" }} component={Paper}>
-                  <Table size="medium" aria-label="simple table">
+                  <DynamicTable size="medium" aria-label="simple table">
                       <TableHead>
                           <TableRow>
                               <TableCell>Name</TableCell>
@@ -82,7 +83,7 @@ export default function ClassList(props) {
                               </TableRow>
                           ))}
                       </TableBody>
-                  </Table>
+                  </DynamicTable>
               </TableContainer>
           </Box>
          

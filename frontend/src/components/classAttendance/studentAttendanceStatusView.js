@@ -16,12 +16,19 @@ import Button from '@material-ui/core/Button';
 import TimerIcon from '@material-ui/icons/Timer';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import { green, red, yellow, orange } from '@material-ui/core/colors';
+import DynamicTable from "../dynamicTable/index";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   table: {
     minWidth: 650,
   },
-});
+  tableContainer: {
+    [theme.breakpoints.up("md")]: {
+      width: "80%"
+    },
+    margin: theme.spacing(3),
+  },
+}));
 
 function deleteItem(i) {
   const { items } = this.state;
@@ -45,16 +52,16 @@ export default function SimpleTable(props) {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-        <TableContainer style={{ width: "80%" }} component={Paper}>
-            <Table size="medium" className={classes.table} aria-label="simple table">
+        <TableContainer className={classes.tableContainer} component={Paper}>
+            <DynamicTable size="medium" className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                    <TableCell style={{width: '10%'}}>Name</TableCell>
+                    <TableCell style={{width: '10%'}} align="center">Name</TableCell>
                     <TableCell style={{width: '10%'}} align="center">ID</TableCell>
-                    <TableCell style={{width: '15%'}} align="center">Facial</TableCell>
-                    <TableCell style={{width: '15%'}} align="center">Questions</TableCell>
-                    <TableCell style={{width: '15%'}} align="center">Location</TableCell>
-                    <TableCell style={{width: '15%'}} align="center">Sign Off</TableCell>
+                    <TableCell forceHidden style={{width: '15%'}} align="center">Facial</TableCell>
+                    <TableCell forceHidden style={{width: '15%'}} align="center">Questions</TableCell>
+                    <TableCell forceHidden style={{width: '15%'}} align="center">Location</TableCell>
+                    <TableCell forceHidden style={{width: '15%'}} align="center">Sign Off</TableCell>
                     <TableCell style={{ width: '15%' }} align="center">Status</TableCell>
                     </TableRow>
                 </TableHead>
@@ -63,7 +70,7 @@ export default function SimpleTable(props) {
                     <TableRow key={row.name}>
                         <TableCell align="center">{row.student.displayName}</TableCell>
                         <TableCell align="center">{row.student.studentId}</TableCell>
-                        <TableCell align="center">
+                        <TableCell align="center" forceHidden>
                           <input
                             name="facial"
                             type="checkbox"
@@ -74,7 +81,7 @@ export default function SimpleTable(props) {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell align="center" forceHidden>
                           <input
                             name="question"
                             type="checkbox"
@@ -85,7 +92,7 @@ export default function SimpleTable(props) {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell align="center" forceHidden>
                           <input
                             name="location"
                             type="checkbox"
@@ -96,7 +103,7 @@ export default function SimpleTable(props) {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell align="center" forceHidden>
                           <input
                             name="signOff"
                             type="checkbox"
@@ -125,7 +132,7 @@ export default function SimpleTable(props) {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+        </DynamicTable>
       </TableContainer>
     </Box>
   );
