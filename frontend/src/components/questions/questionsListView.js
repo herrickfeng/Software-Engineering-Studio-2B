@@ -22,7 +22,7 @@ export default function QuestionsListView(props) {
                         {`${String.fromCharCode(j + 97)}.`}
                     </Typography>
                 </Grid>
-                <Grid item >
+                <Grid item xs>
                     <Typography>
                         <TextField
                             defaultValue={answer.text}
@@ -30,7 +30,7 @@ export default function QuestionsListView(props) {
                             id="outlined-basic"
                             label="Answer Option"
                             variant="outlined"
-                            style={{ width: '150ch' }}
+                            style={{ width: '100%' }}
                             onChange={(e) => {
                                 answer.text = e.target.value;
                                 props.handleAnswerChange(i, j, answer);
@@ -58,7 +58,7 @@ export default function QuestionsListView(props) {
 
     const questionBox = (question, index) => {
         return (
-            <Box mx={35} mb={5}>
+            <Box mb={5}>
                 <Card >
                     <CardContent>
                         <Typography>
@@ -68,20 +68,19 @@ export default function QuestionsListView(props) {
                                 id="outlined-basic"
                                 label="Question Option"
                                 variant="outlined"
-                                style={{ width: '156ch' }}
+                                style={{ width: '100%' }}
                                 onChange={(e) => props.handleQuestionChange(index, e.target.value)}
                             />
                         </Typography>
 
                         <Divider variant="fullWidth" />
 
-                        <Grid container>
-                            <Grid item>
-                                {question.answers.map((answer, j) => {
-                                    return answerBox(answer, index, j)
-                                })}
-                            </Grid>
-                        </Grid>
+                        {question.answers.map((answer, j) => (
+                          <div key={j}>
+                            {answerBox(answer, index, j)}
+                          </div>
+                        ))}
+
                         {/* TODO: Clean up Add/Remove button */}
                         {!props.state.disabled && (
                             <>

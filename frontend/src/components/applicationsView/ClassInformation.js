@@ -1,34 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth";
 import api from "../../helpers/api";
-
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import LoadingSpinner from "../loadingSpinner"
 import moment from "moment"
 
-const useStyles = makeStyles(() => ({
+
+const useStyles = makeStyles((theme) => ({
     title: {
-        color: '#FFFFFF',
+        color: "#FFFFFF",
         fontSize: 40,
     },
     subtitle: {
-        color: '#FFFFFF',
+        color: "#FFFFFF",
         fontSize: 24,
     },
     subtext: {
-        color: '#FFFFFF',
+        color: "#FFFFFF",
         fontSize: 14,
+    },
+    subjectCard: {
+        [theme.breakpoints.up("md")]: {
+            width: "930px",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "100%",
+        },
+        backgroundColor: "#1A4B93",
+    },
+    classCard: {
+        width: "400px",
+        backgroundColor: "#848F9F",
+    },
+    datetimeCard: {
+        width: "400px",
+        backgroundColor: "#848F9F",
     },
 }));
 
 
-export default function TeacherApplicationsView(props) {
+export default function ClassInformation(props) {
     props = props.props;
-    const styles = useStyles();
+    const classes = useStyles();
     const { authState } = React.useContext(AuthContext);
     const [state, setState] = useState(undefined);
 
@@ -56,26 +72,26 @@ export default function TeacherApplicationsView(props) {
         (state ?
             <Box>
                 <Box display="flex" justifyContent="center" alignItems="center" my={2} >
-                    <Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+                    <Card paper className={classes.subjectCard}>
                         <Box textAlign="center" my={2}>
-                            <Typography className={styles.title}>{state.subject.subjectName}</Typography>
+                            <Typography className={classes.title}>{state.subject.subjectName}</Typography>
                         </Box>
                     </Card>
                 </Box>
-                <Box display="flex" justifyContent="center" alignItems="center" my={2} >
-                    <Box textAlign="center" mx={2}>
-                        <Card paper style={{ height: '80px', width: '450px', backgroundColor: '#848F9F' }}>
+                <Box display="flex" justifyContent="center" alignItems="center" my={1} flexWrap="wrap">
+                    <Box textAlign="center" mx={2} my={1}>
+                        <Card paper className={classes.classCard}>
                             <Box textAlign="center" my={3}>
-                                <Typography className={styles.subtitle}>{state.class.className}</Typography>
+                                <Typography className={classes.subtitle}>{state.class.className}</Typography>
                             </Box>
                         </Card>
                     </Box>
-                    <Box textAlign="center" mx={2}>
-                        <Card paper style={{ height: '80px', width: '450px', backgroundColor: '#848F9F' }}>
+                    <Box textAlign="center" mx={2} my={1}>
+                        <Card paper className={classes.datetimeCard}>
                             <Box textAlign="center" my={1.5}>
-                                <Typography className={styles.subtext}>Date: {moment(state.class.date, "YYYY-MM-DD").format("DD/MM/YYYY")}</Typography>
-                                <Typography className={styles.subtext}>Time {state.class.startTime} - {state.class.endTime}</Typography>
-                                <Typography className={styles.subtext}>Code: {state.class.classCode}</Typography>
+                                <Typography className={classes.subtext}>Date: {moment(state.class.date, "YYYY-MM-DD").format("DD/MM/YYYY")}</Typography>
+                                <Typography className={classes.subtext}>Time {state.class.startTime} - {state.class.endTime}</Typography>
+                                <Typography className={classes.subtext}>Code: {state.class.classCode}</Typography>
                             </Box>
                         </Card>
                     </Box>

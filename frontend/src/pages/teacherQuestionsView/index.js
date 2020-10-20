@@ -5,7 +5,6 @@ import api from "../../helpers/api";
 // project components
 import { AuthContext } from "../../context/auth";
 import QuestionsList from "../../components/questions/questionsListView.js"
-import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
 import LoadingSpinner from "../../components/loadingSpinner";
 
 // material-ui components
@@ -105,16 +104,19 @@ export default class TeacherQuestionsView extends React.Component {
 						</Box>
 					</Container>
 
-
-					<QuestionsList
-						state={this.state}
-						handleAddQuestionBox={this.handleAddQuestionBox}
-						handleAddAnswerBox={this.handleAddAnswerBox}
-						handleQuestionChange={this.handleQuestionChange}
-						handleAnswerChange={this.handleAnswerChange}
-						handleRemoveQuestionBox={this.handleRemoveQuestionBox}
-						handleRemoveAnswerBox={this.handleRemoveAnswerBox}
-					/>
+					<Box display="flex" justifyContent="center">
+						<Box style={{width: "90%"}}>
+							<QuestionsList
+								state={this.state}
+								handleAddQuestionBox={this.handleAddQuestionBox}
+								handleAddAnswerBox={this.handleAddAnswerBox}
+								handleQuestionChange={this.handleQuestionChange}
+								handleAnswerChange={this.handleAnswerChange}
+								handleRemoveQuestionBox={this.handleRemoveQuestionBox}
+								handleRemoveAnswerBox={this.handleRemoveAnswerBox}
+							/>
+						</Box>
+					</Box>
 
 					<Box my={2} display="flex" justifyContent="center" alignItems="center">
 						<Box mx={2}>

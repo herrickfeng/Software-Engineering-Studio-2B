@@ -4,7 +4,7 @@ import { createRef, useEffect, useState } from "react"
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Box, Button, Card, Typography, Container } from "@material-ui/core";
-
+import { isMobile, isBrowser } from "react-device-detect";
 import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
 import { AuthContext } from "../../context/auth";
@@ -21,13 +21,20 @@ const useStyles = makeStyles((theme) => ({
   attendanceDrawer: {
     width: "28vw",
   },
-  video: {
-    width: "50vw",
-    height: "auto",
-  },
   content: {
     flexGrow: 1,
     marginRight: "28vw",
+  },
+  videoCard: {
+    backgroundColor: "#1A4B93",
+  },
+  video: {
+    width: "45vw",
+    height: "auto",
+  },
+  titleCard: {
+    backgroundColor: "#1A4B93",
+    width: "100%",
   },
 }));
 
@@ -41,20 +48,22 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
 }));
 
 export default function VideoStream(props) {
+  const classes = useStyles();
   const videoTag = createRef();
-    let streamActive = false
-    const gridStyles = useGridStyles();
-
+  let streamActive = false;
+  const gridStyles = useGridStyles();
 
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        if (videoTag.current != null) {
-          videoTag.current.srcObject = stream;
-          streamActive = true;
-        }
-      })
-      .catch(err => console.error(err));
+    if (isBrowser) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          if (videoTag.current != null) {
+            videoTag.current.srcObject = stream;
+            streamActive = true;
+          }
+        })
+        .catch(err => console.error(err));
+    }
 
     return () => {
       if (streamActive) {
@@ -63,12 +72,23 @@ export default function VideoStream(props) {
     }
   });
 
+  // Break early if on mobile
+  if (isMobile) {
+    return (
+      <Box m={4}>
+        <Typography variant="h2">
+          This page is not supported in mobile :(
+        </Typography>
+      </Box>
+    )
+  }
+
   return (
       <Grid container direction="column" >
           <Grid item >
               <Container maxWidth={"md"}>
                   <Box display="flex" justifyContent="center" alignItems="center" my={2} >
-                      <Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+                      <Card paper className={classes.titleCard}>
                           <Box textAlign="center" my={2}>
                               <Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Facial Authentication</Typography>
                           </Box>
@@ -81,14 +101,12 @@ export default function VideoStream(props) {
               </Container>
           </Grid>
 
-          <Grid component={Paper}>
+          <Grid>
               <Grid item direction="row" container classes={gridStyles}>
                   <Grid item>
                       <Box display="flex" justifyContent="center" alignItems="center" m={2} >
-                          <Card paper style={{ height: '800px', width: '1050px', backgroundColor: '#1A4B93' }}>
-                              <Box textAlign="center">
-                                  <video ref={videoTag} width="1000vh" height="800vh" muted autoPlay></video>
-                              </Box>
+                          <Card paper className={classes.videoCard}>
+                                <video ref={videoTag} className={classes.video} muted autoPlay></video>
                           </Card>
                       </Box>
                   </Grid>
@@ -116,8 +134,6 @@ export default function VideoStream(props) {
               </Grid>
             </Grid>
           </Grid>
-
-      
     </Grid>
   )
 }

@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
   bigFlatButton: {
     padding: theme.spacing(10),
     margin: theme.spacing(2),
-    maxWidth: theme.spacing(40),
-    maxHeight: theme.spacing(30),
+    width: theme.spacing(45),
+    maxHeight: theme.spacing(40),
   },
   completed: {
     borderColor: "green",
@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
   incompleted: {
     borderColor: "red",
     color: "red",
+  },
+  noClickButton: {
+    "&:hover": {
+      backgroundColor: "rgba(0, 0, 0, 0)",
+    },
   },
 }));
 
@@ -37,14 +42,17 @@ export default function ClassSlotOption(props) {
   }
 
   return (
-    <Button variant="outlined" onClick={props.handleClick} className={clsx(classes.bigFlatButton, props.className, colorClass)} {...otherProps}>
-      <Box m={1}>
-        {completed ? <DoneIcon/> : <CloseIcon/>}
-        {/* {incompleted ? <CloseIcon/> : null}  // Commented out so can set completed as a boolean */}
-      </Box>
+    <Button variant="outlined" onClick={props.handleClick} disableRipple
+            className={clsx(classes.bigFlatButton, props.className, colorClass, (!props.handleClick && classes.noClickButton))} {...otherProps}>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Box m={1}>
+          {completed ? <DoneIcon/> : <CloseIcon/>}
+          {/* {incompleted ? <CloseIcon/> : null}  // Commented out so can set completed as a boolean */}
+        </Box>
 
-      <Box>
-        {props.children}
+        <Box>
+          {props.children}
+        </Box>
       </Box>
     </Button>
   );

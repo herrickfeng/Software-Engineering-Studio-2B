@@ -10,19 +10,15 @@ const useStyles = makeStyles((theme) => ({
     borderSpacing: "0 10px",
     borderCollapse: "separate",
   },
-  leftCell: {
-    borderLeft: `${BorderSize} solid black`,
-    borderTop: `${BorderSize} solid black`,
-    borderBottom: `${BorderSize} solid black`,
-  },
   cell: {
     borderTop: `${BorderSize} solid black`,
     borderBottom: `${BorderSize} solid black`,
-  },
-  rightCell: {
-    borderRight: `${BorderSize} solid black`,
-    borderTop: `${BorderSize} solid black`,
-    borderBottom: `${BorderSize} solid black`,
+    "&:first-child": {
+      borderLeft: `${BorderSize} solid black`,
+    },
+    "&:last-child": {
+      borderRight: `${BorderSize} solid black`,
+    },
   },
   headCell: {
     borderBottom: "none",
@@ -34,48 +30,28 @@ const useStyles = makeStyles((theme) => ({
 export default function LinedTable(props) {
   const classes = useStyles();
 
-  const children = React.Children.toArray(props.children).filter(e => e).map((child) => {
-    if (child.type === TableHead) {
-      const children = React.Children.toArray(child.props.children).filter(e => e).map((rowElement) =>
-        <rowElement.type {...rowElement.props}>
-          {React.Children.toArray(rowElement.props.children).filter(e => e).map((cellElement) => {
-            return <cellElement.type {...cellElement.props} align={"center"}
-                                     className={clsx(cellElement.props.className, classes.headCell)}/>
-          })}
-        </rowElement.type>
-      );
+  const children = React.Children.toArray(props.children).filter(e => e).map((child, index, arr) => {
+    let innerChildren = React.Children.toArray(child.props.children).filter(e => e).map((rowElement, rowIndex) =>
+      <rowElement.type {...rowElement.props} key={rowIndex}>
+        {React.Children.toArray(rowElement.props.children).filter(e => e).map((cellElement, cellIndex) => {
+          return <cellElement.type {...cellElement.props} align={"center"} key={cellIndex} className={clsx(
+            cellElement.props.className,
+            child.type === TableBody && classes.cell,
+            child.type === TableHead && classes.headCell)}/>
+        })}
+      </rowElement.type>
+    );
 
-      return (
-        <child.type {...props}>
-          {children}
-        </child.type>
-      );
-    } else if (child.type === TableBody) {
-      const children = React.Children.toArray(child.props.children).filter(e => e).map((rowElement) =>
-        <rowElement.type {...rowElement.props}>
-          {React.Children.toArray(rowElement.props.children).filter(e => e).map((cellElement, index, arr) => {
-            return <cellElement.type {...cellElement.props} align={"center"} className={clsx(
-              cellElement.props.className,
-              index === 0 && classes.leftCell,
-              index === arr.length - 1 && classes.rightCell,
-              classes.cell)}/>
-          })}
-        </rowElement.type>
-      );
-
-      return (
-        <child.type {...props}>
-          {children}
-        </child.type>
-      );
-    } else {
-      return child;
-    }
+    return (
+      <child.type>
+        {innerChildren}
+      </child.type>
+    );
   });
 
   return (
     <Table {...props} className={clsx(props.className, classes.table)}>
       {children}
     </Table>
-  )
+  );
 }
