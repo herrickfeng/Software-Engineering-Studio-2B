@@ -44,12 +44,14 @@ import {
   generateClassAdmin,
   getClassAnalyticsAdmin,
 } from "./class";
+import { verify } from "../auth/index";
 
 export const API_HOST = "localhost:4000";
 
 export default {
   auth: {
-    reset: resetPassword
+    reset: resetPassword,
+    verify: verify,
   },
   user: {
     create: createUser,

@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormatDate(props) {
   const classes = useStyles();
-  const date = props.date
-  if (moment(date).isAfter(moment(), 'day')) {
-    return <div>{moment(date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</div>
-  }
-  if (moment(date).isBefore(moment(), 'day')) {
-    return <div className={classes.past}>{moment(date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</div>
-  }
+  const date = props.date;
+  // if (moment(date).isAfter(moment(), 'day')) {
+  //   return <div>{moment(date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</div>
+  // }
+  // if (moment(date).isBefore(moment(), 'day')) {
+  //   return <div className={classes.past}>{moment(date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</div>
+  // }
   return <div className={classes.future}>{moment(date, "YYYY-MM-DD").format("dddd MMMM Do YYYY")}</div>
 }
