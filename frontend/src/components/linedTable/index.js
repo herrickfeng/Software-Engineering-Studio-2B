@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
 export default function LinedTable(props) {
   const classes = useStyles();
 
-  const children = React.Children.map(props.children, (child) => {
+  const children = React.Children.toArray(props.children).filter(e => e).map((child) => {
     if (child.type === TableHead) {
-      const children = React.Children.map(child.props.children, (rowElement) =>
+      const children = React.Children.toArray(child.props.children).filter(e => e).map((rowElement) =>
         <rowElement.type {...rowElement.props}>
-          {React.Children.map(rowElement.props.children, (cellElement) => {
+          {React.Children.toArray(rowElement.props.children).filter(e => e).map((cellElement) => {
             return <cellElement.type {...cellElement.props} align={"center"}
                                      className={clsx(cellElement.props.className, classes.headCell)}/>
           })}
@@ -51,13 +51,13 @@ export default function LinedTable(props) {
         </child.type>
       );
     } else if (child.type === TableBody) {
-      const children = React.Children.map(child.props.children, (rowElement) =>
+      const children = React.Children.toArray(child.props.children).filter(e => e).map((rowElement) =>
         <rowElement.type {...rowElement.props}>
-          {React.Children.map(rowElement.props.children, (cellElement, index) => {
+          {React.Children.toArray(rowElement.props.children).filter(e => e).map((cellElement, index, arr) => {
             return <cellElement.type {...cellElement.props} align={"center"} className={clsx(
               cellElement.props.className,
               index === 0 && classes.leftCell,
-              index === rowElement.props.children.length - 1 && classes.rightCell,
+              index === arr.length - 1 && classes.rightCell,
               classes.cell)}/>
           })}
         </rowElement.type>
