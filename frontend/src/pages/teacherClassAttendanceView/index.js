@@ -63,7 +63,7 @@ export default class TeacherClassAttendanceView extends React.Component {
 				<Grid container direction="column">
 					<Container maxWidth={"md"}>
 						<Box display="flex" justifyContent="center" alignItems="center" my={2} >
-							<Card paper style={{ height: '80px', width: '930px', backgroundColor: '#1A4B93' }}>
+							<Card paper style={{ width: '100%', backgroundColor: '#1A4B93' }}>
 								<Box textAlign="center" my={2}>
 									<Typography style={{ color: '#FFFFFF' }} variant={'h3'} align={'center'}>Class Attendance</Typography>
 								</Box>

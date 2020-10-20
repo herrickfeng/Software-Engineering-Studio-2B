@@ -26,14 +26,25 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "50%",
   },
   card: {
-    height: "350px",
-    width: "450px",
+    [theme.breakpoints.up("md")]: {
+      height: "350px",
+      width: "450px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "250px",
+      width: "350px",
+    },
     backgroundColor: "#2964BA",
     margin: theme.spacing(1),
   },
   cardMedia: {
     height: 0,
-    paddingTop: "64%",
+    [theme.breakpoints.up("md")]: {
+      paddingTop: "64%",
+    },
+    [theme.breakpoints.down("md")]: {
+      paddingTop: "54%",
+    },
   },
   cardLabel: {
     color: "#FFFFFF",

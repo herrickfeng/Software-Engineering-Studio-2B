@@ -19,9 +19,6 @@ import { green, red, yellow, orange } from '@material-ui/core/colors';
 import DynamicTable from "../dynamicTable/index";
 
 const useStyles = makeStyles(theme => ({
-  table: {
-    minWidth: 650,
-  },
   tableContainer: {
     [theme.breakpoints.up("md")]: {
       width: "80%"
@@ -53,7 +50,7 @@ export default function SimpleTable(props) {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
         <TableContainer className={classes.tableContainer} component={Paper}>
-            <DynamicTable size="medium" className={classes.table} aria-label="simple table">
+            <DynamicTable size="medium" aria-label="simple table">
                 <TableHead>
                     <TableRow>
                     <TableCell style={{width: '10%'}} align="center">Name</TableCell>
