@@ -5,7 +5,7 @@ import api from "../../helpers/api"
 // project components
 import { AuthContext } from "../../context/auth";
 import StudentAttendanceStatusView from "../../components/classAttendance/studentAttendanceStatusView.js"
-import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
+import TeacherClassInformationView from "../../components/applicationsView/ClassInformation.js"
 
 
 // material-ui components

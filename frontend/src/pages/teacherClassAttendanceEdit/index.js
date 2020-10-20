@@ -5,7 +5,7 @@ import api from "../../helpers/api";
 // project components
 import { AuthContext } from "../../context/auth";
 import StudentAttendanceStatusEdit from "../../components/classAttendance/studentAttendanceStatusEdit.js"
-import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
+import TeacherClassInformationView from "../../components/applicationsView/ClassInformation.js"
 import TeacherAddStudentPopup from "../../components/classAttendance/teacherAddStudentPopup.js"
 
 

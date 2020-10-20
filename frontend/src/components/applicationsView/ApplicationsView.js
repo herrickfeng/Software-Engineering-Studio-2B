@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function TeacherApplicationsView(props) {
+export default function ApplicationsView(props) {
   const classes = useStyles();
 
   function FancyCard(props) {

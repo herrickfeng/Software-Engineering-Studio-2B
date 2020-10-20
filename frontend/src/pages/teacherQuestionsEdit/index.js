@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // project components
 import { AuthContext } from "../../context/auth";
 import QuestionsList from "../../components/questions/questionsListEdit.js"
-import TeacherClassInformationView from "../../components/applicationsView/classInformation.js"
+import TeacherClassInformationView from "../../components/applicationsView/ClassInformation.js"
 
 // material-ui components
 import { Box, Button, Grid } from "@material-ui/core";
