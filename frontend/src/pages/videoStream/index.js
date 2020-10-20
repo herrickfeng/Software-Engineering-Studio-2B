@@ -4,7 +4,7 @@ import { createRef, useEffect, useState } from "react"
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Box, Button, Card, Typography, Container } from "@material-ui/core";
-
+import { isMobile, isBrowser } from "react-device-detect";
 import { Link } from "react-router-dom";
 import * as faceapi from 'face-api.js';
 import { AuthContext } from "../../context/auth";
@@ -53,16 +53,17 @@ export default function VideoStream(props) {
   let streamActive = false;
   const gridStyles = useGridStyles();
 
-
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        if (videoTag.current != null) {
-          videoTag.current.srcObject = stream;
-          streamActive = true;
-        }
-      })
-      .catch(err => console.error(err));
+    if (isBrowser) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          if (videoTag.current != null) {
+            videoTag.current.srcObject = stream;
+            streamActive = true;
+          }
+        })
+        .catch(err => console.error(err));
+    }
 
     return () => {
       if (streamActive) {
@@ -70,6 +71,17 @@ export default function VideoStream(props) {
       }
     }
   });
+
+  // Break early if on mobile
+  if (isMobile) {
+    return (
+      <Box m={4}>
+        <Typography variant="h2">
+          This page is not supported in mobile :(
+        </Typography>
+      </Box>
+    )
+  }
 
   return (
       <Grid container direction="column" >

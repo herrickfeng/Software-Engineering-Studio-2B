@@ -25,6 +25,7 @@
     "material-table": "^1.57.2",
     "moment": "^2.28.0",
     "react": "^16.13.1",
+    "react-device-detect": "^1.14.0",
     "react-dom": "^16.13.1",
     "react-geolocated": "^3.0.1",
     "react-router-dom": "^5.2.0",
